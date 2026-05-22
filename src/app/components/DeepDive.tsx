@@ -1,8 +1,9 @@
 import { Link } from "react-router";
+import { BookOpen } from "lucide-react";
 
 export function DeepDive() {
   return (
-    <section className="py-12 bg-white border-t border-gray-100">
+    <section className="py-12 bg-white">
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <h2 className="text-[14px] mb-6 text-[var(--navy-deep)] tracking-wide uppercase" style={{ fontWeight: '600' }}>
           Featured Deep Dive
@@ -37,11 +38,7 @@ export function DeepDive() {
                   style={{ fontWeight: '600' }}
                 >
                   <span className="flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <rect x="3" y="3" width="18" height="18" rx="2"/>
-                      <line x1="9" y1="9" x2="15" y2="9"/>
-                      <line x1="9" y1="15" x2="15" y2="15"/>
-                    </svg>
+                    <BookOpen size={16} strokeWidth={2.5} />
                     Take a Deep Dive
                   </span>
                 </Link>

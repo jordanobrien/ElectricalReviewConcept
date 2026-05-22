@@ -59,6 +59,63 @@ export function DownloadsArchivePage() {
       {/* Main Content */}
       <div className="py-8 bg-white">
         <div className="max-w-[1440px] mx-auto px-8">
+          {/* Featured Download */}
+          <section className="mb-12">
+            <div className="mb-6">
+              <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
+                Featured Download
+              </h2>
+            </div>
+            <Link to="/downloads" className="block group">
+              <div className="bg-gradient-to-br from-[#e07849] to-[#d4653a] p-8 md:p-12 rounded-lg overflow-hidden relative hover:shadow-xl transition-shadow">
+                <div className="grid grid-cols-12 gap-8 items-center">
+                  {/* Content - Left Side */}
+                  <div className="col-span-8">
+                    <div className="text-white/90 text-[13px] italic mb-3 tracking-wide" style={{ fontWeight: "600" }}>
+                      TECHNICAL GUIDE
+                    </div>
+                    <h3 className="text-white text-[32px] leading-[1.2] mb-4" style={{ fontWeight: "700" }}>
+                      Complete Guide to Grid Connections & DNO Applications
+                    </h3>
+                    <p className="text-white/90 text-[16px] leading-[1.6] mb-6">
+                      Essential resource for navigating the grid connection process. Includes step-by-step guidance, application templates, and best practices for securing capacity allocations.
+                    </p>
+                    <div className="pt-6 border-t border-white/20 grid grid-cols-3 gap-6 text-white/90">
+                      <div>
+                        <div className="text-[12px] uppercase tracking-wide mb-1">Format</div>
+                        <div className="text-[16px]" style={{ fontWeight: "600" }}>PDF Guide</div>
+                      </div>
+                      <div>
+                        <div className="text-[12px] uppercase tracking-wide mb-1">Pages</div>
+                        <div className="text-[16px]" style={{ fontWeight: "600" }}>45 Pages</div>
+                      </div>
+                      <div>
+                        <div className="text-[12px] uppercase tracking-wide mb-1">Size</div>
+                        <div className="text-[16px]" style={{ fontWeight: "600" }}>2.4 MB</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Download Icon - Right Side */}
+                  <div className="col-span-4 flex items-center justify-center">
+                    <div className="w-32 h-32 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors">
+                      <Download size={64} className="text-white" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex items-center justify-between">
+                  <p className="text-white/70 text-[12px] uppercase tracking-wide">
+                    FREE DOWNLOAD FROM ELECTRICAL REVIEW
+                  </p>
+                  <div className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded transition-colors inline-flex items-center gap-2" style={{ fontWeight: "600" }}>
+                    Download Now →
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </section>
+
           <div className="grid grid-cols-12 gap-8">
             {/* Main Content Column */}
             <div className="col-span-8">

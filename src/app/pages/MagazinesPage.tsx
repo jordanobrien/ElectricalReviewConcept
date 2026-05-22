@@ -46,7 +46,7 @@ export function MagazinesPage() {
             </div>
             <div>
               <h1 className="text-[32px] text-white mb-2" style={{ fontWeight: '600' }}>
-                Magazine Archive
+                Electrical Review Magazine
               </h1>
               <p className="text-[16px] text-white/90">
                 Browse and download back issues of Electrical Review magazine

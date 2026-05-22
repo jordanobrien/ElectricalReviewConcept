@@ -84,6 +84,11 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/magazines" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
+                    Magazines
+                  </Link>
+                </li>
+                <li>
                   <Link to="/press-releases" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
                     Press Releases
                   </Link>

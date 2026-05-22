@@ -6,6 +6,7 @@ import { Calendar, Clock, MessageSquare, Linkedin, Twitter, Mail, MapPin, Chevro
 import { events } from "../data/events";
 import { downloads } from "../data/downloads";
 import { pressReleases } from "../data/pressReleases";
+import { getTopicColorByCategory } from "../utils/topicColors";
 
 export function OpinionArticlePage() {
   const { id } = useParams<{ id: string }>();
@@ -232,9 +233,14 @@ export function OpinionArticlePage() {
                         className="w-[180px] h-full object-cover flex-shrink-0"
                       />
                       <div className="py-4 pr-4 flex-1 flex flex-col">
-                        <span className="bg-amber-600 text-white px-2 py-1 text-[10px] tracking-wide uppercase inline-block mb-2 w-fit">
-                          Opinion
-                        </span>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span
+                            className="text-white px-2 py-1 text-[10px] tracking-wide uppercase inline-block"
+                            style={{ backgroundColor: getTopicColorByCategory(rec.category).cssVar }}
+                          >
+                            {rec.category}
+                          </span>
+                        </div>
                         <h3 className="text-[16px] leading-[1.3] mb-2 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
                           {rec.title}
                         </h3>

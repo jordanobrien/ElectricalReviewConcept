@@ -6,6 +6,7 @@ import { articles } from "../data/articles";
 import { pressReleases } from "../data/pressReleases";
 import { events } from "../data/events";
 import { videos } from "../data/videos";
+import { getTopicColorByCategory } from "../utils/topicColors";
 
 export function VideoPage() {
   const { id } = useParams();
@@ -96,9 +97,15 @@ export function VideoPage() {
               {/* Video Metadata */}
               <div className="mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="bg-[var(--electric-blue)] text-white px-3 py-1 text-[11px] uppercase tracking-wide" style={{ fontWeight: '600' }}>
-                    {video.category}
-                  </span>
+                  {video.isSponsored ? (
+                    <span className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1 text-[11px] uppercase tracking-wide" style={{ fontWeight: '600' }}>
+                      Sponsored Content
+                    </span>
+                  ) : (
+                    <span className="bg-[var(--electric-blue)] text-white px-3 py-1 text-[11px] uppercase tracking-wide" style={{ fontWeight: '600' }}>
+                      {video.category}
+                    </span>
+                  )}
                   <div className="flex items-center gap-4 text-[13px] text-[var(--slate-medium)]">
                     <div className="flex items-center gap-1">
                       <Eye size={14} />
@@ -116,8 +123,23 @@ export function VideoPage() {
                 </h1>
 
                 <div className="flex items-center justify-between py-4 border-t border-b border-gray-200">
-                  <div className="text-[14px] text-[var(--slate-dark)]">
-                    Published by <span style={{ fontWeight: '600' }}>Electrical Review</span>
+                  <div className="flex items-center gap-3">
+                    {video.isSponsored && video.sponsorLogo ? (
+                      <>
+                        <img 
+                          src={video.sponsorLogo} 
+                          alt={video.sponsor} 
+                          className="h-10 w-auto object-contain"
+                        />
+                        <div className="text-[14px] text-[var(--slate-dark)]">
+                          Presented by <span style={{ fontWeight: '600' }}>{video.sponsor}</span> • <span className="text-[var(--slate-medium)]">Sponsored content</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-[14px] text-[var(--slate-dark)]">
+                        Published by <span style={{ fontWeight: '600' }}>Electrical Review</span>
+                      </div>
+                    )}
                   </div>
                   <button className="flex items-center gap-2 px-4 py-2 text-[14px] text-[var(--slate-dark)] hover:bg-gray-50 border border-gray-200 transition-colors">
                     <Share2 size={16} />
@@ -214,15 +236,14 @@ export function VideoPage() {
 
                         {/* Content */}
                         <div className="p-4">
-                          {/* Category & Views */}
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] text-[var(--electric-blue)] uppercase tracking-wide" style={{ fontWeight: '600' }}>
+                          {/* Category */}
+                          <div className="mb-2">
+                            <span
+                              className="text-white px-2 py-1 text-[10px] tracking-wide uppercase inline-block"
+                              style={{ backgroundColor: getTopicColorByCategory(relatedVideo.category).cssVar }}
+                            >
                               {relatedVideo.category}
                             </span>
-                            <div className="flex items-center gap-1 text-[11px] text-[var(--slate-medium)]">
-                              <Eye size={12} />
-                              {relatedVideo.views}
-                            </div>
                           </div>
 
                           {/* Title */}
@@ -265,61 +286,6 @@ export function VideoPage() {
                     MPU 300×250
                   </div>
                 </div>
-              </div>
-
-              {/* More from this category */}
-              <div className="bg-white border border-gray-200 p-6">
-                <h3 className="text-[18px] mb-5 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  More {video.category}
-                </h3>
-                <ul className="space-y-4">
-                  {videos
-                    .filter(v => v.id !== video.id && v.category === video.category)
-                    .slice(0, 3)
-                    .map((categoryVideo) => (
-                      <li key={categoryVideo.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                        <Link
-                          to={`/video/${categoryVideo.id}`}
-                          className="flex gap-3 group"
-                        >
-                          <div className="relative w-24 aspect-video overflow-hidden bg-gray-900 flex-shrink-0">
-                            <img
-                              src={categoryVideo.thumbnail}
-                              alt={categoryVideo.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                              <Play size={16} className="text-white" fill="white" />
-                            </div>
-                          </div>
-                          
-                          <div className="flex-1">
-                            <h4 className="text-[13px] text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors leading-[1.4] mb-2" style={{ fontWeight: '500' }}>
-                              {categoryVideo.title}
-                            </h4>
-                            <div className="flex items-center gap-2 text-[11px] text-[var(--slate-medium)]">
-                              <div className="flex items-center gap-1">
-                                <Clock size={11} />
-                                {categoryVideo.duration}
-                              </div>
-                              <span>•</span>
-                              <div className="flex items-center gap-1">
-                                <Eye size={11} />
-                                {categoryVideo.views}
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                </ul>
-                <Link
-                  to={`/videos?category=${encodeURIComponent(video.category)}`}
-                  className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1 mt-4"
-                >
-                  View all {video.category} videos
-                  <ChevronRight size={14} />
-                </Link>
               </div>
 
               {/* Trending Articles */}

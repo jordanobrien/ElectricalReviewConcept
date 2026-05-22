@@ -20,7 +20,7 @@ export const articles: Article[] = [
   {
     id: "ofgem-compliance-gap",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "Ofgem flags compliance gap in new connection requests",
     summary: "Regulator identifies significant documentation issues in connection applications, potentially delaying critical infrastructure projects across the UK.",
     author: "Sarah Mitchell",
@@ -47,7 +47,7 @@ export const articles: Article[] = [
   {
     id: "national-grid-hcv-model",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "National Grid pitches new HCV connection model to speed larger projects",
     summary: "Proposed framework aims to streamline high-capacity connections above 10MW, targeting major depot and industrial electrification schemes.",
     author: "James Robertson",
@@ -74,7 +74,7 @@ export const articles: Article[] = [
   {
     id: "ev-charging-shortages",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "EV charging market sees cable and switchgear shortages ahead",
     summary: "Supply chain analysis warns of potential equipment shortages in Q4 2026 as demand for charging infrastructure accelerates beyond manufacturing capacity.",
     author: "Emma Thompson",
@@ -101,7 +101,7 @@ export const articles: Article[] = [
   {
     id: "storage-audit-guidance",
     category: "Storage & Resilience",
-    categoryColor: "bg-orange-600",
+    categoryColor: "bg-[#14b8a6]",
     headline: "Behind the meter storage audit guidance updates",
     summary: "New technical standards for battery energy storage systems introduce stricter safety and performance audit requirements for commercial installations.",
     author: "Dr. Michael Chen",
@@ -129,7 +129,7 @@ export const articles: Article[] = [
   {
     id: "ssen-capacity-map-update",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "SSEN publishes updated capacity heatmap showing network constraints",
     summary: "Distribution network operator reveals significant capacity limitations across Southern England, impacting connection timescales for new projects.",
     author: "Sarah Mitchell",
@@ -156,7 +156,7 @@ export const articles: Article[] = [
   {
     id: "idno-market-share-growth",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "IDNO market share reaches 18% as developers seek alternatives to DNOs",
     summary: "Independent distribution network operators capture growing share of new connections market, particularly for large commercial developments.",
     author: "James Robertson",
@@ -183,7 +183,7 @@ export const articles: Article[] = [
   {
     id: "substation-transformer-shortage",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "UK faces 11kV transformer shortage as grid upgrade demand surges",
     summary: "Industry analysis warns of equipment bottlenecks for distribution network reinforcement projects throughout 2026 and into 2027.",
     author: "Emma Thompson",
@@ -211,7 +211,7 @@ export const articles: Article[] = [
   {
     id: "rapid-charging-hub-roi",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "Public rapid charging hubs show 28-month payback in new analysis",
     summary: "Financial modeling reveals accelerating returns on public charging infrastructure as EV adoption rates exceed forecasts across commercial vehicle segments.",
     author: "Robert Chang",
@@ -238,7 +238,7 @@ export const articles: Article[] = [
   {
     id: "smart-charging-mandate",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "Government confirms smart charging mandate for workplace installations",
     summary: "New regulations require all workplace EV charging installations above 50kW to include smart charging capabilities from July 2026.",
     author: "Sarah Mitchell",
@@ -265,7 +265,7 @@ export const articles: Article[] = [
   {
     id: "depot-charging-best-practices",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "New industry guidance sets depot charging best practices",
     summary: "Energy Networks Association publishes comprehensive design standards for fleet depot electrification projects.",
     author: "James Robertson",
@@ -292,7 +292,7 @@ export const articles: Article[] = [
   {
     id: "charge-point-reliability-study",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "Charge point reliability rates improve but remain below target",
     summary: "Annual industry survey shows uptime increasing to 94.7% but still short of government's 99% availability target.",
     author: "Dr. Michael Chen",
@@ -320,7 +320,7 @@ export const articles: Article[] = [
   {
     id: "bess-fire-safety-update",
     category: "Storage & Resilience",
-    categoryColor: "bg-orange-600",
+    categoryColor: "bg-[#14b8a6]",
     headline: "New fire safety protocols mandated for battery storage installations",
     summary: "Following recent incidents, regulators introduce enhanced safety requirements for commercial battery energy storage systems.",
     author: "Dr. Michael Chen",
@@ -347,7 +347,7 @@ export const articles: Article[] = [
   {
     id: "grid-services-revenue-drop",
     category: "Storage & Resilience",
-    categoryColor: "bg-orange-600",
+    categoryColor: "bg-[#14b8a6]",
     headline: "Battery storage revenue from frequency services falls 23% in Q1",
     summary: "Increased competition and changing grid requirements reduce income potential from traditional battery storage revenue streams.",
     author: "Robert Chang",
@@ -374,7 +374,7 @@ export const articles: Article[] = [
   {
     id: "behind-meter-storage-growth",
     category: "Storage & Resilience",
-    categoryColor: "bg-orange-600",
+    categoryColor: "bg-[#14b8a6]",
     headline: "Behind-the-meter battery storage installations surge 340% year-on-year",
     summary: "Commercial and industrial battery storage deployments accelerate as businesses seek protection from grid constraints and high peak charges.",
     author: "Emma Thompson",
@@ -402,7 +402,7 @@ export const articles: Article[] = [
   {
     id: "commissioning-protocol-updates",
     category: "Commissioning & Testing",
-    categoryColor: "bg-purple-600",
+    categoryColor: "bg-[#3b82f6]",
     headline: "Updated commissioning protocols address EV infrastructure complexity",
     summary: "Industry working group publishes revised testing and commissioning procedures specifically for integrated EV charging and storage systems.",
     author: "James Robertson",
@@ -429,7 +429,7 @@ export const articles: Article[] = [
   {
     id: "predictive-maintenance-ai",
     category: "Commissioning & Testing",
-    categoryColor: "bg-purple-600",
+    categoryColor: "bg-[#3b82f6]",
     headline: "AI-powered predictive maintenance reduces unplanned downtime by 67%",
     summary: "Machine learning systems demonstrate ability to forecast electrical infrastructure failures days before conventional monitoring detects issues.",
     author: "Dr. Michael Chen",
@@ -456,7 +456,7 @@ export const articles: Article[] = [
   {
     id: "testing-standards-harmonization",
     category: "Commissioning & Testing",
-    categoryColor: "bg-purple-600",
+    categoryColor: "bg-[#3b82f6]",
     headline: "UK and EU commissioning standards harmonization agreed",
     summary: "Regulatory alignment on testing and commissioning procedures simplifies compliance for equipment manufacturers and project developers.",
     author: "Sarah Mitchell",

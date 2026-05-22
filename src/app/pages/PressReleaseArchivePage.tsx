@@ -59,7 +59,7 @@ export function PressReleaseArchivePage() {
           {/* Post Press Release CTA */}
           <div>
             <Link
-              to="#"
+              to="/submit-press-release"
               className="flex items-center gap-2 bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-6 py-3 transition-colors shadow-lg hover:shadow-xl"
               style={{ fontWeight: '600' }}
             >
@@ -92,7 +92,7 @@ export function PressReleaseArchivePage() {
                       Reach thousands of electrification infrastructure professionals with your press releases. Post announcements about new products, partnerships, projects, and company milestones to our engaged audience.
                     </p>
                     <Link
-                      to="#"
+                      to="/submit-press-release"
                       className="inline-flex items-center gap-2 bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-5 py-2.5 text-[14px] transition-colors"
                       style={{ fontWeight: '600' }}
                     >
@@ -207,7 +207,7 @@ export function PressReleaseArchivePage() {
                   Share your company's latest announcements, product launches, and industry insights with our professional audience.
                 </p>
                 <Link
-                  to="#"
+                  to="/submit-press-release"
                   className="block w-full bg-[var(--electric-blue)] hover:bg-blue-500 text-white text-center py-2.5 text-[14px] transition-colors rounded"
                   style={{ fontWeight: '600' }}
                 >

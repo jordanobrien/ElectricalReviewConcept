@@ -1,10 +1,9 @@
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
 
 export function Navigation() {
-  const [showTopicsDropdown, setShowTopicsDropdown] = useState(false);
-  const [showMoreDropdown, setShowMoreDropdown] = useState(false);
+  const [showExploreDropdown, setShowExploreDropdown] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,238 +16,355 @@ export function Navigation() {
         setSearchQuery("");
       }
     };
-    
+
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, [showSearchModal]);
 
   const topics = [
     {
-      title: "Grid & Connections",
-      description: "Capacity, connection, uptime, power quality",
-      icon: "grid",
-      id: "grid-connections",
+      title: "Commissioning & Reliability",
+      id: "commissioning-reliability",
+      color: "var(--topic-commissioning)",
     },
     {
       title: "EV Charging Infrastructure",
-      description: "Depot, transit, destination, uptime, CPM",
-      icon: "charging",
       id: "ev-charging",
+      color: "var(--topic-ev)",
+    },
+    {
+      title: "Grid & Connections",
+      id: "grid-connections",
+      color: "var(--topic-grid)",
     },
     {
       title: "Storage & Resilience",
-      description: "On-site, re-charge, peaking power",
-      icon: "storage",
       id: "storage-resilience",
+      color: "var(--topic-storage)",
+    },
+  ];
+
+  const exploreCategories = [
+    {
+      title: "Deep Dives",
+      description: "Comprehensive technical guides and in-depth analysis for electrification infrastructure professionals",
+      link: "/deep-dives",
     },
     {
-      title: "Commissioning & Reliability",
-      description: "Testing, standards, maintenance, operations",
-      icon: "reliability",
-      id: "commissioning-reliability",
+      title: "Downloads",
+      description: "Technical resources, white papers, and industry reports for infrastructure planning",
+      link: "/downloads",
+    },
+    {
+      title: "Events",
+      description: "Industry conferences, workshops, and networking opportunities across the UK",
+      link: "/events",
+    },
+    {
+      title: "Magazines",
+      description: "Digital editions of Electrical Review magazine archives and special publications",
+      link: "/magazines",
+    },
+    {
+      title: "News",
+      description: "Breaking news and updates from the electrification infrastructure sector",
+      link: "/news",
+    },
+    {
+      title: "Opinions",
+      description: "Expert perspectives and industry insights from leading practitioners and thought leaders",
+      link: "/opinion-articles",
+    },
+    {
+      title: "Press Releases",
+      description: "Latest announcements and product launches from industry leaders and suppliers",
+      link: "/press-releases",
+    },
+    {
+      title: "Videos",
+      description: "Video interviews, site tours, and technical demonstrations from industry experts",
+      link: "/videos",
     },
   ];
 
   return (
     <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-[1440px] mx-auto px-8 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="tracking-[0.08em] font-bold text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">
-            ELECTRICAL REVIEW
+      {/* Desktop Header */}
+      <div className="hidden md:flex items-stretch h-[72px]">
+        {/* Logo section */}
+        <div className="flex items-center justify-center px-10 border-r border-gray-300" style={{ backgroundColor: '#c3d100' }}>
+          <Link to="/" className="flex items-center">
+            <img
+              src="/src/imports/logo_2026.png"
+              alt="Electrical Review"
+              className="h-[28px] w-auto"
+            />
           </Link>
+        </div>
 
-          {/* Desktop Navigation links */}
-          <div className="hidden md:flex items-center gap-8">
-            <div 
-              className="relative"
-              onMouseEnter={() => setShowTopicsDropdown(true)}
-              onMouseLeave={() => setShowTopicsDropdown(false)}
-            >
-              <button className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] flex items-center gap-1">
-                Topics
-                <svg width="8" height="5" viewBox="0 0 8 5" fill="currentColor">
-                  <path d="M4 5L0 0h8L4 5z"/>
-                </svg>
-              </button>
-              
-              {/* Topics Dropdown */}
-              {showTopicsDropdown && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50">
-                  <div className="w-[680px] bg-white border border-gray-200 shadow-lg">
-                    <div className="grid grid-cols-2 gap-4 p-6">
-                      {topics.map((topic, index) => (
+        {/* Explore section */}
+        <div
+          className="flex items-center justify-center px-10 border-r border-gray-300 relative"
+          style={{ backgroundColor: '#c3d100' }}
+          onMouseEnter={() => setShowExploreDropdown(true)}
+          onMouseLeave={() => setShowExploreDropdown(false)}
+        >
+          <button className="text-[16px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] flex items-center gap-2" style={{ fontWeight: "600" }}>
+            Explore
+            <ChevronDown size={18} />
+          </button>
+
+          {/* Explore Mega Menu - Full Width */}
+          {showExploreDropdown && (
+            <div className="fixed left-0 right-0 top-[72px] z-50">
+              <div className="bg-white border-b border-gray-200 shadow-xl">
+                <div className="grid grid-cols-12">
+                  {/* Featured/Recommended Section - Left Side */}
+                  <div className="col-span-3 bg-[var(--navy-deep)] p-8">
+                    <div className="mb-6">
+                      <h3 className="text-white text-[16px] mb-6" style={{ fontWeight: "600" }}>
+                        Featured Event
+                      </h3>
+
+                      {/* The Briefing Event Advertisement */}
+                      <Link to="/events" className="block group">
+                        <div className="bg-gradient-to-br from-[#e07849] to-[#d4653a] p-6 rounded overflow-hidden relative hover:shadow-lg transition-shadow">
+                          <div className="text-white/90 text-[11px] italic mb-2 tracking-wide" style={{ fontWeight: "600" }}>
+                            EV CHARGING INFRASTRUCTURE
+                          </div>
+                          <div className="text-white text-[14px] mb-3" style={{ fontWeight: "500" }}>
+                            Wednesday 20 May 2026
+                          </div>
+                          <h4 className="text-white text-[20px] leading-[1.2] mb-4" style={{ fontWeight: "700" }}>
+                            Reliable, affordable grid-ready charging
+                          </h4>
+                          <div className="pt-3 border-t border-white/20">
+                            <p className="text-white/70 text-[11px] uppercase tracking-wide">
+                              BROUGHT TO YOU BY ELECTRICAL REVIEW
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+
+                    {/* Quick Links */}
+                    <div>
+                      <h4 className="text-white/70 text-[13px] uppercase tracking-wider mb-3" style={{ fontWeight: "600" }}>
+                        Quick Access
+                      </h4>
+                      <ul className="space-y-2">
+                        <li>
+                          <button
+                            onClick={() => setShowSearchModal(true)}
+                            className="text-white/80 hover:text-white text-[14px] transition-colors flex items-center gap-2"
+                          >
+                            <Search size={16} />
+                            Search
+                          </button>
+                        </li>
+                        <li>
+                          <Link
+                            to="/magazines"
+                            className="text-white/80 hover:text-white text-[14px] transition-colors"
+                          >
+                            Digital Magazines
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/newsletter"
+                            className="text-white/80 hover:text-white text-[14px] transition-colors"
+                          >
+                            Newsletter Signup
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/submit-press-release"
+                            className="text-[var(--electric-blue)] hover:text-blue-300 text-[14px] transition-colors"
+                            style={{ fontWeight: "600" }}
+                          >
+                            Submit Press Release →
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Navigation Categories - Right Side */}
+                  <div className="col-span-9 py-8 px-8 flex items-center">
+                    <div className="grid grid-cols-3 gap-x-8 gap-y-4 w-full">
+                      {exploreCategories.map((category, index) => (
                         <Link
                           key={index}
-                          to={`/topic/${topic.id}`}
-                          className="group p-5 border border-gray-200 hover:border-[var(--electric-blue)] transition-colors bg-white hover:bg-gray-50"
+                          to={category.link}
+                          className="block group"
                         >
-                          {/* Icon */}
-                          <div className="mb-3">
-                            {topic.icon === "grid" && (
-                              <svg width="32" height="32" viewBox="0 0 48 48" fill="none" className="text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors">
-                                <rect x="8" y="8" width="12" height="12" stroke="currentColor" strokeWidth="2"/>
-                                <rect x="28" y="8" width="12" height="12" stroke="currentColor" strokeWidth="2"/>
-                                <rect x="8" y="28" width="12" height="12" stroke="currentColor" strokeWidth="2"/>
-                                <rect x="28" y="28" width="12" height="12" stroke="currentColor" strokeWidth="2"/>
-                                <path d="M20 14h8M14 20v8M34 20v8M20 34h8" stroke="currentColor" strokeWidth="2"/>
-                                <circle cx="24" cy="14" r="2" fill="currentColor"/>
-                                <circle cx="14" cy="24" r="2" fill="currentColor"/>
-                                <circle cx="34" cy="24" r="2" fill="currentColor"/>
-                                <circle cx="24" cy="34" r="2" fill="currentColor"/>
-                              </svg>
-                            )}
-                            {topic.icon === "charging" && (
-                              <svg width="32" height="32" viewBox="0 0 48 48" fill="none" className="text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors">
-                                <rect x="14" y="8" width="20" height="32" rx="2" stroke="currentColor" strokeWidth="2"/>
-                                <path d="M20 18l4 6h-2v6l-4-6h2v-6z" fill="currentColor"/>
-                                <rect x="18" y="12" width="12" height="3" fill="currentColor"/>
-                              </svg>
-                            )}
-                            {topic.icon === "storage" && (
-                              <svg width="32" height="32" viewBox="0 0 48 48" fill="none" className="text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors">
-                                <rect x="10" y="10" width="28" height="8" stroke="currentColor" strokeWidth="2"/>
-                                <rect x="10" y="20" width="28" height="8" stroke="currentColor" strokeWidth="2"/>
-                                <rect x="10" y="30" width="28" height="8" stroke="currentColor" strokeWidth="2"/>
-                                <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
-                                <circle cx="16" cy="24" r="1.5" fill="currentColor"/>
-                                <circle cx="16" cy="34" r="1.5" fill="currentColor"/>
-                              </svg>
-                            )}
-                            {topic.icon === "reliability" && (
-                              <svg width="32" height="32" viewBox="0 0 48 48" fill="none" className="text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors">
-                                <circle cx="24" cy="24" r="14" stroke="currentColor" strokeWidth="2"/>
-                                <path d="M24 16v8l6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                                <circle cx="24" cy="24" r="2" fill="currentColor"/>
-                              </svg>
-                            )}
-                          </div>
-                          <h3 className="text-[14px] text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors mb-1" style={{ fontWeight: '600' }}>
-                            {topic.title}
+                          <h3 className="text-[16px] text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] mb-2 transition-colors" style={{ fontWeight: "600" }}>
+                            {category.title}
                           </h3>
-                          <p className="text-[12px] text-[var(--slate-dark)] leading-[1.5]">
-                            {topic.description}
+                          <p className="text-[13px] text-[var(--slate-medium)] leading-[1.5]">
+                            {category.description}
                           </p>
                         </Link>
                       ))}
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
-            <Link to="/news" className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">
-              News
-            </Link>
-            <Link to="/deep-dives" className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">
-              Deep Dives
-            </Link>
-            <Link to="/opinion-articles" className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">
-              Opinion
-            </Link>
-            <Link to="/press-releases" className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">
-              Press Releases
-            </Link>
-            <div 
-              className="relative"
-              onMouseEnter={() => setShowMoreDropdown(true)}
-              onMouseLeave={() => setShowMoreDropdown(false)}
+          )}
+        </div>
+
+        {/* Topic navigation bars - colored sections */}
+        <div className="flex flex-1">
+          {topics.map((topic, index) => (
+            <Link
+              key={index}
+              to={`/topic/${topic.id}`}
+              className="flex-1 flex items-center justify-center px-4 text-white text-center text-[15px] hover:opacity-90 transition-opacity"
+              style={{
+                backgroundColor: topic.color,
+                fontWeight: "500",
+              }}
             >
-              <button className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] flex items-center gap-1">
-                More
-                <svg width="8" height="5" viewBox="0 0 8 5" fill="currentColor">
-                  <path d="M4 5L0 0h8L4 5z"/>
-                </svg>
-              </button>
-              
-              {/* More Dropdown */}
-              {showMoreDropdown && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50">
-                  <div className="w-[280px] bg-white border border-gray-200 shadow-lg">
-                    <div className="py-2">
-                      <Link
-                        to="/events"
-                        className="block px-5 py-3 text-[14px] text-[var(--navy-deep)] hover:bg-gray-50 hover:text-[var(--electric-blue)] transition-colors"
-                        style={{ fontWeight: '500' }}
-                      >
-                        Events
-                      </Link>
-                      <Link
-                        to="/downloads"
-                        className="block px-5 py-3 text-[14px] text-[var(--navy-deep)] hover:bg-gray-50 hover:text-[var(--electric-blue)] transition-colors"
-                        style={{ fontWeight: '500' }}
-                      >
-                        Downloads
-                      </Link>
-                      <Link
-                        to="/magazines"
-                        className="block px-5 py-3 text-[14px] text-[var(--navy-deep)] hover:bg-gray-50 hover:text-[var(--electric-blue)] transition-colors"
-                        style={{ fontWeight: '500' }}
-                      >
-                        Magazines
-                      </Link>
-                      <Link
-                        to="/videos"
-                        className="block px-5 py-3 text-[14px] text-[var(--navy-deep)] hover:bg-gray-50 hover:text-[var(--electric-blue)] transition-colors"
-                        style={{ fontWeight: '500' }}
-                      >
-                        Videos
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <button className="flex items-center gap-2 text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)]" onClick={() => setShowSearchModal(true)}>
-              Search
-              <Search size={16} />
+              {topic.title}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile Header */}
+      <div className="md:hidden">
+        <div className="flex items-center justify-between px-8 py-4">
+          <Link
+            to="/"
+            className="tracking-[0.08em] font-bold text-[var(--navy-deep)] hover:text-[var(--electric-blue)]"
+          >
+            ELECTRICAL REVIEW
+          </Link>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowSearchModal(true)}
+              className="text-[var(--navy-deep)] hover:text-[var(--electric-blue)]"
+            >
+              <Search size={20} />
+            </button>
+            <button
+              className="text-[var(--navy-deep)]"
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+            >
+              <Menu size={24} />
             </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setShowMobileMenu(!showMobileMenu)}>
-            <Menu size={24} />
-          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {showMobileMenu && (
         <div className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start justify-center z-50 pt-24">
-          <div 
+          <div
             className="bg-white w-full max-w-[680px] mx-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-5 py-3">
-              <Link to="/" className="tracking-[0.08em] font-bold text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200">
+              <Link
+                to="/"
+                className="tracking-[0.08em] font-bold text-[var(--navy-deep)] hover:text-[var(--electric-blue)]"
+              >
                 ELECTRICAL REVIEW
               </Link>
-              <button className="text-[var(--navy-deep)] hover:text-[var(--electric-blue)]" onClick={() => setShowMobileMenu(false)}>
+              <button
+                className="text-[var(--navy-deep)] hover:text-[var(--electric-blue)]"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 <X size={24} />
               </button>
             </div>
-            <div className="px-5 py-3">
-              <Link to="/news" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+
+            {/* Topics Section */}
+            <div className="px-5 py-4 border-b border-gray-200">
+              <h3
+                className="text-[12px] text-[var(--slate-medium)] uppercase tracking-wider mb-3"
+                style={{ fontWeight: "600" }}
+              >
+                Topics
+              </h3>
+              {topics.map((topic, index) => (
+                <Link
+                  key={index}
+                  to={`/topic/${topic.id}`}
+                  className="block py-2 px-3 mb-1 text-[14px] hover:bg-gray-50 transition-colors"
+                  style={{ color: topic.color, fontWeight: "500" }}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {topic.title}
+                </Link>
+              ))}
+            </div>
+
+            {/* Other Links Section */}
+            <div className="px-5 py-4">
+              <h3
+                className="text-[12px] text-[var(--slate-medium)] uppercase tracking-wider mb-3"
+                style={{ fontWeight: "600" }}
+              >
+                Content
+              </h3>
+              <Link
+                to="/news"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 News
               </Link>
-              <Link to="/deep-dives" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/deep-dives"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Deep Dives
               </Link>
-              <Link to="/opinion-articles" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/opinion-articles"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Opinion
               </Link>
-              <Link to="/press-releases" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/press-releases"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Press Releases
               </Link>
-              <Link to="/events" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/events"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Events
               </Link>
-              <Link to="/downloads" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/downloads"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Downloads
               </Link>
-              <Link to="/magazines" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/magazines"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Magazines
               </Link>
-              <Link to="/videos" className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors">
+              <Link
+                to="/videos"
+                className="block text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
                 Videos
               </Link>
             </div>
@@ -258,11 +374,11 @@ export function Navigation() {
 
       {/* Search Modal */}
       {showSearchModal && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-start justify-center z-50 pt-24"
           onClick={() => setShowSearchModal(false)}
         >
-          <div 
+          <div
             className="bg-white w-full max-w-[680px] mx-8 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
@@ -291,47 +407,41 @@ export function Navigation() {
             <div className="p-6">
               {!searchQuery ? (
                 <div>
-                  <h3 className="text-[14px] text-[var(--slate-medium)] uppercase tracking-wide mb-4" style={{ fontWeight: '600' }}>
+                  <h3
+                    className="text-[14px] text-[var(--slate-medium)] uppercase tracking-wide mb-4"
+                    style={{ fontWeight: "600" }}
+                  >
                     Popular Topics
                   </h3>
                   <div className="space-y-2">
-                    <Link
-                      to="/topic/grid-connections"
-                      className="block text-[15px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
-                      onClick={() => setShowSearchModal(false)}
-                    >
-                      Grid & Connections
-                    </Link>
-                    <Link
-                      to="/topic/ev-charging"
-                      className="block text-[15px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
-                      onClick={() => setShowSearchModal(false)}
-                    >
-                      EV Charging Infrastructure
-                    </Link>
-                    <Link
-                      to="/topic/storage-resilience"
-                      className="block text-[15px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
-                      onClick={() => setShowSearchModal(false)}
-                    >
-                      Storage & Resilience
-                    </Link>
-                    <Link
-                      to="/topic/commissioning-reliability"
-                      className="block text-[15px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] py-2 hover:bg-gray-50 px-3 transition-colors"
-                      onClick={() => setShowSearchModal(false)}
-                    >
-                      Commissioning & Reliability
-                    </Link>
+                    {topics.map((topic, index) => (
+                      <Link
+                        key={index}
+                        to={`/topic/${topic.id}`}
+                        className="block text-[15px] py-2 hover:bg-gray-50 px-3 transition-colors"
+                        style={{ color: topic.color, fontWeight: "500" }}
+                        onClick={() => setShowSearchModal(false)}
+                      >
+                        {topic.title}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               ) : (
                 <div>
                   <p className="text-[14px] text-[var(--slate-medium)] mb-4">
-                    Searching for "<span className="text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>{searchQuery}</span>"...
+                    Searching for "
+                    <span
+                      className="text-[var(--navy-deep)]"
+                      style={{ fontWeight: "600" }}
+                    >
+                      {searchQuery}
+                    </span>
+                    "...
                   </p>
                   <p className="text-[13px] text-[var(--slate-medium)] italic">
-                    Search functionality coming soon. This is a demonstration of the search interface.
+                    Search functionality coming soon. This is a demonstration
+                    of the search interface.
                   </p>
                 </div>
               )}

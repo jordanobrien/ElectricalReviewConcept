@@ -166,7 +166,7 @@ export function ArticlePage() {
               <ul className="space-y-3">
                 {article.inBrief.map((point, index) => (
                   <li key={index} className="flex gap-3">
-                    <Check size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <span className="text-[var(--electric-blue)] flex-shrink-0 mt-0.5" style={{ fontSize: '20px', lineHeight: '1' }}>•</span>
                     <span className="text-[16px] leading-[1.6] text-[var(--slate-dark)]">
                       {point}
                     </span>

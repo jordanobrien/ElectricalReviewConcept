@@ -11,7 +11,7 @@ export function InBrief() {
       <ul className="space-y-4 mb-6 flex-1">
         {briefItems.map((item) => (
           <li key={item.id} className="flex gap-3 group">
-            <ArrowRight size={18} className="text-[var(--electric-blue)] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+            <span className="text-[var(--electric-blue)] flex-shrink-0 mt-0.5" style={{ fontSize: '20px', lineHeight: '1' }}>•</span>
             <div className="flex-1">
               <Link
                 to={`/article/${item.id}`}

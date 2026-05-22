@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { TOPIC_COLORS } from "../utils/topicColors";
 
 interface Topic {
   title: string;
@@ -15,7 +15,7 @@ export function TopicsGrid() {
     {
       title: "Grid & Connections",
       description: "Capacity, connection, uptime, power quality",
-      color: "bg-blue-700",
+      color: TOPIC_COLORS['grid-connections'].bg,
       icon: "grid",
       id: "grid-connections",
       articleCount: 127,
@@ -23,7 +23,7 @@ export function TopicsGrid() {
     {
       title: "EV Charging Infrastructure",
       description: "Depot, transit, destination, uptime, CPM",
-      color: "bg-green-600",
+      color: TOPIC_COLORS['ev-charging'].bg,
       icon: "charging",
       id: "ev-charging",
       articleCount: 94,
@@ -31,7 +31,7 @@ export function TopicsGrid() {
     {
       title: "Storage & Resilience",
       description: "On-site, re-charge, peaking power",
-      color: "bg-orange-600",
+      color: TOPIC_COLORS['storage-resilience'].bg,
       icon: "storage",
       id: "storage-resilience",
       articleCount: 68,
@@ -39,7 +39,7 @@ export function TopicsGrid() {
     {
       title: "Commissioning & Reliability",
       description: "Testing, standards, maintenance, operations",
-      color: "bg-purple-600",
+      color: TOPIC_COLORS['commissioning-reliability'].bg,
       icon: "reliability",
       id: "commissioning-reliability",
       articleCount: 82,

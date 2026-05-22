@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { Play, Clock, Eye } from "lucide-react";
 import { videos } from "../data/videos";
+import { getTopicColorByCategory } from "../utils/topicColors";
 
 export function LatestVideos() {
   const latestVideos = videos.slice(0, 2);
@@ -37,25 +38,39 @@ export function LatestVideos() {
 
           {/* Content */}
           <div className="p-4 sm:py-4 sm:pr-4 flex-1 flex flex-col">
-            {/* Category & Views */}
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] text-[var(--electric-blue)] uppercase tracking-wide" style={{ fontWeight: '600' }}>
-                {video.category}
-              </span>
-              <div className="flex items-center gap-1 text-[11px] text-[var(--slate-medium)]">
-                <Eye size={12} />
-                {video.views}
-              </div>
+            {/* Category & Date */}
+            <div className="flex items-center justify-between mb-3">
+              {video.isSponsored && video.sponsorLogo ? (
+                <div className="flex items-center gap-2">
+                  <img
+                    src={video.sponsorLogo}
+                    alt={video.sponsor}
+                    className="h-6 w-auto object-contain"
+                  />
+                  <span className="text-[10px] text-amber-600 uppercase tracking-wide" style={{ fontWeight: '600' }}>
+                    Sponsored
+                  </span>
+                </div>
+              ) : (
+                <span
+                  className="text-white px-2.5 py-1 text-[10px] tracking-wide uppercase inline-block"
+                  style={{ backgroundColor: getTopicColorByCategory(video.category).cssVar }}
+                >
+                  {video.category}
+                </span>
+              )}
+              <span className="text-[11px] text-[var(--slate-medium)]">{video.publishDate}</span>
             </div>
 
             {/* Title */}
-            <h3 className="text-[18px] text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors leading-[1.4] mb-2" style={{ fontWeight: '600' }}>
+            <h3 className="text-[16px] leading-[1.3] mb-2 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
               {video.title}
             </h3>
 
-            {/* Date */}
-            <div className="text-[12px] text-[var(--slate-medium)] mt-auto">
-              {video.publishDate}
+            {/* Views */}
+            <div className="flex items-center gap-1 text-[12px] text-[var(--slate-medium)] mt-auto">
+              <Eye size={12} />
+              {video.views} views
             </div>
           </div>
         </Link>

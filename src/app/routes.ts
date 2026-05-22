@@ -23,6 +23,11 @@ import { PrivacyPage } from "./pages/PrivacyPage";
 import { NewsletterPage } from "./pages/NewsletterPage";
 import { TopicHubPage } from "./pages/TopicHubPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { SubmitPressReleasePage } from "./pages/SubmitPressReleasePage";
+import { CompanyProfileSetupPage } from "./pages/CompanyProfileSetupPage";
+import { SubmitPressReleaseFormPage } from "./pages/SubmitPressReleaseFormPage";
+import { PaymentPage } from "./pages/PaymentPage";
+import { PressReleaseDashboardPage } from "./pages/PressReleaseDashboardPage";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +121,26 @@ export const router = createBrowserRouter([
   {
     path: "/video/:id",
     Component: VideoPage,
+  },
+  {
+    path: "/submit-press-release",
+    Component: SubmitPressReleasePage,
+  },
+  {
+    path: "/payment",
+    Component: PaymentPage,
+  },
+  {
+    path: "/press-release-dashboard",
+    Component: PressReleaseDashboardPage,
+  },
+  {
+    path: "/company-profile-setup",
+    Component: CompanyProfileSetupPage,
+  },
+  {
+    path: "/submit-press-release-form",
+    Component: SubmitPressReleaseFormPage,
   },
   {
     path: "*",

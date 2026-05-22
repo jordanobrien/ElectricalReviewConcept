@@ -1,16 +1,17 @@
 import { Link } from "react-router";
 import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
-import { Calendar, Mail, MapPin, ChevronRight, TrendingUp, Play, Clock, Eye, ChevronLeft } from "lucide-react";
+import { Calendar, Mail, MapPin, ChevronRight, TrendingUp, Play, Clock, ChevronLeft } from "lucide-react";
 import { articles } from "../data/articles";
 import { pressReleases } from "../data/pressReleases";
 import { events } from "../data/events";
 import { videos } from "../data/videos";
+import { topics } from "../data/topics";
 import { useState } from "react";
+import { getTopicColorByCategory } from "../utils/topicColors";
 
 export function VideosArchivePage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const videosPerPage = 9;
 
   // Get sidebar data
@@ -18,24 +19,11 @@ export function VideosArchivePage() {
   const latestPressReleases = pressReleases.slice(0, 3);
   const upcomingEvents = events.slice(0, 3);
 
-  // Get unique categories
-  const categories = ["All", ...Array.from(new Set(videos.map(v => v.category)))];
-
-  // Filter videos by category
-  const filteredVideos = selectedCategory === "All" 
-    ? videos 
-    : videos.filter(v => v.category === selectedCategory);
-
   // Calculate pagination
-  const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
+  const totalPages = Math.ceil(videos.length / videosPerPage);
   const startIndex = (currentPage - 1) * videosPerPage;
   const endIndex = startIndex + videosPerPage;
-  const currentVideos = filteredVideos.slice(startIndex, endIndex);
-
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setCurrentPage(1); // Reset to first page when category changes
-  };
+  const currentVideos = videos.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -75,29 +63,6 @@ export function VideosArchivePage() {
           <div className="grid grid-cols-12 gap-8">
             {/* Main Content - 8 columns */}
             <div className="col-span-8">
-              {/* Category Filter */}
-              <div className="mb-8">
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => handleCategoryChange(category)}
-                      className={`px-4 py-2 text-[13px] transition-colors ${
-                        selectedCategory === category
-                          ? 'bg-[var(--electric-blue)] text-white'
-                          : 'bg-gray-100 text-[var(--slate-dark)] hover:bg-gray-200'
-                      }`}
-                      style={{ fontWeight: selectedCategory === category ? '600' : '500' }}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-3 text-[13px] text-[var(--slate-medium)]">
-                  Showing {startIndex + 1}-{Math.min(endIndex, filteredVideos.length)} of {filteredVideos.length} videos
-                </div>
-              </div>
-
               {/* Videos Grid */}
               <div className="grid grid-cols-3 gap-6 mb-10">
                 {currentVideos.map((video) => (
@@ -130,15 +95,27 @@ export function VideosArchivePage() {
 
                     {/* Content */}
                     <div className="p-4">
-                      {/* Category & Views */}
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] text-[var(--electric-blue)] uppercase tracking-wide" style={{ fontWeight: '600' }}>
-                          {video.category}
-                        </span>
-                        <div className="flex items-center gap-1 text-[11px] text-[var(--slate-medium)]">
-                          <Eye size={12} />
-                          {video.views}
-                        </div>
+                      {/* Category / Sponsor Logo */}
+                      <div className="mb-2">
+                        {video.isSponsored && video.sponsorLogo ? (
+                          <div className="flex items-center gap-1.5">
+                            <img
+                              src={video.sponsorLogo}
+                              alt={video.sponsor}
+                              className="h-4 w-auto object-contain"
+                            />
+                            <span className="text-[10px] text-amber-600 uppercase tracking-wide" style={{ fontWeight: '600' }}>
+                              Sponsored
+                            </span>
+                          </div>
+                        ) : (
+                          <span
+                            className="text-white px-2 py-1 text-[10px] tracking-wide uppercase inline-block"
+                            style={{ backgroundColor: getTopicColorByCategory(video.category).cssVar }}
+                          >
+                            {video.category}
+                          </span>
+                        )}
                       </div>
 
                       {/* Title */}

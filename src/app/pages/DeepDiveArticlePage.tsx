@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router";
 import { getDeepDiveArticleById, deepDiveArticles } from "../data/deepDiveArticles";
 import { articles } from "../data/articles";
 import { pressReleases } from "../data/pressReleases";
-import { Mail, Share2, Linkedin, Twitter, BookOpen, TrendingUp, Calendar, MapPin, ChevronRight } from "lucide-react";
+import { Mail, Share2, Linkedin, Twitter, TrendingUp, Calendar, MapPin, ChevronRight } from "lucide-react";
 
 export function DeepDiveArticlePage() {
   const { id } = useParams<{ id: string }>();
@@ -79,14 +79,10 @@ export function DeepDiveArticlePage() {
       <div className="bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-[1440px] mx-auto px-8 pt-12 pb-8">
           <div className="max-w-[900px]">
-            {/* Category and Read Time */}
+            {/* Category */}
             <div className="flex items-center gap-3 mb-6">
               <span className={`${article.categoryColor} text-white px-3 py-1.5 text-[11px] tracking-wide uppercase inline-block`}>
                 {article.category}
-              </span>
-              <span className="text-[13px] text-[var(--slate-medium)] flex items-center gap-2">
-                <BookOpen size={14} />
-                Deep Dive
               </span>
             </div>
             

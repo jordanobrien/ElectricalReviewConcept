@@ -21,7 +21,7 @@ export function HomePage() {
       <HeroBanner />
 
       {/* Main content area */}
-      <section className="py-8 bg-white border-b border-gray-100">
+      <section className="py-8 bg-white">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
           {/* Two column layout with headings above boxes */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -63,9 +63,7 @@ export function HomePage() {
       <DeepDive />
       
       {/* Topics Section - Full Width */}
-      <section className="py-12 bg-gray-50 border-t border-gray-100 relative overflow-hidden">
-        {/* Gradient accent */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--navy-deep)] via-[var(--electric-blue)] to-[var(--navy-deep)]"></div>
+      <section className="py-12 bg-gray-50 relative overflow-hidden">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
           <h2 className="text-[24px] mb-6 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
             Explore By Topic
@@ -75,7 +73,7 @@ export function HomePage() {
       </section>
       
       {/* Newsletter CTA - Prominent Placement */}
-      <section className="py-16 bg-gradient-to-br from-[var(--navy-deep)] via-[#1e3a5f] to-[var(--navy-deep)] relative overflow-hidden border-y border-gray-800">
+      <section className="py-16 bg-gradient-to-br from-[var(--navy-deep)] via-[#1e3a5f] to-[var(--navy-deep)] relative overflow-hidden">
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
         
@@ -114,7 +112,7 @@ export function HomePage() {
       </section>
       
       {/* Videos and Latest Events Section - Side by Side */}
-      <section className="py-12 bg-white border-t border-gray-100">
+      <section className="py-12 bg-white">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Latest Videos Column - Stacked Layout */}
@@ -148,9 +146,7 @@ export function HomePage() {
       <LatestOpinion />
       
       {/* Press Releases and Downloads Section - Side by Side */}
-      <section className="py-12 bg-white border-t border-gray-100 relative">
-        {/* Gradient accent */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--electric-blue)] to-transparent"></div>
+      <section className="py-12 bg-white relative">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Press Releases Column */}

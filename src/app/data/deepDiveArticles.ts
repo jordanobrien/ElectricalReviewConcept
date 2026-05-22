@@ -25,7 +25,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "dno-vs-idno-guide",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "Understanding DNO vs IDNO: The complete guide to grid connections",
     summary: "An in-depth exploration of the differences between DNOs and IDNOs, how they operate, and what fleet operators need to know when planning major grid connections.",
     author: "Sarah Mitchell",
@@ -116,7 +116,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "depot-charging-infrastructure",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "Depot charging infrastructure: From planning to commissioning",
     summary: "A comprehensive guide covering site assessment, load profiling, electrical design, procurement, installation, and testing for large-scale depot charging projects.",
     author: "James Robertson",
@@ -208,7 +208,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "bess-design-installation",
     category: "Storage & Resilience",
-    categoryColor: "bg-orange-600",
+    categoryColor: "bg-[#14b8a6]",
     headline: "Battery energy storage systems: Design, installation & safety standards",
     summary: "Technical deep dive into BESS sizing, system architecture, safety protocols, fire suppression, and compliance with UK regulations for commercial installations.",
     author: "David Richardson",
@@ -292,7 +292,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "flexible-connection-agreements",
     category: "Grid & Connections",
-    categoryColor: "bg-blue-700",
+    categoryColor: "bg-[#1e3a8a]",
     headline: "Flexible connection agreements: Unlocking constrained grid capacity",
     summary: "How Active Network Management and flexible connections enable projects to proceed in capacity-constrained areas while managing curtailment risk.",
     author: "Sarah Mitchell",
@@ -315,7 +315,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "fleet-electrification-roadmap",
     category: "EV Charging",
-    categoryColor: "bg-green-600",
+    categoryColor: "bg-[#10b981]",
     headline: "Building a fleet electrification roadmap: From strategy to implementation",
     summary: "A comprehensive framework for planning large-scale fleet transition including vehicle selection, infrastructure requirements, financing models, and phasing strategies.",
     author: "Robert Chang",
@@ -338,7 +338,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "microgrid-systems-design",
     category: "Storage & Resilience",
-    categoryColor: "bg-orange-600",
+    categoryColor: "bg-[#14b8a6]",
     headline: "Microgrid systems: Integrating solar, storage, and load management for energy independence",
     summary: "Technical and commercial considerations for designing integrated microgrid systems that combine renewable generation, battery storage, and intelligent load management.",
     author: "Dr. Michael Chen",
@@ -361,7 +361,7 @@ export const deepDiveArticles: DeepDiveArticle[] = [
   {
     id: "electrical-safety-testing",
     category: "Commissioning & Testing",
-    categoryColor: "bg-purple-600",
+    categoryColor: "bg-[#3b82f6]",
     headline: "Electrical safety testing and certification: Ensuring compliance and protecting assets",
     summary: "Detailed examination of BS 7671 compliance, PAT testing, thermal imaging, and ongoing verification requirements for commercial electrical installations.",
     author: "James Robertson",

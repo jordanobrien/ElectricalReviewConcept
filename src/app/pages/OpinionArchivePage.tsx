@@ -6,11 +6,14 @@ import { articles } from "../data/articles";
 import { pressReleases } from "../data/pressReleases";
 import { events } from "../data/events";
 import { downloads } from "../data/downloads";
+import { topics } from "../data/topics";
 import { Calendar, Mail, MapPin, ChevronRight, FileText, Download, TrendingUp, ChevronLeft, MessageSquare } from "lucide-react";
 import { useState } from "react";
+import { getTopicColorByCategory } from "../utils/topicColors";
 
 export function OpinionArchivePage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTopic, setSelectedTopic] = useState("All");
   const itemsPerPage = 10;
 
   // Get sidebar data
@@ -19,12 +22,32 @@ export function OpinionArchivePage() {
   const latestPressReleases = pressReleases.slice(0, 3);
   const trendingArticles = articles.slice(0, 4);
 
+  // Get unique topics from opinion articles
+  const allTopics = Array.from(new Set(opinionArticles.flatMap(article => article.topics || [])));
+  const topicOptions = ["All", ...allTopics];
+
+  // Filter articles by topic
+  const filteredArticles = selectedTopic === "All" 
+    ? opinionArticles 
+    : opinionArticles.filter(article => article.topics?.includes(selectedTopic));
+
   // Calculate pagination
-  const totalPages = Math.ceil(opinionArticles.length / itemsPerPage);
-  const paginatedArticles = opinionArticles.slice(
+  const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+  const paginatedArticles = filteredArticles.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleTopicChange = (topic: string) => {
+    setSelectedTopic(topic);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  // Helper function to get human-friendly topic title
+  const getTopicTitle = (topicId: string) => {
+    if (topicId === "All") return "All";
+    return topics[topicId]?.title || topicId;
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -67,10 +90,36 @@ export function OpinionArchivePage() {
             {/* Main Content Column */}
             <div className="col-span-8">
               <section className="mb-12">
+                {/* Topic Filter */}
+                <div className="mb-6">
+                  <h3 className="text-[14px] text-[var(--slate-dark)] mb-3" style={{ fontWeight: '600' }}>
+                    Filter by Topic
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {topicOptions.map((topic) => (
+                      <button
+                        key={topic}
+                        onClick={() => handleTopicChange(topic)}
+                        className={`px-4 py-2 text-[13px] transition-colors ${
+                          selectedTopic === topic
+                            ? 'bg-[var(--electric-blue)] text-white'
+                            : 'bg-gray-100 text-[var(--slate-dark)] hover:bg-gray-200'
+                        }`}
+                        style={{ fontWeight: selectedTopic === topic ? '600' : '500' }}
+                      >
+                        {getTopicTitle(topic)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="mb-6">
                   <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
                     All Opinion Articles
                   </h2>
+                  <div className="mt-2 text-[13px] text-[var(--slate-medium)]">
+                    Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, filteredArticles.length)} of {filteredArticles.length} articles
+                  </div>
                 </div>
 
                 <div className="space-y-6">
@@ -78,32 +127,52 @@ export function OpinionArchivePage() {
                     <Link
                       key={article.id}
                       to={`/opinion/${article.id}`}
-                      className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow block h-[240px]"
+                      className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg hover:border-[var(--electric-blue)]/30 transition-all block"
                     >
-                      <div className="grid grid-cols-3 gap-6 h-full">
-                        <div className="col-span-1 h-full">
+                      <div className="grid grid-cols-3 gap-6 min-h-[240px]">
+                        <div className="col-span-1 relative">
                           <img
                             src={article.imageUrl}
                             alt={article.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
+                          {/* Opinion icon badge */}
+                          <div className="absolute bottom-3 left-3 bg-[var(--navy-deep)] text-white p-2 rounded shadow-lg">
+                            <MessageSquare size={18} strokeWidth={2.5} />
+                          </div>
                         </div>
-                        <div className="col-span-2 p-5 flex flex-col h-full">
+                        <div className="col-span-2 p-5 flex flex-col">
                           <div className="mb-3">
-                            <span className="bg-[var(--slate-dark)] text-white px-2.5 py-1 text-[10px] tracking-wide uppercase">
-                              Opinion
+                            <span
+                              className="text-white px-2.5 py-1 text-[10px] tracking-wide uppercase"
+                              style={{ backgroundColor: getTopicColorByCategory(article.category).cssVar }}
+                            >
+                              {article.category}
                             </span>
                           </div>
                           <h3 className="text-[19px] leading-[1.3] mb-3 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
                             {article.title}
                           </h3>
-                          <p className="text-[14px] leading-[1.6] text-[var(--slate-dark)] mb-4 flex-1">
+                          <p className="text-[14px] leading-[1.6] text-[var(--slate-dark)] mb-4 line-clamp-2">
                             {article.summary}
                           </p>
-                          <div className="flex items-center gap-4 text-[13px] text-[var(--slate-medium)] mt-auto">
-                            <span>By {article.author.name}, {article.author.company}</span>
-                            <span>•</span>
-                            <span>{article.publishedDate}</span>
+                          {/* Author Section with Headshot */}
+                          <div className="flex items-center gap-3 pt-3 border-t border-gray-200 mt-auto">
+                            <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-gray-200 bg-gray-100">
+                              <img
+                                src={article.author.imageUrl}
+                                alt={article.author.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-[13px] text-[var(--navy-deep)] truncate" style={{ fontWeight: '600' }}>
+                                {article.author.name}
+                              </div>
+                              <div className="text-[12px] text-[var(--slate-medium)] truncate">
+                                {article.author.role} • {article.publishedDate}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

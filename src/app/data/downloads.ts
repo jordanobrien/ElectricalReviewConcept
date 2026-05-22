@@ -11,6 +11,7 @@ export interface Download {
   publishedDate: string;
   author?: string;
   pages?: number;
+  topics?: string[];
 }
 
 export const downloads: Download[] = [
@@ -31,7 +32,8 @@ export const downloads: Download[] = [
     fileUrl: "/downloads/grid-connection-standards-guide-2026.pdf",
     publishedDate: "15 January 2026",
     author: "Technical Standards Team",
-    pages: 68
+    pages: 68,
+    topics: ["grid-connections"]
   },
   {
     id: "ev-charging-infrastructure-best-practices",
@@ -50,7 +52,8 @@ export const downloads: Download[] = [
     fileUrl: "/downloads/ev-charging-best-practices.pdf",
     publishedDate: "3 February 2026",
     author: "Electrical Review Research Team",
-    pages: 42
+    pages: 42,
+    topics: ["ev-charging"]
   },
   {
     id: "depot-design-specification-template",
@@ -70,7 +73,8 @@ export const downloads: Download[] = [
     fileUrl: "/downloads/depot-design-template.xlsx",
     publishedDate: "20 January 2026",
     author: "Technical Resources Team",
-    pages: null
+    pages: null,
+    topics: ["ev-charging"]
   },
   {
     id: "annual-market-report-2025",
@@ -90,7 +94,8 @@ export const downloads: Download[] = [
     fileUrl: "/downloads/annual-market-report-2025.pdf",
     publishedDate: "10 February 2026",
     author: "Market Research Team",
-    pages: 124
+    pages: 124,
+    topics: ["grid-connections", "ev-charging", "storage-resilience"]
   }
 ];
 

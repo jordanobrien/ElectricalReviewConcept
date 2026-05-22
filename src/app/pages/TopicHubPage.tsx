@@ -5,8 +5,11 @@ import { topics } from "../data/topics";
 import { articles } from "../data/articles";
 import { deepDiveArticles } from "../data/deepDiveArticles";
 import { opinionArticles } from "../data/opinionArticles";
-import { ChevronRight, Clock, TrendingUp, Mail, Calendar, MapPin, ChevronLeft } from "lucide-react";
+import { videos } from "../data/videos";
+import { downloads } from "../data/downloads";
+import { ChevronRight, Clock, TrendingUp, Mail, Calendar, MapPin, ChevronLeft, Play, Download, FileText, BookOpen, MessageSquare, Newspaper } from "lucide-react";
 import { useState } from "react";
+import { getTopicColorByCategory, getTopicColor } from "../utils/topicColors";
 
 export function TopicHubPage() {
   const { topicId } = useParams<{ topicId: string }>();
@@ -164,42 +167,45 @@ export function TopicHubPage() {
     }
   };
 
+  // Get topic color
+  const topicColor = getTopicColor(topicId || '');
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
 
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 border-b border-gray-200">
-        <div className="max-w-[1440px] mx-auto px-8 py-3">
-          <div className="flex items-center gap-2 text-[13px] text-[var(--slate-medium)]">
-            <Link to="/" className="hover:text-[var(--electric-blue)]">Home</Link>
-            <span>/</span>
-            <span className="text-[var(--slate-medium)]">Topics</span>
-            <span>/</span>
-            <span className="text-[var(--navy-deep)]">{topic.title}</span>
-          </div>
-        </div>
-      </div>
+      {/* Colored Hero Section with Breadcrumb - Tabs from header */}
+      <div
+        className="relative shadow-inner"
+        style={{ backgroundColor: topicColor.cssVar }}
+      >
+        {/* Tab connector bar at top */}
+        <div
+          className="h-2 w-full"
+          style={{
+            backgroundColor: topicColor.cssVar,
+            boxShadow: 'inset 0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+          }}
+        ></div>
 
-      {/* Hero Section */}
-      <div className="relative h-[200px] overflow-hidden bg-gradient-to-r from-[var(--navy-deep)] to-[#1e3a5f]">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-30"
-          style={{ backgroundImage: `url(${topic.heroImage})` }}
-        />
-        <div className="relative max-w-[1440px] mx-auto px-8 h-full flex items-center">
-          <div className="flex items-center gap-6">
-            <div className="flex-shrink-0">
-              {renderIcon(64)}
-            </div>
-            <div>
-              <h1 className="text-[32px] text-white mb-2" style={{ fontWeight: '600' }}>
-                {topic.title}
-              </h1>
-              <p className="text-[16px] text-white/90">
-                {topic.description}
-              </p>
-            </div>
+        <div className="max-w-[1440px] mx-auto px-8 pt-6 pb-12">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-[13px] text-white/70 mb-8">
+            <Link to="/" className="hover:text-white transition-colors">Home</Link>
+            <span>/</span>
+            <Link to="/" className="hover:text-white transition-colors">Topics</Link>
+            <span>/</span>
+            <span className="text-white">{topic.title}</span>
+          </div>
+
+          {/* Topic Title & Description */}
+          <div>
+            <h1 className="text-[48px] text-white mb-4 leading-[1.1]" style={{ fontWeight: '600' }}>
+              {topic.title}
+            </h1>
+            <p className="text-[18px] text-white/90 max-w-3xl">
+              {topic.description}
+            </p>
           </div>
         </div>
       </div>
@@ -223,26 +229,27 @@ export function TopicHubPage() {
                   {allContent.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((item, index) => (
                     <div key={`${item.type}-${item.data.id}`}>
                       {item.type === 'deepDive' ? (
-                        // Deep Dive Card - Highlighted with Blue Background
+                        // Deep Dive Card
                         <Link
                           to={`/deep-dive/${item.data.id}`}
-                          className="bg-gradient-to-r from-blue-50 to-slate-50 border-2 border-[var(--electric-blue)]/30 overflow-hidden group hover:shadow-xl hover:border-[var(--electric-blue)]/50 transition-all block h-[240px]"
+                          className="relative bg-white border border-gray-200 overflow-hidden group hover:shadow-xl hover:border-[var(--electric-blue)]/30 transition-all block h-[240px]"
                         >
                           <div className="grid grid-cols-3 gap-6 h-full">
-                            <div className="col-span-1 h-full">
+                            <div className="col-span-1 h-full relative">
                               <img
                                 src={item.data.heroImageUrl}
                                 alt={item.data.headline}
                                 className="w-full h-full object-cover"
                               />
+                              {/* Icon badge on image */}
+                              <div className="absolute bottom-3 left-3 bg-[var(--electric-blue)] text-white p-2 rounded shadow-lg">
+                                <BookOpen size={18} strokeWidth={2.5} />
+                              </div>
                             </div>
                             <div className="col-span-2 p-5 flex flex-col h-full">
-                              <div className="flex items-center gap-2 mb-3">
+                              <div className="mb-3">
                                 <span className={`${item.data.categoryColor} text-white px-2.5 py-1 text-[10px] tracking-wide uppercase`}>
                                   {item.data.category}
-                                </span>
-                                <span className="bg-[var(--electric-blue)] text-white px-2.5 py-1 text-[10px] tracking-wide uppercase">
-                                  📄 Deep Dive
                                 </span>
                               </div>
                               <h3 className="text-[19px] leading-[1.3] mb-3 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
@@ -258,26 +265,30 @@ export function TopicHubPage() {
                           </div>
                         </Link>
                       ) : item.type === 'opinion' ? (
-                        // Opinion Article Card - Shows topic tag and author only at bottom
+                        // Opinion Article Card
                         <Link
                           to={`/opinion/${item.data.id}`}
-                          className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow block h-[240px]"
+                          className="relative bg-white border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow block h-[240px]"
                         >
                           <div className="grid grid-cols-3 gap-6 h-full">
-                            <div className="col-span-1 h-full">
+                            <div className="col-span-1 h-full relative">
                               <img
                                 src={item.data.imageUrl}
                                 alt={item.data.title}
                                 className="w-full h-full object-cover"
                               />
+                              {/* Icon badge on image */}
+                              <div className="absolute bottom-3 left-3 bg-[var(--navy-deep)] text-white p-2 rounded shadow-lg">
+                                <MessageSquare size={18} strokeWidth={2.5} />
+                              </div>
                             </div>
                             <div className="col-span-2 p-5 flex flex-col h-full">
-                              <div className="flex items-center gap-2 mb-3">
-                                <span className={`${item.data.category === 'Infrastructure Policy' ? 'bg-blue-700' : item.data.category === 'Safety & Standards' ? 'bg-orange-600' : 'bg-[var(--slate-dark)]'} text-white px-2.5 py-1 text-[10px] tracking-wide uppercase`}>
-                                  {topicId === 'grid-connections' ? 'Grid & Connections' : topicId === 'ev-charging' ? 'EV Charging' : topicId === 'storage-resilience' ? 'Storage & Resilience' : 'Commissioning & Testing'}
-                                </span>
-                                <span className="bg-[var(--slate-dark)] text-white px-2.5 py-1 text-[10px] tracking-wide uppercase">
-                                  Opinion
+                              <div className="mb-3">
+                                <span
+                                  className="text-white px-2.5 py-1 text-[10px] tracking-wide uppercase"
+                                  style={{ backgroundColor: getTopicColorByCategory(item.data.category).cssVar }}
+                                >
+                                  {item.data.category}
                                 </span>
                               </div>
                               <h3 className="text-[19px] leading-[1.3] mb-3 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
@@ -295,18 +306,22 @@ export function TopicHubPage() {
                           </div>
                         </Link>
                       ) : (
-                        // News Article Card - Standard (no author)
+                        // News Article Card
                         <Link
                           to={`/article/${item.data.id}`}
-                          className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow block h-[240px]"
+                          className="relative bg-white border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow block h-[240px]"
                         >
                           <div className="grid grid-cols-3 gap-6 h-full">
-                            <div className="col-span-1 h-full">
+                            <div className="col-span-1 h-full relative">
                               <img
                                 src={item.data.imageUrl}
                                 alt={item.data.headline}
                                 className="w-full h-full object-cover"
                               />
+                              {/* Icon badge on image */}
+                              <div className="absolute bottom-3 left-3 bg-[var(--slate-dark)] text-white p-2 rounded shadow-lg">
+                                <Newspaper size={18} strokeWidth={2.5} />
+                              </div>
                             </div>
                             <div className="col-span-2 p-5 flex flex-col h-full">
                               <div className="mb-3">
@@ -357,25 +372,6 @@ export function TopicHubPage() {
                     </button>
                   </div>
                 )}
-              </section>
-
-              {/* Key Topics */}
-              <section className="mb-12">
-                <h2 className="text-[18px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                  Key Topics
-                </h2>
-                <div className="flex flex-wrap gap-3">
-                  {topic.keyTopics.map((keyTopic, index) => (
-                    <a
-                      key={index}
-                      href="#"
-                      className="px-4 py-2 bg-gray-100 hover:bg-[var(--electric-blue)] hover:text-white text-[var(--navy-deep)] text-[13px] border border-gray-300 hover:border-[var(--electric-blue)] transition-colors"
-                      style={{ fontWeight: '500' }}
-                    >
-                      {keyTopic}
-                    </a>
-                  ))}
-                </div>
               </section>
             </div>
 
@@ -551,6 +547,139 @@ export function TopicHubPage() {
           </div>
         </div>
       </div>
+
+      {/* Videos & Downloads Section - Full Width */}
+      {(() => {
+        const topicVideos = videos.filter(video => video.topics?.includes(topicId || ''));
+        const topicDownloads = downloads.filter(download => download.topics?.includes(topicId || ''));
+        
+        if (topicVideos.length === 0 && topicDownloads.length === 0) return null;
+        
+        return (
+          <section className="py-12 bg-gray-50 border-t border-gray-200">
+            <div className="max-w-[1440px] mx-auto px-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                {/* Videos Section */}
+                {topicVideos.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <Play size={24} className="text-[var(--electric-blue)]" />
+                      <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
+                        Related Videos
+                      </h2>
+                    </div>
+                    <div className="space-y-4">
+                      {topicVideos.slice(0, 3).map((video) => (
+                        <Link
+                          key={video.id}
+                          to={`/video/${video.id}`}
+                          className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg hover:border-[var(--electric-blue)]/30 transition-all flex h-[140px]"
+                        >
+                          <div className="w-[240px] flex-shrink-0 relative">
+                            <img
+                              src={video.thumbnail}
+                              alt={video.title}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
+                              <div className="w-12 h-12 rounded-full bg-[var(--electric-blue)] flex items-center justify-center">
+                                <Play size={20} className="text-white ml-0.5" fill="currentColor" />
+                              </div>
+                            </div>
+                            {video.isSponsored && (
+                              <div className="absolute top-2 left-2 bg-amber-500 text-white px-2 py-0.5 text-[9px] uppercase tracking-wider" style={{ fontWeight: '700' }}>
+                                SPONSORED
+                              </div>
+                            )}
+                            <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-0.5 text-[11px]">
+                              {video.duration}
+                            </div>
+                          </div>
+                          <div className="flex-1 p-4 flex flex-col justify-between">
+                            <h3 className="text-[15px] leading-[1.3] text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors line-clamp-3" style={{ fontWeight: '600' }}>
+                              {video.title}
+                            </h3>
+                            <div className="flex items-center gap-3 text-[12px] text-[var(--slate-medium)]">
+                              <span>{video.publishDate}</span>
+                              <span>•</span>
+                              <span>{video.views} views</span>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    {topicVideos.length > 3 && (
+                      <div className="mt-6">
+                        <Link
+                          to="/videos"
+                          className="text-[14px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
+                          style={{ fontWeight: '500' }}
+                        >
+                          View all videos
+                          <ChevronRight size={16} />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Downloads Section */}
+                {topicDownloads.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <Download size={24} className="text-[var(--electric-blue)]" />
+                      <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
+                        Related Downloads
+                      </h2>
+                    </div>
+                    <div className="space-y-4">
+                      {topicDownloads.slice(0, 3).map((download) => (
+                        <Link
+                          key={download.id}
+                          to={`/download/${download.id}`}
+                          className="bg-white border border-gray-200 p-5 group hover:shadow-lg hover:border-[var(--electric-blue)]/30 transition-all block"
+                        >
+                          <div className="flex gap-4">
+                            <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center flex-shrink-0 rounded">
+                              <FileText size={24} className="text-[var(--electric-blue)]" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="text-[11px] text-[var(--slate-medium)] uppercase tracking-wide" style={{ fontWeight: '600' }}>
+                                  {download.type}
+                                </span>
+                                <span className="text-[11px] text-[var(--slate-light)]">{download.size}</span>
+                              </div>
+                              <h3 className="text-[15px] leading-[1.3] mb-2 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
+                                {download.title}
+                              </h3>
+                              <p className="text-[13px] leading-[1.5] text-[var(--slate-dark)] line-clamp-2">
+                                {download.summary}
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    {topicDownloads.length > 3 && (
+                      <div className="mt-6">
+                        <Link
+                          to="/downloads"
+                          className="text-[14px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
+                          style={{ fontWeight: '500' }}
+                        >
+                          View all downloads
+                          <ChevronRight size={16} />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       <Footer />
     </div>

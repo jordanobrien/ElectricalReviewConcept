@@ -5,11 +5,13 @@ import { articles } from "../data/articles";
 import { pressReleases } from "../data/pressReleases";
 import { events } from "../data/events";
 import { downloads } from "../data/downloads";
+import { topics } from "../data/topics";
 import { Calendar, Mail, MapPin, ChevronRight, FileText, Download, TrendingUp, ChevronLeft, Newspaper } from "lucide-react";
 import { useState } from "react";
 
 export function NewsArchivePage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTopic, setSelectedTopic] = useState("All");
   const itemsPerPage = 10;
 
   // Get sidebar data
@@ -18,12 +20,32 @@ export function NewsArchivePage() {
   const latestPressReleases = pressReleases.slice(0, 3);
   const trendingArticles = articles.slice(0, 4);
 
+  // Get unique topics from articles
+  const allTopics = Array.from(new Set(articles.flatMap(article => article.topics || [])));
+  const topicOptions = ["All", ...allTopics];
+
+  // Filter articles by topic
+  const filteredArticles = selectedTopic === "All" 
+    ? articles 
+    : articles.filter(article => article.topics?.includes(selectedTopic));
+
   // Calculate pagination
-  const totalPages = Math.ceil(articles.length / itemsPerPage);
-  const paginatedArticles = articles.slice(
+  const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+  const paginatedArticles = filteredArticles.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleTopicChange = (topic: string) => {
+    setSelectedTopic(topic);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  // Helper function to get human-friendly topic title
+  const getTopicTitle = (topicId: string) => {
+    if (topicId === "All") return "All";
+    return topics[topicId]?.title || topicId;
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -66,10 +88,36 @@ export function NewsArchivePage() {
             {/* Main Content Column */}
             <div className="col-span-8">
               <section className="mb-12">
+                {/* Topic Filter */}
+                <div className="mb-6">
+                  <h3 className="text-[14px] text-[var(--slate-dark)] mb-3" style={{ fontWeight: '600' }}>
+                    Filter by Topic
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {topicOptions.map((topic) => (
+                      <button
+                        key={topic}
+                        onClick={() => handleTopicChange(topic)}
+                        className={`px-4 py-2 text-[13px] transition-colors ${
+                          selectedTopic === topic
+                            ? 'bg-[var(--electric-blue)] text-white'
+                            : 'bg-gray-100 text-[var(--slate-dark)] hover:bg-gray-200'
+                        }`}
+                        style={{ fontWeight: selectedTopic === topic ? '600' : '500' }}
+                      >
+                        {getTopicTitle(topic)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="mb-6">
                   <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
                     All News Articles
                   </h2>
+                  <div className="mt-2 text-[13px] text-[var(--slate-medium)]">
+                    Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, filteredArticles.length)} of {filteredArticles.length} articles
+                  </div>
                 </div>
 
                 <div className="space-y-6">
@@ -77,15 +125,19 @@ export function NewsArchivePage() {
                     <Link
                       key={article.id}
                       to={`/article/${article.id}`}
-                      className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg transition-shadow block h-[240px]"
+                      className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg hover:border-[var(--electric-blue)]/30 transition-all block h-[240px]"
                     >
                       <div className="grid grid-cols-3 gap-6 h-full">
-                        <div className="col-span-1 h-full">
+                        <div className="col-span-1 h-full relative">
                           <img
                             src={article.imageUrl}
                             alt={article.headline}
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
+                          {/* News icon badge */}
+                          <div className="absolute bottom-3 left-3 bg-[var(--slate-dark)] text-white p-2 rounded shadow-lg">
+                            <Newspaper size={18} strokeWidth={2.5} />
+                          </div>
                         </div>
                         <div className="col-span-2 p-5 flex flex-col h-full">
                           <div className="mb-3">

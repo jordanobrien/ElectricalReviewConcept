@@ -8,6 +8,10 @@ export interface Video {
   category: string;
   views: string;
   videoUrl: string;
+  isSponsored?: boolean; // For branded content
+  sponsor?: string; // Sponsor name for branded videos
+  sponsorLogo?: string; // Sponsor logo for branded videos
+  topics?: string[];
 }
 
 export const videos: Video[] = [
@@ -21,6 +25,7 @@ export const videos: Video[] = [
     category: "Grid & Connections",
     views: "8.2K",
     videoUrl: "#",
+    topics: ["grid-connections"]
   },
   {
     id: "2",
@@ -29,9 +34,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1676539432110-78f836970ac4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxFViUyMGNoYXJnaW5nJTIwc3RhdGlvbiUyMGVsZWN0cmljfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "18:45",
     publishDate: "21 February 2026",
-    category: "EV Charging",
+    category: "EV Charging Infrastructure",
     views: "12.5K",
     videoUrl: "#",
+    topics: ["ev-charging"]
   },
   {
     id: "3",
@@ -40,9 +46,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1766507679659-30076abc8c95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2xhciUyMGVuZXJneSUyMGJhdHRlcnklMjBzdG9yYWdlfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "22:10",
     publishDate: "14 February 2026",
-    category: "Energy Storage",
+    category: "Storage & Resilience",
     views: "6.8K",
     videoUrl: "#",
+    topics: ["storage-resilience"]
   },
   {
     id: "4",
@@ -51,9 +58,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1771904866994-231c8ef22bc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJpY2FsJTIwc3Vic3RhdGlvbiUyMHRyYW5zZm9ybWVyfGVufDF8fHx8MTc3MjQ1MzIxNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "15:28",
     publishDate: "7 February 2026",
-    category: "Technical Guides",
+    category: "Commissioning & Reliability",
     views: "5.3K",
     videoUrl: "#",
+    topics: ["commissioning-reliability"]
   },
   {
     id: "5",
@@ -65,17 +73,22 @@ export const videos: Video[] = [
     category: "Grid & Connections",
     views: "9.1K",
     videoUrl: "#",
+    topics: ["grid-connections"]
   },
   {
     id: "6",
-    title: "Wind farm grid integration: Managing reactive power requirements",
-    description: "Technical deep dive into reactive power management at a 50MW wind farm, including SVG operation, grid code compliance, and control system configuration.",
-    thumbnail: "https://images.unsplash.com/photo-1630450364945-0c1ec2c449cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aW5kJTIwdHVyYmluZSUyMHJlbmV3YWJsZSUyMGVuZXJneXxlbnwxfHx8fDE3NzI0NjU3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    duration: "19:36",
-    publishDate: "24 January 2026",
-    category: "Renewable Energy",
-    views: "4.7K",
+    title: "Sponsored: Advanced load management solutions for depot electrification",
+    description: "TechGrid Solutions demonstrates their cloud-based load management platform designed specifically for large-scale depot electrification projects. Learn how intelligent charging algorithms can reduce peak demand by up to 40% while maintaining operational requirements.",
+    thumbnail: "https://images.unsplash.com/photo-1676539432110-78f836970ac4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxFViUyMGNoYXJnaW5nJTIwc3RhdGlvbiUyMGVsZWN0cmljfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    duration: "8:42",
+    publishDate: "28 January 2026",
+    category: "EV Charging Infrastructure",
+    views: "4.2K",
     videoUrl: "#",
+    isSponsored: true,
+    sponsor: "TechGrid Solutions",
+    sponsorLogo: "https://images.unsplash.com/photo-1676539432110-78f836970ac4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxFViUyMGNoYXJnaW5nJTIwc3RhdGlvbiUyMGVsZWN0cmljfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    topics: ["ev-charging"]
   },
   {
     id: "7",
@@ -84,9 +97,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1676539432110-78f836970ac4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxFViUyMGNoYXJnaW5nJTIwc3RhdGlvbiUyMGVsZWN0cmljfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "16:23",
     publishDate: "17 January 2026",
-    category: "EV Charging",
+    category: "EV Charging Infrastructure",
     views: "11.2K",
     videoUrl: "#",
+    topics: ["ev-charging"]
   },
   {
     id: "8",
@@ -95,9 +109,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1759830337357-29c472b6746c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwZWxlY3RyaWNhbCUyMGVxdWlwbWVudHxlbnwxfHx8fDE3NzI1NTAyMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "13:47",
     publishDate: "10 January 2026",
-    category: "Technical Guides",
+    category: "Commissioning & Reliability",
     views: "7.4K",
     videoUrl: "#",
+    topics: ["commissioning-reliability", "ev-charging"]
   },
   {
     id: "9",
@@ -106,9 +121,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1768783034942-9e61bb966eca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJpY2FsJTIwaW5mcmFzdHJ1Y3R1cmUlMjBwb3dlciUyMGdyaWR8ZW58MXx8fHwxNzcyNTUwMjA1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "20:15",
     publishDate: "3 January 2026",
-    category: "Commissioning",
+    category: "Commissioning & Reliability",
     views: "6.1K",
     videoUrl: "#",
+    topics: ["commissioning-reliability"]
   },
   {
     id: "10",
@@ -117,9 +133,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1676539432110-78f836970ac4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxFViUyMGNoYXJnaW5nJTIwc3RhdGlvbiUyMGVsZWN0cmljfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "17:08",
     publishDate: "27 December 2025",
-    category: "EV Charging",
+    category: "EV Charging Infrastructure",
     views: "8.9K",
     videoUrl: "#",
+    topics: ["ev-charging"]
   },
   {
     id: "11",
@@ -128,9 +145,10 @@ export const videos: Video[] = [
     thumbnail: "https://images.unsplash.com/photo-1766507679659-30076abc8c95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2xhciUyMGVuZXJneSUyMGJhdHRlcnklMjBzdG9yYWdlfGVufDF8fHx8MTc3MjU1MDIwNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     duration: "21:42",
     publishDate: "20 December 2025",
-    category: "Energy Storage",
+    category: "Storage & Resilience",
     views: "10.3K",
     videoUrl: "#",
+    topics: ["storage-resilience"]
   },
   {
     id: "12",
@@ -142,5 +160,6 @@ export const videos: Video[] = [
     category: "Grid & Connections",
     views: "5.8K",
     videoUrl: "#",
+    topics: ["grid-connections"]
   },
 ];
