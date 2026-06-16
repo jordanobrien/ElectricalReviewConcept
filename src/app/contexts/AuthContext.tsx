@@ -27,8 +27,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = async (email: string, password: string) => {
-    // Mock login - in real app this would call an API
+  const login = async (email: string, _password: string) => {
     await new Promise(resolve => setTimeout(resolve, 500));
     setUser({
       email,

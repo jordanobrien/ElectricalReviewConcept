@@ -1,39 +1,8 @@
 import { Link } from "react-router";
 import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
-import { Calendar, Mail, MapPin, ChevronRight, TrendingUp, Target, Users, BarChart3, Eye, Download, CheckCircle } from "lucide-react";
-import { articles } from "../data/articles";
-import { pressReleases } from "../data/pressReleases";
-import { events } from "../data/events";
-import { useState } from "react";
-
+import { Calendar, Mail, BarChart3, Eye, Download, CheckCircle } from "lucide-react";
 export function AdvertisePage() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // Get sidebar data
-  const trendingArticles = articles.slice(0, 4);
-  const latestPressReleases = pressReleases.slice(0, 3);
-  const upcomingEvents = events.slice(0, 3);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Simulate download
-    console.log("Media pack download request:", { email, name, company });
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setEmail("");
-      setName("");
-      setCompany("");
-    }, 3000);
-  };
-
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -84,61 +53,7 @@ export function AdvertisePage() {
                 Our audience
               </h2>
 
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                {/* Image */}
-                <div className="h-[320px] overflow-hidden border border-gray-200">
-                  <img 
-                    src="https://images.unsplash.com/photo-1758518732175-5d608ba3abdf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMG1lZXRpbmclMjBwcm9mZXNzaW9uYWx8ZW58MXx8fHwxNzcyNTE5ODQzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                    alt="Business professionals"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
 
-                {/* Stats */}
-                <div className="space-y-4">
-                  <div className="bg-white border border-gray-200 p-5">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded">
-                        <Users size={20} className="text-[var(--electric-blue)]" />
-                      </div>
-                      <div className="text-[28px] text-[var(--navy-deep)]" style={{ fontWeight: '700' }}>
-                        45,000+
-                      </div>
-                    </div>
-                    <p className="text-[14px] text-[var(--slate-dark)]">
-                      Monthly unique visitors
-                    </p>
-                  </div>
-
-                  <div className="bg-white border border-gray-200 p-5">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded">
-                        <Eye size={20} className="text-[var(--electric-blue)]" />
-                      </div>
-                      <div className="text-[28px] text-[var(--navy-deep)]" style={{ fontWeight: '700' }}>
-                        4.2 mins
-                      </div>
-                    </div>
-                    <p className="text-[14px] text-[var(--slate-dark)]">
-                      Average time on site
-                    </p>
-                  </div>
-
-                  <div className="bg-white border border-gray-200 p-5">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded">
-                        <Target size={20} className="text-[var(--electric-blue)]" />
-                      </div>
-                      <div className="text-[28px] text-[var(--navy-deep)]" style={{ fontWeight: '700' }}>
-                        87%
-                      </div>
-                    </div>
-                    <p className="text-[14px] text-[var(--slate-dark)]">
-                      Senior decision-makers
-                    </p>
-                  </div>
-                </div>
-              </div>
 
               <div className="bg-gray-50 p-6">
                 <h3 className="text-[20px] text-[var(--navy-deep)] mb-4" style={{ fontWeight: '600' }}>
@@ -148,11 +63,11 @@ export function AdvertisePage() {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
                       <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Estates & infrastructure directors
+                      Estates &amp; infrastructure directors
                     </li>
                     <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
                       <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Fleet & depot operators
+                      Fleet &amp; depot operators
                     </li>
                     <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
                       <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
@@ -170,7 +85,7 @@ export function AdvertisePage() {
                     </li>
                     <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
                       <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Operations & maintenance teams
+                      Operations &amp; maintenance teams
                     </li>
                   </ul>
                 </div>
@@ -193,21 +108,22 @@ export function AdvertisePage() {
                     Display advertising
                   </h3>
                   <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                    Premium positions across homepage, article pages, and topic hubs. MPU, leaderboard and skyscraper formats available.
+                    Premium positions across homepage, article pages, and topic hubs. MPU, leaderboard and billboard formats available.
                   </p>
                 </div>
 
-                {/* Sponsored Content */}
+                {/* Press Release Hub */}
                 <div className="bg-white border border-gray-200 p-6 hover:shadow-lg transition-shadow">
                   <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
                     <BarChart3 size={24} className="text-[var(--electric-blue)]" />
                   </div>
                   <h3 className="text-[18px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Sponsored content
+                    Press Release Hub
                   </h3>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                    Thought leadership articles positioned alongside editorial content, clearly labelled and editorially reviewed.
-                  </p>
+                  <div className="flex items-center gap-2 text-[13px] text-amber-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
+                    Coming soon
+                  </div>
                 </div>
 
                 {/* Newsletter Sponsorship */}
@@ -221,6 +137,23 @@ export function AdvertisePage() {
                   <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
                     Feature your message in our weekly newsletter, delivered to engaged subscribers every Tuesday morning.
                   </p>
+                </div>
+              </div>
+
+              {/* Event Sponsorship */}
+              <div className="bg-white border border-gray-200 p-6 hover:shadow-md transition-shadow mt-6">
+                <div className="flex items-start gap-5">
+                  <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded flex-shrink-0">
+                    <Calendar size={24} className="text-[var(--electric-blue)]" />
+                  </div>
+                  <div>
+                    <h3 className="text-[18px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: '600' }}>
+                      Event sponsorship
+                    </h3>
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
+                      Align your brand with <strong>Powered On Live</strong> — our flagship industry event bringing together the professionals shaping electrification infrastructure delivery across the UK. Sponsorship packages include brand placement, delegate engagement, and speaking opportunities. Contact us to discuss availability.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -251,10 +184,10 @@ export function AdvertisePage() {
                     </div>
                     <div>
                       <div className="text-[15px] text-[var(--navy-deep)] mb-1" style={{ fontWeight: '600' }}>
-                        Skyscraper
+                        Billboard
                       </div>
                       <div className="text-[13px] text-[var(--slate-medium)]">
-                        160 × 600px
+                        970 × 250px
                       </div>
                     </div>
                   </div>
@@ -285,7 +218,7 @@ export function AdvertisePage() {
                   <li className="flex items-start gap-3 text-[16px] leading-[1.7]">
                     <CheckCircle size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-1" />
                     <div>
-                      <strong>Defined focus:</strong> We cover grid to plug — not generic renewable energy news. Your message reaches the right people.
+                      <strong>Defined focus:</strong> We cover grid to plug. Your message reaches exactly the right people.
                     </div>
                   </li>
                   <li className="flex items-start gap-3 text-[16px] leading-[1.7]">
@@ -298,106 +231,39 @@ export function AdvertisePage() {
               </div>
             </section>
 
-            {/* Download Media Pack */}
-            <section>
+            {/* 2026 Media Pack */}
+            <section className="mb-10 pb-10 border-b border-gray-200">
               <h2 className="text-[32px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                Download our media pack
+                Our media pack
               </h2>
 
-              <div className="bg-gradient-to-br from-[var(--electric-blue)] to-blue-600 p-8 text-white">
-                {!isSubmitted ? (
-                  <>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-16 h-16 bg-white/20 flex items-center justify-center rounded">
-                        <Download size={32} className="text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-[24px] mb-1" style={{ fontWeight: '600' }}>
-                          2026 Media Pack
-                        </h3>
-                        <p className="text-[14px] text-white/90">
-                          Full advertising rates, specifications and audience data
-                        </p>
-                      </div>
+              <div className="bg-gray-50 border border-gray-200 overflow-hidden">
+                <div className="bg-[var(--navy-deep)] px-8 py-6 flex items-center gap-5">
+                  <div className="w-14 h-14 bg-white/10 border border-white/20 flex items-center justify-center rounded flex-shrink-0">
+                    <Download size={28} className="text-white" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <h3 className="text-[22px] text-white" style={{ fontWeight: '600' }}>
+                        Refreshed 2026 Media Pack
+                      </h3>
+                      <span className="bg-[var(--electric-blue)] text-white text-[11px] px-2.5 py-0.5 rounded-full uppercase tracking-wide" style={{ fontWeight: '700' }}>
+                        Coming soon
+                      </span>
                     </div>
-
-                    <p className="text-[15px] leading-[1.6] text-white/90 mb-6">
-                      Get detailed information about our advertising opportunities, pricing, and technical specifications. Complete the form below to receive instant access.
-                    </p>
-
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <label className="block text-[13px] mb-2 text-white/90" style={{ fontWeight: '600' }}>
-                          Full name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Enter your full name"
-                          className="w-full px-4 py-2.5 text-[14px] text-[var(--navy-deep)] bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[13px] mb-2 text-white/90" style={{ fontWeight: '600' }}>
-                          Email address *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email address"
-                          className="w-full px-4 py-2.5 text-[14px] text-[var(--navy-deep)] bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[13px] mb-2 text-white/90" style={{ fontWeight: '600' }}>
-                          Company name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={company}
-                          onChange={(e) => setCompany(e.target.value)}
-                          placeholder="Enter your company name"
-                          className="w-full px-4 py-2.5 text-[14px] text-[var(--navy-deep)] bg-white border-0 focus:outline-none focus:ring-2 focus:ring-white/50 rounded"
-                        />
-                      </div>
-
-                      <button
-                        type="submit"
-                        className="w-full bg-[var(--navy-deep)] hover:bg-[#0a1929] text-white py-3 text-[15px] transition-colors rounded flex items-center justify-center gap-2"
-                        style={{ fontWeight: '600' }}
-                      >
-                        <Download size={18} />
-                        Download Media Pack
-                      </button>
-
-                      <p className="text-[12px] text-white/80 mt-3">
-                        By downloading, you agree to receive occasional updates about advertising opportunities. Unsubscribe anytime.
-                      </p>
-                    </form>
-                  </>
-                ) : (
-                  <div className="text-center py-12">
-                    <div className="w-20 h-20 bg-white/20 flex items-center justify-center rounded-full mx-auto mb-4">
-                      <CheckCircle size={40} className="text-white" />
-                    </div>
-                    <h3 className="text-[28px] mb-3" style={{ fontWeight: '600' }}>
-                      Thank you!
-                    </h3>
-                    <p className="text-[16px] text-white/90 mb-4">
-                      Your media pack is downloading now.
-                    </p>
                     <p className="text-[14px] text-white/80">
-                      We'll be in touch shortly to discuss how we can help you reach our audience.
+                      Full advertising rates, specifications and audience data
                     </p>
                   </div>
-                )}
+                </div>
+                <div className="px-8 py-6">
+                  <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7] mb-4">
+                    Our refreshed 2026 Media Pack is in preparation and will include updated rates, format specifications, audience insights, and event partnership details. In the meantime, contact us directly to discuss what we can offer.
+                  </p>
+                  <p className="text-[14px] text-[var(--slate-medium)]">
+                    We will notify registered contacts as soon as the pack is available.
+                  </p>
+                </div>
               </div>
 
               {/* Contact Info */}
@@ -410,8 +276,8 @@ export function AdvertisePage() {
                 </p>
                 <div className="flex items-center gap-2 text-[15px] text-[var(--slate-dark)]">
                   <Mail size={16} className="text-[var(--electric-blue)]" />
-                  <a href="mailto:advertising@electricalreview.co.uk" className="text-[var(--electric-blue)] hover:underline">
-                    advertising@electricalreview.co.uk
+                  <a href="mailto:massimom@sjpbusinessmedia.com" className="text-[var(--electric-blue)] hover:underline">
+                    massimom@sjpbusinessmedia.com
                   </a>
                 </div>
               </div>

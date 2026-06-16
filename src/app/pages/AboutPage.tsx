@@ -62,80 +62,70 @@ export function AboutPage() {
                 Electrification is rarely a technology problem in isolation. It is a sequence of decisions, trade-offs, and operational risks. Electrical Review focuses on four connected areas:
               </p>
 
-              {/* Grid & Connections with image */}
-              <div className="mb-8 bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="grid grid-cols-5">
-                  <div className="col-span-2 h-[240px] overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1720645042951-014193bb5c61?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJpY2FsJTIwZ3JpZCUyMGluZnJhc3RydWN0dXJlfGVufDF8fHx8MTc3MjU0OTIwMnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                      alt="Grid infrastructure"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="col-span-3 p-6">
-                    <h3 className="text-[22px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                      Grid & connections
+              {/* Four topics — equal weight, alphabetical order */}
+              <div className="grid grid-cols-2 gap-6">
+                {/* Commissioning & Reliability — bright blue */}
+                <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="h-1 bg-[#1E90FF]" />
+                  <div className="p-6">
+                    <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
+                      Commissioning &amp; reliability
                     </h3>
-                    <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7] mb-3">
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7] mb-3">
+                      Where success is proven — or quietly undermined.
+                    </p>
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
+                      We focus on handover, testing, documentation, evidence, diagnostics and operational ownership. Installation is not the finish line — reliability is.
+                    </p>
+                  </div>
+                </div>
+
+                {/* EV Charging Infrastructure — green */}
+                <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="h-1 bg-[#16A34A]" />
+                  <div className="p-6">
+                    <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
+                      EV charging infrastructure
+                    </h3>
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7] mb-3">
+                      Where electrification becomes visible — and fragile.
+                    </p>
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
+                      From depot design and load management to commissioning and uptime, we examine what makes charging infrastructure dependable at scale.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Grid & Connections — deep navy */}
+                <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="h-1 bg-[var(--navy-deep)]" />
+                  <div className="p-6">
+                    <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
+                      Grid &amp; connections
+                    </h3>
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7] mb-3">
                       How capacity is secured, what constraints really mean for projects, and how early assumptions shape long-term outcomes.
                     </p>
-                    <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7]">
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
                       We cover connection processes, power quality, phasing strategies, flexibility in practice, and the implications of network reform — not as policy theatre, but as delivery reality.
                     </p>
                   </div>
                 </div>
-              </div>
 
-              {/* EV Charging with image */}
-              <div className="mb-8 bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="grid grid-cols-5">
-                  <div className="col-span-3 p-6">
-                    <h3 className="text-[22px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                      EV charging infrastructure
+                {/* Storage & Resilience — teal */}
+                <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="h-1 bg-[#0D9488]" />
+                  <div className="p-6">
+                    <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
+                      Storage &amp; resilience
                     </h3>
-                    <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7] mb-3">
-                      Where electrification becomes visible — and fragile.
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7] mb-3">
+                      The bridge between grid limits and operational reliability.
                     </p>
-                    <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7]">
-                      From depot design and load management to commissioning and uptime, we examine what makes charging infrastructure dependable at scale.
+                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
+                      We explore behind-the-meter storage, resilience architectures, integration challenges, and performance expectations — separating technical potential from project reality.
                     </p>
                   </div>
-                  <div className="col-span-2 h-[240px] overflow-hidden">
-                    <img 
-                      src="https://images.unsplash.com/photo-1672542128826-5f0d578713d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJpYyUyMHZlaGljbGUlMjBjaGFyZ2luZyUyMHN0YXRpb258ZW58MXx8fHwxNzcyNDk5MDczfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                      alt="EV charging"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Two columns for remaining topics */}
-              <div className="grid grid-cols-2 gap-6">
-                {/* Storage & Resilience */}
-                <div className="bg-gray-50 border-l-4 border-[var(--electric-blue)] p-6">
-                  <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Storage & resilience
-                  </h3>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7] mb-3">
-                    The bridge between grid limits and operational reliability.
-                  </p>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                    We explore behind-the-meter storage, resilience architectures, integration challenges, and performance expectations — separating technical potential from project reality.
-                  </p>
-                </div>
-
-                {/* Commissioning & Reliability */}
-                <div className="bg-gray-50 border-l-4 border-[var(--electric-blue)] p-6">
-                  <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Commissioning & reliability
-                  </h3>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7] mb-3">
-                    Where success is proven — or quietly undermined.
-                  </p>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                    We focus on handover, testing, documentation, evidence, diagnostics and operational ownership. Installation is not the finish line — reliability is.
-                  </p>
                 </div>
               </div>
             </section>
@@ -190,7 +180,7 @@ export function AboutPage() {
                     <Users size={24} className="text-[var(--electric-blue)]" />
                   </div>
                   <h3 className="text-[18px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Opinion & Clinics
+                    Opinion &amp; Clinics
                   </h3>
                   <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
                     Expert perspectives and practitioner-led case discussions that surface real-world lessons, not marketing narratives.
