@@ -1,7 +1,9 @@
-import { Link } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
-import { Check, Building2, Mail, FileText, LogIn } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import { Check, Building2, Mail, FileText, LogIn, X } from "lucide-react";
 
 const plans = [
   { duration: "One off", description: "A single press release published to the hub." },
@@ -19,6 +21,29 @@ const features = [
 ];
 
 export function SubmitPressReleasePage() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+    try {
+      await login(email, password);
+      setShowLogin(false);
+      navigate("/press-release-dashboard");
+    } catch {
+      setError("Login failed. Please check your details.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -39,14 +64,14 @@ export function SubmitPressReleasePage() {
               <p className="text-white/70 text-[13px] mb-3 text-right">
                 Already a subscriber?
               </p>
-              <Link
-                to="/press-release-dashboard"
+              <button
+                onClick={() => setShowLogin(true)}
                 className="flex items-center gap-2 bg-white text-[var(--navy-deep)] hover:bg-gray-100 px-6 py-3 text-[15px] transition-colors"
                 style={{ fontWeight: "600" }}
               >
                 <LogIn size={18} />
                 Log in to dashboard
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -171,6 +196,71 @@ export function SubmitPressReleasePage() {
 
         </div>
       </div>
+
+      {/* Login modal */}
+      {showLogin && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-8">
+          <div className="bg-white max-w-md w-full p-8 shadow-2xl relative">
+            <button
+              onClick={() => setShowLogin(false)}
+              className="absolute top-4 right-4 text-[var(--slate-medium)] hover:text-[var(--navy-deep)]"
+            >
+              <X size={20} />
+            </button>
+            <h3 className="text-[22px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
+              Log in to your dashboard
+            </h3>
+            <p className="text-[14px] text-[var(--slate-medium)] mb-6">
+              Access your press release dashboard and manage your submissions.
+            </p>
+            <form onSubmit={handleLogin}>
+              <div className="mb-4">
+                <label className="block text-[13px] text-[var(--slate-dark)] mb-1.5" style={{ fontWeight: "600" }}>
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[var(--electric-blue)] text-[15px]"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-[13px] text-[var(--slate-dark)] mb-1.5" style={{ fontWeight: "600" }}>
+                  Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[var(--electric-blue)] text-[15px]"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+              {error && (
+                <p className="text-[13px] text-red-600 mb-4">{error}</p>
+              )}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-[var(--navy-deep)] hover:bg-[#1a2942] text-white py-3 text-[15px] disabled:opacity-50 transition-colors"
+                style={{ fontWeight: "600" }}
+              >
+                {isLoading ? "Logging in..." : "Log in"}
+              </button>
+            </form>
+            <p className="text-[13px] text-[var(--slate-medium)] text-center mt-6">
+              Not yet a subscriber?{" "}
+              <a href="mailto:massimom@sjpbusinessmedia.com" className="text-[var(--electric-blue)] hover:underline">
+                Get in touch
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
