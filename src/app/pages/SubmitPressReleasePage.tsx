@@ -1,318 +1,176 @@
-import { useState, useEffect } from "react";
+import { Link } from "react-router";
 import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
-import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate } from "react-router";
-import { Check, Building2, Mail, CreditCard, Zap } from "lucide-react";
+import { Check, Building2, Mail, FileText, LogIn } from "lucide-react";
+
+const plans = [
+  { duration: "One off", description: "A single press release published to the hub." },
+  { duration: "3 months", description: "Publish as many releases as you need over three months." },
+  { duration: "6 months", description: "Six months of unlimited press release access." },
+  { duration: "12 months", description: "A full year of coverage — our best-value option." },
+];
+
+const features = [
+  "Unlimited press releases (subscription plans)",
+  "Published to the Electrical Review Press Release Hub",
+  "Company profile listing",
+  "Included in our weekly newsletter",
+  "Clearly branded as sponsored content",
+];
 
 export function SubmitPressReleasePage() {
-  const { user, login, createDemoUser } = useAuth();
-  const navigate = useNavigate();
-  const [showLogin, setShowLogin] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const subscriptionPlans = [
-    {
-      duration: "3 Months",
-      price: "£299",
-      type: "3-months" as const,
-      pricePerMonth: "£99.67/month",
-      features: [
-        "Unlimited press releases",
-        "Company profile page",
-        "Priority listing",
-        "Email distribution",
-        "Analytics dashboard",
-      ],
-    },
-    {
-      duration: "6 Months",
-      price: "£499",
-      type: "6-months" as const,
-      pricePerMonth: "£83.17/month",
-      popular: true,
-      features: [
-        "Unlimited press releases",
-        "Company profile page",
-        "Priority listing",
-        "Email distribution",
-        "Analytics dashboard",
-        "Featured placement",
-      ],
-    },
-    {
-      duration: "12 Months",
-      price: "£799",
-      type: "12-months" as const,
-      pricePerMonth: "£66.58/month",
-      features: [
-        "Unlimited press releases",
-        "Company profile page",
-        "Priority listing",
-        "Email distribution",
-        "Analytics dashboard",
-        "Featured placement",
-        "Dedicated account manager",
-      ],
-    },
-  ];
-
-  const handleSubscribe = (type: '3-months' | '6-months' | '12-months') => {
-    navigate(`/payment?plan=${type}`);
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    await login(email, password);
-    setIsLoading(false);
-    setShowLogin(false);
-    navigate("/press-release-dashboard");
-  };
-
-  const handleDemoAccount = async () => {
-    setIsLoading(true);
-    // Create complete demo account in single update
-    await createDemoUser();
-    setIsLoading(false);
-    setShowLogin(false);
-    navigate("/press-release-dashboard");
-  };
-
-  // If user is logged in and has subscription, redirect to dashboard
-  useEffect(() => {
-    if (user?.hasSubscription) {
-      navigate("/press-release-dashboard");
-    }
-  }, [user, navigate]);
-
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <div className="bg-gradient-to-r from-[var(--navy-deep)] to-[#1e3a5f] py-16">
         <div className="max-w-[1440px] mx-auto px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-white text-[42px] leading-[1.1] mb-4" style={{ fontWeight: "700" }}>
-              Submit Your Press Release
-            </h1>
-            <p className="text-white/90 text-[18px] leading-[1.6]">
-              Reach over 45,000 electrification infrastructure professionals across the UK. Unlimited press releases with transparent pricing.
-            </p>
+          <div className="flex items-end justify-between gap-8">
+            <div className="max-w-2xl">
+              <h1 className="text-white text-[42px] leading-[1.1] mb-4" style={{ fontWeight: "700" }}>
+                Press Release Hub
+              </h1>
+              <p className="text-white/90 text-[18px] leading-[1.6]">
+                Publish your company news directly to Electrical Review's Press Release Hub — reaching a focused audience of electrification infrastructure professionals across the UK.
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              <p className="text-white/70 text-[13px] mb-3 text-right">
+                Already a subscriber?
+              </p>
+              <Link
+                to="/press-release-dashboard"
+                className="flex items-center gap-2 bg-white text-[var(--navy-deep)] hover:bg-gray-100 px-6 py-3 text-[15px] transition-colors"
+                style={{ fontWeight: "600" }}
+              >
+                <LogIn size={18} />
+                Log in to dashboard
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="py-16">
         <div className="max-w-[1440px] mx-auto px-8">
-          {/* Benefits Section */}
-          <div className="mb-16">
-            <h2 className="text-[32px] text-[var(--navy-deep)] mb-8 text-center" style={{ fontWeight: "600" }}>
-              Why Publish With Electrical Review?
+
+          {/* Why publish */}
+          <section className="mb-16">
+            <h2 className="text-[28px] text-[var(--navy-deep)] mb-8" style={{ fontWeight: "600" }}>
+              Why publish with us
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-3 gap-6">
               <div className="bg-white border border-gray-200 p-6">
-                <div className="w-12 h-12 bg-[var(--electric-blue)]/10 rounded flex items-center justify-center mb-4">
-                  <Building2 size={24} className="text-[var(--electric-blue)]" />
+                <div className="w-10 h-10 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
+                  <Building2 size={20} className="text-[var(--electric-blue)]" />
                 </div>
-                <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
-                  Targeted Audience
+                <h3 className="text-[17px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
+                  Specialist audience
                 </h3>
                 <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6]">
-                  Direct access to decision-makers in grid connections, EV charging, energy storage, and commissioning
+                  Direct access to professionals working in grid connections, EV charging, energy storage, and commissioning — not a general trade audience.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 p-6">
-                <div className="w-12 h-12 bg-[var(--electric-blue)]/10 rounded flex items-center justify-center mb-4">
-                  <Mail size={24} className="text-[var(--electric-blue)]" />
+                <div className="w-10 h-10 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
+                  <Mail size={20} className="text-[var(--electric-blue)]" />
                 </div>
-                <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
-                  Email Distribution
+                <h3 className="text-[17px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
+                  Newsletter distribution
                 </h3>
                 <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6]">
-                  Your press releases are included in our weekly newsletter to 45,000+ subscribers
+                  Press releases are included in our weekly newsletter, delivered to engaged subscribers every Tuesday morning.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 p-6">
-                <div className="w-12 h-12 bg-[var(--electric-blue)]/10 rounded flex items-center justify-center mb-4">
-                  <CreditCard size={24} className="text-[var(--electric-blue)]" />
+                <div className="w-10 h-10 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
+                  <FileText size={20} className="text-[var(--electric-blue)]" />
                 </div>
-                <h3 className="text-[20px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
-                  Unlimited Publishing
+                <h3 className="text-[17px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
+                  Editorially distinct
                 </h3>
                 <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6]">
-                  No per-release fees. Publish as many press releases as you need during your subscription
+                  Press releases are clearly presented as company-submitted content, maintaining the editorial integrity readers trust.
                 </p>
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* Login Link */}
-          <div className="text-center mb-12">
-            <p className="text-[14px] text-[var(--slate-medium)] mb-2">
-              Already have an account?
-            </p>
-            <button
-              onClick={() => setShowLogin(true)}
-              className="text-[var(--electric-blue)] hover:underline text-[15px]"
-              style={{ fontWeight: "600" }}
-            >
-              Login to Continue
-            </button>
-          </div>
+          {/* What's included */}
+          <section className="mb-16">
+            <div className="bg-gray-50 border border-gray-200 p-8">
+              <h2 className="text-[22px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: "600" }}>
+                What's included with every package
+              </h2>
+              <ul className="grid grid-cols-2 gap-x-12 gap-y-3">
+                {features.map((f) => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check size={17} className="text-[var(--electric-blue)] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <span className="text-[14px] text-[var(--slate-dark)]">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
 
-          {/* Pricing Section */}
-          <div className="mb-12">
-            <h2 className="text-[32px] text-[var(--navy-deep)] mb-3 text-center" style={{ fontWeight: "600" }}>
-              Choose Your Plan
+          {/* Plans */}
+          <section className="mb-16">
+            <h2 className="text-[28px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
+              Choose a package
             </h2>
-            <p className="text-[16px] text-[var(--slate-medium)] text-center mb-12">
-              {user ? "Select a subscription to continue" : "Login or create an account to get started"}
+            <p className="text-[15px] text-[var(--slate-medium)] mb-8">
+              All pricing is POA. Contact us to discuss which option suits your needs.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {subscriptionPlans.map((plan) => (
-                <div
-                  key={plan.type}
-                  className={`bg-white border-2 p-8 relative ${
-                    plan.popular
-                      ? "border-[var(--electric-blue)] shadow-lg scale-105"
-                      : "border-gray-200"
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                      <div className="bg-[var(--electric-blue)] text-white px-6 py-1 text-[12px] uppercase tracking-wider" style={{ fontWeight: "700" }}>
-                        Most Popular
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="text-center mb-6">
-                    <h3 className="text-[24px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "700" }}>
-                      {plan.duration}
-                    </h3>
-                    <div className="text-[42px] text-[var(--navy-deep)] mb-1" style={{ fontWeight: "700" }}>
-                      {plan.price}
-                    </div>
-                    <div className="text-[14px] text-[var(--slate-medium)]">
-                      {plan.pricePerMonth}
-                    </div>
+            <div className="grid grid-cols-4 gap-5">
+              {plans.map((plan) => (
+                <div key={plan.duration} className="bg-white border border-gray-200 p-6 flex flex-col">
+                  <div className="h-1 w-8 bg-[var(--electric-blue)] mb-5" />
+                  <h3 className="text-[20px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "700" }}>
+                    {plan.duration}
+                  </h3>
+                  <p className="text-[13px] text-[var(--slate-medium)] leading-[1.6] mb-6 flex-1">
+                    {plan.description}
+                  </p>
+                  <div className="text-[15px] text-[var(--slate-medium)] mb-5" style={{ fontWeight: "500" }}>
+                    Price on application
                   </div>
-
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <Check size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-0.5" strokeWidth={3} />
-                        <span className="text-[14px] text-[var(--slate-dark)]">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button
-                    onClick={() => handleSubscribe(plan.type)}
-                    className={`w-full py-3 text-[15px] transition-colors ${
-                      plan.popular
-                        ? "bg-[var(--electric-blue)] hover:bg-blue-500 text-white"
-                        : "bg-gray-100 hover:bg-gray-200 text-[var(--navy-deep)]"
-                    }`}
+                  <a
+                    href="mailto:massimom@sjpbusinessmedia.com"
+                    className="block text-center bg-[var(--navy-deep)] hover:bg-[#1a2942] text-white py-2.5 text-[14px] transition-colors"
                     style={{ fontWeight: "600" }}
                   >
-                    Get Started
-                  </button>
+                    Contact us
+                  </a>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
+
+          {/* Contact strip */}
+          <section>
+            <div className="bg-[var(--navy-deep)] p-8 flex items-center justify-between">
+              <div>
+                <h3 className="text-white text-[20px] mb-1" style={{ fontWeight: "600" }}>
+                  Ready to get started?
+                </h3>
+                <p className="text-white/80 text-[14px]">
+                  Get in touch and we'll put together the right package for you.
+                </p>
+              </div>
+              <a
+                href="mailto:massimom@sjpbusinessmedia.com"
+                className="bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-8 py-3 text-[15px] transition-colors flex-shrink-0"
+                style={{ fontWeight: "600" }}
+              >
+                Contact us
+              </a>
+            </div>
+          </section>
 
         </div>
       </div>
-
-      {/* Login Modal */}
-      {showLogin && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-8">
-          <div className="bg-white max-w-md w-full p-8 shadow-2xl">
-            <h3 className="text-[24px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: "600" }}>
-              Login to Your Account
-            </h3>
-            <form onSubmit={handleLogin}>
-              <div className="mb-4">
-                <label className="block text-[14px] text-[var(--slate-dark)] mb-2" style={{ fontWeight: "600" }}>
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[var(--electric-blue)] text-[15px]"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-              <div className="mb-6">
-                <label className="block text-[14px] text-[var(--slate-dark)] mb-2" style={{ fontWeight: "600" }}>
-                  Password
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[var(--electric-blue)] text-[15px]"
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full bg-[var(--electric-blue)] hover:bg-blue-500 text-white py-3 text-[15px] mb-3 disabled:opacity-50"
-                style={{ fontWeight: "600" }}
-              >
-                {isLoading ? "Logging in..." : "Login"}
-              </button>
-            </form>
-
-            {/* Demo Account Button */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-[var(--slate-medium)] text-[13px]">
-                  Or try a demo
-                </span>
-              </div>
-            </div>
-
-            <button
-              onClick={handleDemoAccount}
-              disabled={isLoading}
-              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white py-3 text-[15px] mb-4 disabled:opacity-50 flex items-center justify-center gap-2"
-              style={{ fontWeight: "600" }}
-            >
-              <Zap size={18} />
-              {isLoading ? "Setting up..." : "Skip Login (Demo Account)"}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowLogin(false)}
-              className="w-full bg-gray-100 hover:bg-gray-200 text-[var(--navy-deep)] py-3 text-[15px]"
-              style={{ fontWeight: "600" }}
-            >
-              Cancel
-            </button>
-
-            <p className="text-[13px] text-[var(--slate-medium)] text-center mt-6">
-              Don't have an account? Select a plan above to create one.
-            </p>
-          </div>
-        </div>
-      )}
 
       <Footer />
     </div>
