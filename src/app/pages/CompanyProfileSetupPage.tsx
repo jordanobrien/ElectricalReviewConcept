@@ -16,12 +16,18 @@ export function CompanyProfileSetupPage() {
   useEffect(() => {
     if (!user?.hasSubscription) {
       navigate("/submit-press-release");
+    } else if (user.companyProfile) {
+      setCompanyName(user.companyProfile.companyName || "");
+      setWebsite(user.companyProfile.website || "");
+      setDescription(user.companyProfile.description || "");
+      setLogo(user.companyProfile.logo || "");
     }
   }, [user, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updateCompanyProfile({
+      ...user?.companyProfile,
       companyName,
       website,
       description,

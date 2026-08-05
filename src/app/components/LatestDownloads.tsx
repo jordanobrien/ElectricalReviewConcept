@@ -1,6 +1,7 @@
 import { FileText, Download, ChevronRight } from "lucide-react";
 import { Link } from "react-router";
 import { downloads } from "../data/downloads";
+import { getPrimaryTopicTitle } from "../utils/topicColors";
 
 export function LatestDownloads() {
   // Get first 4 downloads
@@ -23,7 +24,7 @@ export function LatestDownloads() {
               {/* Content */}
               <div className="flex-1">
                 <div className="text-[11px] text-[var(--electric-blue)] mb-1 uppercase tracking-wide">
-                  {download.category}
+                  {getPrimaryTopicTitle(download.topics, download.category)}
                 </div>
                 <Link
                   to={`/download/${download.id}`}

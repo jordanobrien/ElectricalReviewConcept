@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router";
 import { getDownloadById } from "../data/downloads";
 import { FileText, Download, Calendar, User, FileCheck } from "lucide-react";
 import { useState } from "react";
+import { getPrimaryTopicTitle } from "../utils/topicColors";
 
 export function DownloadPage() {
   const { id } = useParams<{ id: string }>();
@@ -38,13 +39,13 @@ export function DownloadPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // In a real application, this would send data to your backend
     console.log("Form submitted:", formData);
-    
+
     // Show success state
     setIsSubmitted(true);
-    
+
     // Simulate file download
     setTimeout(() => {
       window.open(download.fileUrl, '_blank');
@@ -71,7 +72,7 @@ export function DownloadPage() {
             <span>/</span>
             <Link to="/downloads" className="hover:text-[var(--electric-blue)]">Downloads</Link>
             <span>/</span>
-            <span className="text-[var(--navy-deep)]">{download.category}</span>
+            <span className="text-[var(--navy-deep)]">{getPrimaryTopicTitle(download.topics, download.category)}</span>
           </div>
         </div>
       </div>
@@ -82,18 +83,10 @@ export function DownloadPage() {
           <div className="grid grid-cols-12 gap-12">
             {/* Left Column - Content */}
             <div className="col-span-8">
-              {/* Back Link */}
-              <Link
-                to="/"
-                className="inline-flex items-center gap-2 text-[13px] text-[var(--slate-medium)] hover:text-[var(--electric-blue)] transition-colors mb-6"
-              >
-                ← Downloads
-              </Link>
-
               {/* Category Badge */}
               <div className="mb-4">
                 <span className="inline-block px-3 py-1 bg-[var(--electric-blue)]/10 text-[var(--electric-blue)] text-[11px] uppercase tracking-wider rounded" style={{ fontWeight: '600' }}>
-                  {download.category}
+                  {getPrimaryTopicTitle(download.topics, download.category)}
                 </span>
               </div>
 
@@ -287,7 +280,7 @@ export function DownloadPage() {
                             className="mt-1 w-4 h-4 border-gray-300 text-[var(--electric-blue)] focus:ring-[var(--electric-blue)]"
                           />
                           <span className="text-[13px] text-[var(--slate-dark)] leading-[1.6]">
-                            I agree to receive communications from Electrical Review about relevant content and industry updates. You can unsubscribe at any time. *
+                            I agree to receive communications from Data Centre Review about relevant content and industry updates. You can unsubscribe at any time. *
                           </span>
                         </label>
                       </div>

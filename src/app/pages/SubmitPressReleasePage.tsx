@@ -6,22 +6,23 @@ import { useAuth } from "../contexts/AuthContext";
 import { Check, Building2, Mail, FileText, LogIn, X } from "lucide-react";
 
 const plans = [
-  { duration: "One off", description: "A single press release published to the hub." },
-  { duration: "3 months", description: "Publish as many releases as you need over three months." },
-  { duration: "6 months", description: "Six months of unlimited press release access." },
-  { duration: "12 months", description: "A full year of coverage — our best-value option." },
+  { credits: "1 credit", description: "For a single company announcement." },
+  { credits: "3 credits", description: "A flexible package for occasional announcements." },
+  { credits: "6 credits", description: "For organisations with a regular news pipeline." },
+  { credits: "9 credits", description: "For sustained partner communications throughout the year." },
+  { credits: "Custom", description: "Choose the number of credits that fits your programme." },
 ];
 
 const features = [
-  "Unlimited press releases (subscription plans)",
-  "Published to the Electrical Review Press Release Hub",
+  "One credit covers one press release",
+  "Every credit is valid for 12 months",
+  "Published to the Data Centre Review Press Release Hub",
   "Company profile listing",
-  "Included in our weekly newsletter",
   "Clearly branded as sponsored content",
 ];
 
 export function SubmitPressReleasePage() {
-  const { login } = useAuth();
+  const { login, createDemoUser } = useAuth();
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(false);
   const [email, setEmail] = useState("");
@@ -49,20 +50,21 @@ export function SubmitPressReleasePage() {
       <Navigation />
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[var(--navy-deep)] to-[#1e3a5f] py-16">
-        <div className="max-w-[1440px] mx-auto px-8">
-          <div className="flex items-end justify-between gap-8">
+      <div className="mx-auto max-w-[1440px] px-4 py-4 md:px-8 md:py-6">
+        <div className="relative overflow-hidden bg-[var(--navy-deep)] text-white">
+          <div className="flex flex-col justify-between gap-8 p-7 md:p-10 lg:flex-row lg:items-end lg:p-12">
             <div className="max-w-2xl">
-              <h1 className="text-white text-[42px] leading-[1.1] mb-4" style={{ fontWeight: "700" }}>
-                Press Release Hub
+              <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.18em] text-white/55">Partner publishing</span>
+              <h1 className="text-[48px] leading-[0.96] text-white md:text-[72px]" style={{ fontWeight: 750 }}>
+                Post a Press Release
               </h1>
-              <p className="text-white/90 text-[18px] leading-[1.6]">
-                Publish your company news directly to Electrical Review's Press Release Hub — reaching a focused audience of electrification infrastructure professionals across the UK.
+              <p className="mt-5 max-w-[760px] text-[16px] leading-[1.7] text-white/75">
+                Publish company news to Data Centre Review and reach a specialist audience across the data centre, energy and critical-infrastructure sector.
               </p>
             </div>
             <div className="flex-shrink-0">
               <p className="text-white/70 text-[13px] mb-3 text-right">
-                Already a subscriber?
+                Already have credits?
               </p>
               <button
                 onClick={() => setShowLogin(true)}
@@ -73,7 +75,7 @@ export function SubmitPressReleasePage() {
                 Log in to dashboard
               </button>
             </div>
-          </div>
+          </div><div className="absolute left-0 top-0 h-2 w-full bg-[#5a6eb4]" />
         </div>
       </div>
 
@@ -94,7 +96,7 @@ export function SubmitPressReleasePage() {
                   Specialist audience
                 </h3>
                 <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6]">
-                  Direct access to professionals working in grid connections, EV charging, energy storage, and commissioning — not a general trade audience.
+                  Direct access to data centre, energy, facilities and building-services professionals.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 p-6">
@@ -105,7 +107,7 @@ export function SubmitPressReleasePage() {
                   Newsletter distribution
                 </h3>
                 <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6]">
-                  Press releases are included in our weekly newsletter, delivered to engaged subscribers every Tuesday morning.
+                  Eligible announcements can be surfaced across DCR's newsletter and partner-content channels.
                 </p>
               </div>
               <div className="bg-white border border-gray-200 p-6">
@@ -141,19 +143,19 @@ export function SubmitPressReleasePage() {
 
           {/* Plans */}
           <section className="mb-16">
-            <h2 className="text-[28px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
-              Choose a package
+              <h2 className="text-[28px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
+              Choose a credit package
             </h2>
             <p className="text-[15px] text-[var(--slate-medium)] mb-8">
-              All pricing is POA. Contact us to discuss which option suits your needs.
+              Price is on application. All credits remain valid for 12 months from purchase.
             </p>
 
-            <div className="grid grid-cols-4 gap-5">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
               {plans.map((plan) => (
-                <div key={plan.duration} className="bg-white border border-gray-200 p-6 flex flex-col">
+                <div key={plan.credits} className="bg-white border border-gray-200 p-6 flex flex-col">
                   <div className="h-1 w-8 bg-[var(--electric-blue)] mb-5" />
                   <h3 className="text-[20px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "700" }}>
-                    {plan.duration}
+                    {plan.credits}
                   </h3>
                   <p className="text-[13px] text-[var(--slate-medium)] leading-[1.6] mb-6 flex-1">
                     {plan.description}
@@ -166,7 +168,7 @@ export function SubmitPressReleasePage() {
                     className="block text-center bg-[var(--navy-deep)] hover:bg-[#1a2942] text-white py-2.5 text-[14px] transition-colors"
                     style={{ fontWeight: "600" }}
                   >
-                    Contact us
+                    Request pricing
                   </a>
                 </div>
               ))}
@@ -181,7 +183,7 @@ export function SubmitPressReleasePage() {
                   Ready to get started?
                 </h3>
                 <p className="text-white/80 text-[14px]">
-                  Get in touch and we'll put together the right package for you.
+                  Tell us how many announcements you expect to publish and we’ll recommend the right credit package.
                 </p>
               </div>
               <a
@@ -189,7 +191,7 @@ export function SubmitPressReleasePage() {
                 className="bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-8 py-3 text-[15px] transition-colors flex-shrink-0"
                 style={{ fontWeight: "600" }}
               >
-                Contact us
+                Request pricing
               </a>
             </div>
           </section>
@@ -214,6 +216,7 @@ export function SubmitPressReleasePage() {
               Access your press release dashboard and manage your submissions.
             </p>
             <form onSubmit={handleLogin}>
+              <div className="mb-5 border border-[#5a6eb4]/25 bg-[#f7f8fc] p-4 text-[12px] leading-[1.6] text-[var(--slate-dark)]"><strong className="block text-[var(--navy-deep)]">Demo client account</strong><span className="block">client@northstarthermal.example</span><span className="block">Password: DCRdemo2026</span><button type="button" onClick={async () => { setIsLoading(true); await createDemoUser(); navigate('/press-release-dashboard'); }} className="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">Open demo workspace →</button></div>
               <div className="mb-4">
                 <label className="block text-[13px] text-[var(--slate-dark)] mb-1.5" style={{ fontWeight: "600" }}>
                   Email address
@@ -253,7 +256,7 @@ export function SubmitPressReleasePage() {
               </button>
             </form>
             <p className="text-[13px] text-[var(--slate-medium)] text-center mt-6">
-              Not yet a subscriber?{" "}
+              Need to purchase credits?{" "}
               <a href="mailto:massimom@sjpbusinessmedia.com" className="text-[var(--electric-blue)] hover:underline">
                 Get in touch
               </a>

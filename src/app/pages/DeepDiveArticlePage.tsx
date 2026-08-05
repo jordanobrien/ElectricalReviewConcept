@@ -1,10 +1,12 @@
 import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
+import { EditorialSidebar } from "../components/EditorialSidebar";
 import { useParams, Link } from "react-router";
 import { getDeepDiveArticleById, deepDiveArticles } from "../data/deepDiveArticles";
 import { articles } from "../data/articles";
 import { pressReleases } from "../data/pressReleases";
 import { Mail, Share2, Linkedin, Twitter, TrendingUp, Calendar, MapPin, ChevronRight } from "lucide-react";
+import { getPrimaryTopicId, getPrimaryTopicTitle, getTopicColor } from "../utils/topicColors";
 
 export function DeepDiveArticlePage() {
   const { id } = useParams<{ id: string }>();
@@ -13,8 +15,8 @@ export function DeepDiveArticlePage() {
   // Get trending news articles
   const trendingArticles = articles.slice(0, 4);
 
-  // Get recommended deep dive articles (exclude current article)
-  const recommendedDeepDives = article 
+  // Get recommended analysis articles (exclude current article)
+  const recommendedDeepDives = article
     ? deepDiveArticles
         .filter(dd => dd.id !== id)
         .slice(0, 3)
@@ -61,16 +63,16 @@ export function DeepDiveArticlePage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-200">
         <div className="max-w-[1440px] mx-auto px-8 py-3">
           <div className="flex items-center gap-2 text-[13px] text-[var(--slate-medium)]">
             <Link to="/" className="hover:text-[var(--electric-blue)]">Home</Link>
             <span>/</span>
-            <Link to="/deep-dives" className="hover:text-[var(--electric-blue)]">Deep Dives</Link>
+            <Link to="/analysis" className="hover:text-[var(--electric-blue)]">Analysis</Link>
             <span>/</span>
-            <span className="text-[var(--navy-deep)]">{article.category}</span>
+            <span className="text-[var(--navy-deep)]">{getPrimaryTopicTitle(article.topics, article.category)}</span>
           </div>
         </div>
       </div>
@@ -78,24 +80,24 @@ export function DeepDiveArticlePage() {
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-[1440px] mx-auto px-8 pt-12 pb-8">
-          <div className="max-w-[900px]">
+          <div className="w-full">
             {/* Category */}
             <div className="flex items-center gap-3 mb-6">
-              <span className={`${article.categoryColor} text-white px-3 py-1.5 text-[11px] tracking-wide uppercase inline-block`}>
-                {article.category}
-              </span>
+              <Link to={`/topics/${getPrimaryTopicId(article.topics, article.category)}`} className="inline-block px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-white" style={{ backgroundColor: getTopicColor(getPrimaryTopicId(article.topics, article.category)).cssVar }}>
+                {getPrimaryTopicTitle(article.topics, article.category)}
+              </Link>
             </div>
-            
+
             {/* Headline */}
-            <h1 className="text-[42px] leading-[1.15] mb-6 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
+            <h1 className="mb-6 text-[42px] leading-[1.04] text-[var(--navy-deep)] md:text-[60px] lg:text-[68px]" style={{ fontWeight: '750' }}>
               {article.headline}
             </h1>
-            
+
             {/* Summary */}
             <p className="text-[20px] leading-[1.5] text-[var(--slate-dark)] mb-8">
               {article.summary}
             </p>
-            
+
             {/* Meta & Share */}
             <div className="flex items-center justify-between pb-8 border-b border-gray-200">
               <div className="flex items-center gap-4">
@@ -103,7 +105,7 @@ export function DeepDiveArticlePage() {
                   {article.lastUpdated ? `Last updated ${article.lastUpdated}` : article.publishDate}
                 </span>
               </div>
-              
+
               {/* Social Share Links */}
               <div className="flex items-center gap-2">
                 <span className="text-[13px] text-[var(--slate-medium)] mr-2">Share:</span>
@@ -159,17 +161,17 @@ export function DeepDiveArticlePage() {
       </div>
 
       {/* Two-Column Layout: Content + Sidebar */}
-      <div className="max-w-[1440px] mx-auto px-8 pb-12">
-        <div className="grid grid-cols-12 gap-8">
+      <div className="mx-auto max-w-[1440px] px-4 pb-12 md:px-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Main Content */}
-          <article className="col-span-8">
+          <article className="lg:col-span-8">
             {article.sections.map((section, sectionIndex) => (
               <section key={sectionIndex} className="mb-16">
                 {/* Section Heading */}
-                <h2 className="text-[28px] leading-[1.3] mb-6 text-[var(--navy-deep)] pb-3 border-b-2 border-[var(--electric-blue)]" style={{ fontWeight: '600' }}>
+                <h2 className="mb-6 border-b-2 border-[#5a6eb4] pb-3 text-[28px] leading-[1.2] text-[var(--navy-deep)]" style={{ fontWeight: '700' }}>
                   {section.heading}
                 </h2>
-                
+
                 {/* Section Paragraphs */}
                 <div className="space-y-6 mb-8">
                   {section.paragraphs.map((paragraph, paragraphIndex) => (
@@ -199,14 +201,14 @@ export function DeepDiveArticlePage() {
 
             {/* Recommended Reading Section */}
             <div className="mt-12 pt-8 border-t border-gray-200">
-              <h2 className="text-[24px] mb-6 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
+              <h2 className="mb-6 text-[27px] leading-tight text-[var(--navy-deep)]" style={{ fontWeight: '700' }}>
                 Recommended Reading
               </h2>
               <div className="space-y-5">
                 {recommendedDeepDives.map((rec) => (
                   <Link
                     key={rec.id}
-                    to={`/deep-dive/${rec.id}`}
+                    to={`/analysis/${rec.id}`}
                     className="flex gap-5 bg-white border border-gray-200 h-[140px] overflow-hidden hover:border-[var(--electric-blue)] transition-colors group"
                   >
                     <img
@@ -215,8 +217,8 @@ export function DeepDiveArticlePage() {
                       className="w-[180px] h-full object-cover flex-shrink-0"
                     />
                     <div className="py-4 pr-4 flex-1 flex flex-col">
-                      <span className={`${rec.categoryColor} text-white px-2 py-1 text-[10px] tracking-wide uppercase inline-block mb-2 w-fit`}>
-                        {rec.category}
+                      <span className="mb-2 inline-block w-fit px-2 py-1 text-[10px] uppercase tracking-wide text-white" style={{ backgroundColor: getTopicColor(getPrimaryTopicId(rec.topics, rec.category)).cssVar }}>
+                        {getPrimaryTopicTitle(rec.topics, rec.category)}
                       </span>
                       <h3 className="text-[16px] leading-[1.3] mb-2 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
                         {rec.headline}
@@ -235,185 +237,14 @@ export function DeepDiveArticlePage() {
           </article>
 
           {/* Sidebar */}
-          <aside className="col-span-4 space-y-6">
-            {/* MPU Ad Placeholder */}
-            <div className="bg-gray-50 border-2 border-dashed border-gray-300 h-[250px] flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-[14px] text-[var(--slate-medium)] mb-1" style={{ fontWeight: '600' }}>
-                  Advertisement
-                </div>
-                <div className="text-[12px] text-[var(--slate-light)]">
-                  MPU 300×250
-                </div>
-              </div>
-            </div>
-
-            {/* Trending Articles */}
-            <div className="bg-white border border-gray-200 p-6">
-              <div className="flex items-center gap-2 mb-5">
-                <TrendingUp size={18} className="text-[var(--electric-blue)]" />
-                <h3 className="text-[18px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  Trending Articles
-                </h3>
-              </div>
-              <ul className="space-y-4">
-                {trendingArticles.map((trending, index) => (
-                  <li key={trending.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                    <div className="flex items-center gap-3">
-                      {/* Rank Number */}
-                      <div className="w-8 h-8 bg-gradient-to-br from-[var(--electric-blue)] to-blue-600 flex items-center justify-center flex-shrink-0 rounded">
-                        <span className="text-white text-[14px]" style={{ fontWeight: '700' }}>
-                          {index + 1}
-                        </span>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1">
-                        <span className={`${trending.categoryColor} text-white px-2 py-0.5 text-[9px] tracking-wide uppercase inline-block mb-2`}>
-                          {trending.category}
-                        </span>
-                        <Link
-                          to={`/article/${trending.id}`}
-                          className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] transition-colors leading-[1.4] block"
-                          style={{ fontWeight: '500' }}
-                        >
-                          {trending.headline}
-                        </Link>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Newsletter Signup Module */}
-            <div className="bg-gradient-to-br from-[var(--navy-deep)] to-blue-900 p-6 text-white">
-              <div className="flex items-center gap-2 mb-3">
-                <Mail size={20} className="text-[var(--electric-blue)]" />
-                <h3 className="text-[18px]" style={{ fontWeight: '600' }}>
-                  Stay Informed
-                </h3>
-              </div>
-              <p className="text-[14px] leading-[1.6] text-blue-100 mb-4">
-                Get weekly insights on electrification infrastructure, grid connections, and EV charging delivered to your inbox.
-              </p>
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="w-full px-4 py-2.5 mb-3 text-[14px] text-[var(--navy-deep)] bg-white border border-blue-200 focus:outline-none focus:border-[var(--electric-blue)] rounded"
-              />
-              <button className="w-full bg-[var(--electric-blue)] hover:bg-blue-500 text-white py-2.5 text-[14px] transition-colors rounded" style={{ fontWeight: '600' }}>
-                Subscribe
-              </button>
-              <p className="text-[11px] text-blue-200 mt-3">
-                Unsubscribe anytime. View our privacy policy.
-              </p>
-            </div>
-
-            {/* Latest Press Releases */}
-            <div className="bg-white border border-gray-200 p-6">
-              <h3 className="text-[18px] mb-5 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                Press Releases
-              </h3>
-              <ul className="space-y-4 mb-4">
-                {pressReleases.slice(0, 3).map((release) => (
-                  <li key={release.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                    <div className="flex gap-3 items-center">
-                      {/* Company Logo */}
-                      {release.companyLogo ? (
-                        <div className="w-16 h-10 flex items-center justify-center flex-shrink-0 bg-white border border-gray-200 rounded p-1.5">
-                          <img 
-                            src={release.companyLogo} 
-                            alt={`${release.company} logo`}
-                            className="max-w-full max-h-full object-contain"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center flex-shrink-0 rounded">
-                          <span className="text-white text-[9px] font-bold tracking-wider">
-                            {release.company.substring(0, 3).toUpperCase()}
-                          </span>
-                        </div>
-                      )}
-                      
-                      {/* Content */}
-                      <div className="flex-1">
-                        <div className="text-[11px] text-[var(--slate-medium)] mb-1">{release.date}</div>
-                        <Link
-                          to={`/press-release/${release.id}`}
-                          className="text-[13px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] transition-colors leading-[1.4]"
-                        >
-                          {release.headline}
-                        </Link>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/press-releases"
-                className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-              >
-                View all press releases
-                <ChevronRight size={14} />
-              </Link>
-            </div>
-
-            {/* Upcoming Events */}
-            <div className="bg-white border border-gray-200 p-6">
-              <div className="flex items-center gap-2 mb-5">
-                <Calendar size={18} className="text-[var(--electric-blue)]" />
-                <h3 className="text-[18px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  Upcoming Events
-                </h3>
-              </div>
-              <ul className="space-y-4 mb-4">
-                {upcomingEvents.map((event, index) => (
-                  <li key={index} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                    <div className="flex gap-3">
-                      {/* Date Icon */}
-                      <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex flex-col items-center justify-center flex-shrink-0 rounded">
-                        <span className="text-[10px] text-[var(--electric-blue)] font-bold uppercase">
-                          {event.date.split(' ')[1].substring(0, 3)}
-                        </span>
-                        <span className="text-[16px] text-[var(--electric-blue)] font-bold leading-none">
-                          {event.date.split(' ')[0]}
-                        </span>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1">
-                        <div className="text-[11px] text-[var(--electric-blue)] mb-1 uppercase tracking-wide">
-                          {event.type}
-                        </div>
-                        <a
-                          href="#"
-                          className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] transition-colors leading-[1.4] block mb-2"
-                          style={{ fontWeight: '500' }}
-                        >
-                          {event.title}
-                        </a>
-                        <div className="flex items-center gap-1 text-[12px] text-[var(--slate-medium)]">
-                          <MapPin size={12} />
-                          {event.location}
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <a
-                href="#"
-                className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-              >
-                View all events
-                <ChevronRight size={14} />
-              </a>
-            </div>
-          </aside>
+          <div className="lg:col-span-4">
+            <EditorialSidebar />
+          </div>
         </div>
       </div>
-      
+
+      <div className="mx-auto max-w-[1440px] px-4 pb-12 md:px-8"><Link to="/analysis" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">← Back to Analysis</Link></div>
+
       <Footer />
     </div>
   );

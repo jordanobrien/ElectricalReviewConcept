@@ -1,19 +1,20 @@
 import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
+import { EditorialSidebar } from "../components/EditorialSidebar";
 import { useParams, Link } from "react-router";
 import { getOpinionArticleById, opinionArticles } from "../data/opinionArticles";
 import { Calendar, Clock, MessageSquare, Linkedin, Twitter, Mail, MapPin, ChevronRight, FileText, Download } from "lucide-react";
 import { events } from "../data/events";
 import { downloads } from "../data/downloads";
 import { pressReleases } from "../data/pressReleases";
-import { getTopicColorByCategory } from "../utils/topicColors";
+import { getPrimaryTopicId, getPrimaryTopicTitle, getTopicColor } from "../utils/topicColors";
 
 export function OpinionArticlePage() {
   const { id } = useParams<{ id: string }>();
   const article = id ? getOpinionArticleById(id) : undefined;
 
   // Get recommended opinion articles
-  const recommendedOpinions = article 
+  const recommendedOpinions = article
     ? opinionArticles
         .filter(a => a.id !== id)
         .slice(0, 3)
@@ -53,7 +54,7 @@ export function OpinionArticlePage() {
             <span>/</span>
             <Link to="/opinion-articles" className="hover:text-[var(--electric-blue)]">Opinion</Link>
             <span>/</span>
-            <span className="text-[var(--navy-deep)]">{article.category}</span>
+            <span className="text-[var(--navy-deep)]">{getPrimaryTopicTitle(article.topics, article.category)}</span>
           </div>
         </div>
       </div>
@@ -64,7 +65,7 @@ export function OpinionArticlePage() {
           <div className="flex items-center gap-3">
             <MessageSquare size={16} className="text-amber-700" />
             <span className="text-[13px] text-amber-900" style={{ fontWeight: '600' }}>
-              OPINION — The views expressed in this article are those of the author and do not necessarily reflect the editorial position of Electrical Review.
+              OPINION — The views expressed in this article are those of the author and do not necessarily reflect the editorial position of Data Centre Review.
             </span>
           </div>
         </div>
@@ -72,23 +73,23 @@ export function OpinionArticlePage() {
 
       {/* Header Section */}
       <div className="bg-white">
-        <div className="max-w-[1440px] mx-auto px-8 pt-12 pb-12">
-          <div className="grid grid-cols-12 gap-12">
+        <div className="mx-auto max-w-[1440px] px-4 pb-12 pt-12 md:px-8">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             {/* Left Column - Content */}
-            <article className="col-span-8">
+            <article className="lg:col-span-8">
               {/* Category Badge */}
               <div className="mb-4">
-                <Link 
-                  to={`/topics/${article.category.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="inline-block px-3 py-1 bg-[var(--electric-blue)]/10 text-[var(--electric-blue)] text-[11px] uppercase tracking-wider rounded hover:bg-[var(--electric-blue)]/20 transition-colors" 
+                <Link
+                  to={`/topics/${getPrimaryTopicId(article.topics, article.category)}`}
+                  className="inline-block px-3 py-1 bg-[var(--electric-blue)]/10 text-[var(--electric-blue)] text-[11px] uppercase tracking-wider rounded hover:bg-[var(--electric-blue)]/20 transition-colors"
                   style={{ fontWeight: '600' }}
                 >
-                  {article.category}
+                  {getPrimaryTopicTitle(article.topics, article.category)}
                 </Link>
               </div>
 
               {/* Title */}
-              <h1 className="text-[42px] leading-[1.15] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
+              <h1 className="mb-6 text-[40px] leading-[1.08] text-[var(--navy-deep)] md:text-[52px]" style={{ fontWeight: '750' }}>
                 {article.title}
               </h1>
 
@@ -209,7 +210,7 @@ export function OpinionArticlePage() {
                       Opinion Content Notice
                     </div>
                     <p className="text-[13px] leading-[1.6] text-amber-900">
-                      The views and opinions expressed in this article are those of {article.author.name} and do not necessarily reflect the official policy or position of Electrical Review. This content represents individual perspective and industry commentary.
+                      The views and opinions expressed in this article are those of {article.author.name} and do not necessarily reflect the official policy or position of Data Centre Review. This content represents individual perspective and industry commentary.
                     </p>
                   </div>
                 </div>
@@ -236,9 +237,9 @@ export function OpinionArticlePage() {
                         <div className="flex items-center gap-2 mb-2">
                           <span
                             className="text-white px-2 py-1 text-[10px] tracking-wide uppercase inline-block"
-                            style={{ backgroundColor: getTopicColorByCategory(rec.category).cssVar }}
+                            style={{ backgroundColor: getTopicColor(getPrimaryTopicId(rec.topics, rec.category)).cssVar }}
                           >
-                            {rec.category}
+                            {getPrimaryTopicTitle(rec.topics, rec.category)}
                           </span>
                         </div>
                         <h3 className="text-[16px] leading-[1.3] mb-2 text-[var(--navy-deep)] group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: '600' }}>
@@ -258,192 +259,14 @@ export function OpinionArticlePage() {
             </article>
 
             {/* Right Column - Standard Sidebar */}
-            <aside className="col-span-4 space-y-8">
-              {/* MPU Ad Placeholder */}
-              <div className="bg-gray-50 border-2 border-dashed border-gray-300 h-[250px] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-[14px] text-[var(--slate-medium)] mb-1" style={{ fontWeight: '600' }}>
-                    Advertisement
-                  </div>
-                  <div className="text-[12px] text-[var(--slate-light)]">
-                    MPU 300×250
-                  </div>
-                </div>
-              </div>
-
-              {/* Newsletter Signup Module */}
-              <div className="bg-gradient-to-br from-[var(--navy-deep)] to-blue-900 p-6 text-white">
-                <div className="flex items-center gap-2 mb-3">
-                  <Mail size={20} className="text-[var(--electric-blue)]" />
-                  <h3 className="text-[18px]" style={{ fontWeight: '600' }}>
-                    Stay Informed
-                  </h3>
-                </div>
-                <p className="text-[14px] leading-[1.6] text-blue-100 mb-4">
-                  Get weekly insights on electrification infrastructure, grid connections, and EV charging delivered to your inbox.
-                </p>
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="w-full px-4 py-2.5 mb-3 text-[14px] text-[var(--navy-deep)] bg-white border border-blue-200 focus:outline-none focus:border-[var(--electric-blue)] rounded"
-                />
-                <button className="w-full bg-[var(--electric-blue)] hover:bg-blue-500 text-white py-2.5 text-[14px] transition-colors rounded" style={{ fontWeight: '600' }}>
-                  Subscribe
-                </button>
-                <p className="text-[11px] text-blue-200 mt-3">
-                  Unsubscribe anytime. View our privacy policy.
-                </p>
-              </div>
-
-              {/* Latest Press Releases */}
-              <div className="bg-white border border-gray-200 p-6">
-                <h3 className="text-[18px] mb-5 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  Press Releases
-                </h3>
-                <ul className="space-y-4 mb-4">
-                  {latestPressReleases.map((release) => (
-                    <li key={release.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                      <div className="flex gap-3 items-center">
-                        {/* Company Logo */}
-                        {release.companyLogo ? (
-                          <div className="w-16 h-10 flex items-center justify-center flex-shrink-0 bg-white border border-gray-200 rounded p-1.5">
-                            <img 
-                              src={release.companyLogo} 
-                              alt={`${release.company} logo`}
-                              className="max-w-full max-h-full object-contain"
-                            />
-                          </div>
-                        ) : (
-                          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center flex-shrink-0 rounded">
-                            <span className="text-white text-[9px] font-bold tracking-wider">
-                              {release.company.substring(0, 3).toUpperCase()}
-                            </span>
-                          </div>
-                        )}
-                        
-                        {/* Content */}
-                        <div className="flex-1">
-                          <div className="text-[11px] text-[var(--slate-medium)] mb-1">{release.date}</div>
-                          <Link
-                            to={`/press-release/${release.id}`}
-                            className="text-[13px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] transition-colors leading-[1.4]"
-                          >
-                            {release.headline}
-                          </Link>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/press-releases"
-                  className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-                >
-                  View all press releases
-                  <ChevronRight size={14} />
-                </Link>
-              </div>
-
-              {/* Upcoming Events */}
-              <div className="bg-white border border-gray-200 p-6">
-                <div className="flex items-center gap-2 mb-5">
-                  <Calendar size={18} className="text-[var(--electric-blue)]" />
-                  <h3 className="text-[18px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                    Upcoming Events
-                  </h3>
-                </div>
-                <ul className="space-y-4 mb-4">
-                  {upcomingEvents.map((event) => (
-                    <li key={event.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                      <div className="flex gap-3">
-                        {/* Date Icon */}
-                        <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex flex-col items-center justify-center flex-shrink-0 rounded">
-                          <span className="text-[10px] text-[var(--electric-blue)] font-bold uppercase">
-                            {event.date.split(' ')[1].substring(0, 3)}
-                          </span>
-                          <span className="text-[16px] text-[var(--electric-blue)] font-bold leading-none">
-                            {event.date.split(' ')[0]}
-                          </span>
-                        </div>
-                        
-                        {/* Content */}
-                        <div className="flex-1">
-                          <div className="text-[11px] text-[var(--electric-blue)] mb-1 uppercase tracking-wide">
-                            {event.type}
-                          </div>
-                          <Link
-                            to={`/event/${event.id}`}
-                            className="text-[14px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] transition-colors leading-[1.4] block mb-2"
-                            style={{ fontWeight: '500' }}
-                          >
-                            {event.title}
-                          </Link>
-                          <div className="flex items-center gap-1 text-[12px] text-[var(--slate-medium)]">
-                            <MapPin size={12} />
-                            {event.location}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#"
-                  className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-                >
-                  View all events
-                  <ChevronRight size={14} />
-                </a>
-              </div>
-
-              {/* Latest Downloads */}
-              <div className="bg-white border border-gray-200 p-6">
-                <div className="flex items-center gap-2 mb-5">
-                  <Download size={18} className="text-[var(--electric-blue)]" />
-                  <h3 className="text-[18px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                    Latest Downloads
-                  </h3>
-                </div>
-                <ul className="space-y-4 mb-4">
-                  {latestDownloads.map((download) => (
-                    <li key={download.id} className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                      <div className="flex gap-3">
-                        {/* File Icon */}
-                        <div className="w-10 h-10 bg-[var(--slate-light)] border border-gray-200 flex items-center justify-center flex-shrink-0 rounded">
-                          <FileText size={20} className="text-[var(--slate-dark)]" />
-                        </div>
-                        
-                        {/* Content */}
-                        <div className="flex-1">
-                          <div className="text-[11px] text-[var(--electric-blue)] mb-1 uppercase tracking-wide">
-                            {download.category}
-                          </div>
-                          <Link
-                            to={`/download/${download.id}`}
-                            className="text-[13px] text-[var(--navy-deep)] hover:text-[var(--electric-blue)] transition-colors leading-[1.4] block mb-1"
-                          >
-                            {download.title}
-                          </Link>
-                          <div className="text-[11px] text-[var(--slate-medium)]">
-                            {download.type} • {download.size}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#"
-                  className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-                >
-                  View all downloads
-                  <ChevronRight size={14} />
-                </a>
-              </div>
-            </aside>
+            <div className="lg:col-span-4">
+              <EditorialSidebar />
+            </div>
           </div>
         </div>
       </div>
+
+      <div className="mx-auto max-w-[1440px] px-4 pb-12 md:px-8"><Link to="/opinion-articles" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">← Back to Opinion</Link></div>
 
       <Footer />
     </div>

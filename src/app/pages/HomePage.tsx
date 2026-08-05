@@ -1,163 +1,96 @@
-import { Navigation } from "../components/Navigation";
-import { HeroBanner } from "../components/HeroBanner";
-import { InBrief } from "../components/InBrief";
-import { FeaturedNews } from "../components/FeaturedNews";
-import { LatestCoverage } from "../components/LatestCoverage";
-import { DeepDive } from "../components/DeepDive";
-import { LatestOpinion } from "../components/LatestOpinion";
-import { LatestVideos } from "../components/LatestVideos";
-import { TopicsGrid } from "../components/TopicsGrid";
-import { PressReleases } from "../components/PressReleases";
-import { LatestEvents } from "../components/LatestEvents";
-import { LatestDownloads } from "../components/LatestDownloads";
-import { Footer } from "../components/Footer";
-import { ChevronRight } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Download, Play } from "lucide-react";
 import { Link } from "react-router";
+import { ContentRiver } from "../components/ContentRiver";
+import { Footer } from "../components/Footer";
+import { HeroBanner } from "../components/HeroBanner";
+import { Navigation } from "../components/Navigation";
+import { TopicsGrid } from "../components/TopicsGrid";
+import { downloads } from "../data/downloads";
+import { events } from "../data/events";
+import { pressReleases } from "../data/pressReleases";
+import { videos } from "../data/videos";
 
 export function HomePage() {
+  const featuredVideo = videos[0];
+  const featuredEvent = events[0];
+  const featuredDownload = downloads[0];
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <HeroBanner />
 
-      {/* Main content area */}
-      <section className="py-8 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-          {/* Two column layout with headings above boxes */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Latest News Column */}
-            <div className="lg:col-span-4 flex flex-col">
-              <div className="mb-4">
-                <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  Latest News
-                </h2>
-              </div>
-              <div className="flex-1">
-                <InBrief />
-              </div>
-            </div>
-            
-            {/* Featured News Column */}
-            <div className="lg:col-span-8 flex flex-col">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  Featured News
-                </h2>
-                <Link
-                  to="/news"
-                  className="text-[13px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-                >
-                  See All News
-                  <ChevronRight size={14} />
-                </Link>
-              </div>
-              <div className="flex-1">
-                <FeaturedNews />
-              </div>
-            </div>
-          </div>
+      <div className="mx-auto max-w-[970px] px-4 py-6 md:px-0 md:py-8">
+        <div className="flex min-h-[70px] items-center justify-center border border-gray-200 bg-[#f7f8fc] text-center">
+          <div><span className="block text-[9px] font-bold uppercase tracking-[0.17em] text-[var(--slate-medium)]">Advertisement</span><span className="mt-2 block text-[10px] tracking-[0.08em] text-gray-400">Leaderboard · 970×90</span></div>
         </div>
-      </section>
+      </div>
 
-      <LatestCoverage />
-      <DeepDive />
-      
-      {/* Topics Section - Full Width */}
-      <section className="py-12 bg-gray-50 relative overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-          <h2 className="text-[24px] mb-6 text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-            Explore By Topic
-          </h2>
+      <HeroBanner />
+      <ContentRiver />
+
+      <section className="bg-[#f7f8fc] py-14 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
+          <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-6">
+            <div><h2 className="text-[32px] leading-tight text-[var(--navy-deep)] md:text-[42px]" style={{ fontWeight: 700 }}>Explore by topic</h2></div>
+          </div>
           <TopicsGrid />
         </div>
       </section>
-      
-      {/* Newsletter CTA - Prominent Placement */}
-      <section className="py-16 bg-gradient-to-br from-[var(--navy-deep)] via-[#1e3a5f] to-[var(--navy-deep)] relative overflow-hidden">
-        {/* Subtle pattern overlay */}
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
-        
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-[var(--electric-blue)]/20 border border-[var(--electric-blue)]/30 px-4 py-2 rounded-full mb-6">
-              <span className="w-2 h-2 bg-[var(--electric-blue)] rounded-full animate-pulse"></span>
-              <span className="text-[var(--electric-blue)] text-[12px] uppercase tracking-wider" style={{ fontWeight: '600' }}>
-                Industry Insights Delivered Weekly
-              </span>
-            </div>
-            
-            <h2 className="text-[32px] text-white mb-4" style={{ fontWeight: '600' }}>
-              Stay ahead of the electrification curve
-            </h2>
-            <p className="text-[16px] text-white/90 mb-8 leading-[1.6]">
-              Get expert analysis, technical deep dives, and industry news delivered straight to your inbox. Join thousands of professionals shaping the UK's electrification infrastructure.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-5 py-3.5 text-[15px] text-[var(--navy-deep)] bg-white border-2 border-white focus:outline-none focus:border-[var(--electric-blue)] rounded"
-              />
-              <button className="bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-8 py-3.5 text-[15px] transition-all hover:shadow-lg hover:scale-105 rounded" style={{ fontWeight: '600' }}>
-                Subscribe Now
-              </button>
-            </div>
-            
-            <p className="text-[12px] text-white/70 mt-4">
-              No spam. Unsubscribe anytime. View our <a href="/privacy" className="underline hover:text-white">privacy policy</a>.
-            </p>
+
+      <section className="py-14 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
+          <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-6">
+            <div className="flex items-center gap-4"><span className="grid h-12 w-12 place-items-center rounded-full bg-[#eef1fa] text-[#5a6eb4]"><Play size={18} fill="currentColor" /></span><div><h2 className="text-[32px] text-[var(--navy-deep)] md:text-[42px]" style={{ fontWeight: 700 }}>Video</h2></div></div>
+            <Link to="/videos" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">View all video <ArrowUpRight size={15} /></Link>
           </div>
-        </div>
-      </section>
-      
-      {/* Videos and Latest Events Section - Side by Side */}
-      <section className="py-12 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Latest Videos Column - Stacked Layout */}
-            <div className="lg:col-span-8">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-[32px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                  Latest videos
-                </h2>
-                <Link
-                  to="/videos"
-                  className="text-[14px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
-                  style={{ fontWeight: '600' }}
-                >
-                  View all videos →
-                </Link>
-              </div>
-              <div className="space-y-4">
-                {/* Videos will be stacked vertically */}
-                <LatestVideos />
-              </div>
-            </div>
-            
-            {/* Latest Events Column */}
-            <div className="lg:col-span-4">
-              <LatestEvents />
+          <div className="grid gap-4 lg:grid-cols-[1.45fr_0.55fr]">
+            <Link to={`/video/${featuredVideo.id}`} className="group relative min-h-[500px] overflow-hidden bg-[#17131f]"><img src={featuredVideo.thumbnail} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /><div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" /><span className="absolute right-5 top-5 grid h-14 w-14 place-items-center rounded-full bg-white text-[#5a6eb4]"><Play size={19} fill="currentColor" /></span><div className="absolute inset-x-0 bottom-0 max-w-[820px] p-6 md:p-9"><h3 className="text-[32px] leading-[1.03] text-white md:text-[42px]" style={{ fontWeight: 730 }}>{featuredVideo.title}</h3><p className="mt-4 max-w-[680px] text-[14px] leading-[1.6] text-white/72">{featuredVideo.description}</p></div></Link>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              {videos.slice(1, 3).map((video) => <Link key={video.id} to={`/video/${video.id}`} className="group relative min-h-[240px] overflow-hidden bg-[#17131f]"><img src={video.thumbnail} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" /><div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" /><span className="absolute right-4 top-4 bg-white px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">Video</span><h3 className="absolute inset-x-0 bottom-0 p-5 text-[21px] leading-[1.08] text-white" style={{ fontWeight: 710 }}>{video.title}</h3></Link>)}
             </div>
           </div>
         </div>
       </section>
 
-      <LatestOpinion />
-      
-      {/* Press Releases and Downloads Section - Side by Side */}
-      <section className="py-12 bg-white relative">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Press Releases Column */}
-            <div>
-              <PressReleases />
+      <section className="bg-[#f7f8fc] py-14 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
+          <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-6">
+            <div className="flex items-center gap-4"><span className="grid h-12 w-12 place-items-center rounded-full bg-white text-[#5a6eb4]"><CalendarDays size={19} /></span><div><h2 className="text-[32px] text-[var(--navy-deep)] md:text-[42px]" style={{ fontWeight: 700 }}>Events</h2></div></div>
+            <Link to="/events" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">View all events <ArrowUpRight size={15} /></Link>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {events.map((event) => <Link key={event.id} to={`/event/${event.id}`} className="group grid overflow-hidden bg-white md:grid-cols-[1.05fr_0.95fr]"><div className="relative min-h-[320px] overflow-hidden"><img src={event.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" /><span className="absolute left-4 top-4 bg-[#5a6eb4] px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.13em] text-white">Event</span></div><div className="flex flex-col justify-center p-6"><span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">{event.date}</span><h3 className="mt-3 text-[27px] leading-[1.05] text-[var(--navy-deep)] group-hover:text-[#5a6eb4]" style={{ fontWeight: 720 }}>{event.title}</h3><p className="mt-4 line-clamp-3 text-[13px] leading-[1.6] text-[var(--slate-dark)]">{event.summary}</p><span className="mt-6 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">{event.location}</span></div></Link>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
+          <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-6">
+            <div className="flex items-center gap-4"><span className="grid h-12 w-12 place-items-center rounded-full bg-[#eef1fa] text-[#5a6eb4]"><Download size={19} /></span><div><h2 className="text-[32px] text-[var(--navy-deep)] md:text-[42px]" style={{ fontWeight: 700 }}>Downloads</h2></div></div>
+            <Link to="/downloads" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">View all downloads <ArrowUpRight size={15} /></Link>
+          </div>
+          <div className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr]">
+            <Link to={`/download/${featuredDownload.id}`} className="group grid overflow-hidden bg-[var(--navy-deep)] text-white md:grid-cols-[1.1fr_0.9fr]"><div className="relative min-h-[440px] overflow-hidden"><img src={featuredDownload.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]" /></div><div className="flex flex-col justify-center p-7 md:p-9"><span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#9eacd9]">{featuredDownload.type}</span><h3 className="mt-4 text-[31px] leading-[1.04]" style={{ fontWeight: 730 }}>{featuredDownload.title}</h3><p className="mt-4 text-[14px] leading-[1.65] text-white/72">{featuredDownload.summary}</p><span className="mt-7 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.12em]">Get the resource <ArrowUpRight size={15} /></span></div></Link>
+            <div className="grid gap-4">
+              {downloads.slice(1, 3).map((download) => <Link key={download.id} to={`/download/${download.id}`} className="group grid overflow-hidden border border-gray-200 bg-white sm:grid-cols-[150px_1fr] lg:grid-cols-[170px_1fr]"><img src={download.imageUrl} alt="" className="h-full min-h-[190px] w-full object-cover" /><div className="flex flex-col justify-center p-5"><span className="text-[9px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">Download · {download.type}</span><h3 className="mt-2 text-[20px] leading-[1.08] text-[var(--navy-deep)] group-hover:text-[#5a6eb4]" style={{ fontWeight: 710 }}>{download.title}</h3><span className="mt-4 text-[9px] uppercase tracking-[0.1em] text-[var(--slate-medium)]">{download.size}</span></div></Link>)}
             </div>
-            
-            {/* Latest Downloads Column */}
-            <div>
-              <LatestDownloads />
-            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--navy-deep)] py-14 text-white md:py-16">
+        <div className="mx-auto grid max-w-[1440px] gap-8 px-4 md:px-8 lg:grid-cols-[minmax(0,1fr)_560px] lg:items-center">
+          <div><span className="text-[10px] font-bold uppercase tracking-[0.17em] text-[#9eacd9]">The DCR briefing</span><h2 className="mt-3 max-w-[650px] text-[32px] leading-[1.05] md:text-[42px]" style={{ fontWeight: 700 }}>Critical infrastructure intelligence, delivered weekly.</h2></div>
+          <div><p className="mb-5 text-[14px] leading-[1.6] text-white/70">Get the essential news, analysis and technical insight without the noise.</p><div className="flex flex-col gap-3 sm:flex-row"><input type="email" placeholder="Email address" className="min-w-0 flex-1 border border-white/20 bg-white/10 px-5 py-4 text-[14px] text-white outline-none placeholder:text-white/50 focus:border-white/60" /><button type="button" className="flex items-center justify-center gap-2 bg-[#5a6eb4] px-6 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-white">Subscribe <ArrowUpRight size={15} /></button></div></div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
+          <div className="mb-3 flex items-end justify-between border-b border-gray-200 pb-6"><div className="flex flex-wrap items-center gap-3"><h2 className="text-[32px] text-[var(--navy-deep)] md:text-[42px]" style={{ fontWeight: 700 }}>From the industry</h2><span className="border border-[#5a6eb4]/35 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.15em] text-[#5a6eb4]">Sponsored</span></div><Link to="/press-releases" className="hidden items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4] sm:flex">View all <ArrowUpRight size={15} /></Link></div>
+          <div className="grid md:grid-cols-2">
+            {pressReleases.map((release) => <Link key={release.id} to={`/press-release/${release.id}`} className="group grid gap-5 border-b border-gray-200 py-7 transition-colors hover:bg-[#f7f8fc] sm:grid-cols-[140px_1fr] md:px-5"><img src={release.imageUrl} alt="" className="aspect-[4/3] w-full object-cover" /><div><span className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">{release.company}</span><h3 className="mt-2 text-[20px] leading-[1.12] text-[var(--navy-deep)] transition-colors group-hover:text-[#5a6eb4]" style={{ fontWeight: 700 }}>{release.headline}</h3><span className="mt-4 block text-[10px] uppercase tracking-[0.1em] text-[var(--slate-medium)]">{release.date}</span></div></Link>)}
           </div>
         </div>
       </section>

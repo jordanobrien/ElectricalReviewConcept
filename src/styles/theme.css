@@ -1,5 +1,6 @@
 :root {
   --font-size: 16px;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
@@ -38,20 +39,20 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   
-  /* Electrical Review Industrial Palette */
-  --navy-deep: #0a1628;
-  --navy-medium: #1a2942;
+  /* Data Centre Review palette */
+  --navy-deep: #172033;
+  --navy-medium: #26364f;
   --slate-dark: #3a4556;
   --slate-medium: #64748b;
   --slate-light: #cbd5e1;
-  --electric-blue: #0ea5e9;
-  --electric-blue-dark: #0284c7;
+  --electric-blue: #5a6eb4;
+  --electric-blue-dark: #40528f;
 
   /* Topic Colors - Consistent across the website */
-  --topic-grid: #1e3a8a;
-  --topic-ev: #10b981;
-  --topic-storage: #14b8a6;
-  --topic-commissioning: #3b82f6;
+  --topic-grid: #6752a8;
+  --topic-ev: #8a72c9;
+  --topic-storage: #5f8f83;
+  --topic-commissioning: #382673;
 }
 
 .dark {
@@ -139,6 +140,16 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
   }
 
   /**
