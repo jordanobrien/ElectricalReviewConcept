@@ -39,6 +39,10 @@ export const router = createBrowserRouter([
     Component: NewsArchivePage,
   },
   {
+    path: "/analysis",
+    Component: DeepDivesArchivePage,
+  },
+  {
     path: "/deep-dives",
     Component: DeepDivesArchivePage,
   },
@@ -97,6 +101,10 @@ export const router = createBrowserRouter([
   {
     path: "/article/:id",
     Component: ArticlePage,
+  },
+  {
+    path: "/analysis/:id",
+    Component: DeepDiveArticlePage,
   },
   {
     path: "/deep-dive/:id",

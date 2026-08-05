@@ -11,10 +11,10 @@ export function Footer() {
             {/* Brand Column */}
             <div className="lg:col-span-1">
               <h3 className="text-[24px] mb-4" style={{ fontWeight: '700' }}>
-                Electrical Review
+                Data Centre Review
               </h3>
               <p className="text-[14px] text-white/70 leading-[1.6] mb-6">
-                Covering electrification infrastructure delivery from grid to plug. Essential intelligence for decision-makers.
+                Essential news, analysis and technical insight for the people designing, building and operating data centres.
               </p>
               
               {/* Newsletter CTA */}
@@ -43,16 +43,16 @@ export function Footer() {
                 <a
                   href="#"
                   className="w-9 h-9 bg-white/10 hover:bg-[var(--electric-blue)] text-white flex items-center justify-center transition-colors"
-                  aria-label="Twitter"
+                  aria-label="LinkedIn"
                 >
-                  <Twitter size={16} />
+                  <Linkedin size={16} />
                 </a>
                 <a
                   href="#"
                   className="w-9 h-9 bg-white/10 hover:bg-[var(--electric-blue)] text-white flex items-center justify-center transition-colors"
-                  aria-label="LinkedIn"
+                  aria-label="Twitter"
                 >
-                  <Linkedin size={16} />
+                  <Twitter size={16} />
                 </a>
               </div>
             </div>
@@ -64,23 +64,18 @@ export function Footer() {
               </h4>
               <ul className="space-y-3">
                 <li>
+                  <Link to="/analysis" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
+                    Analysis
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/downloads" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
+                    Downloads
+                  </Link>
+                </li>
+                <li>
                   <Link to="/news" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
                     Latest News
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/deep-dives" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
-                    Deep Dives
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/opinion" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
-                    Opinion Articles
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/videos" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
-                    Videos
                   </Link>
                 </li>
                 <li>
@@ -89,13 +84,18 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/opinion-articles" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
+                    Opinion Articles
+                  </Link>
+                </li>
+                <li>
                   <Link to="/press-releases" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
                     Press Releases
                   </Link>
                 </li>
                 <li>
-                  <Link to="/downloads" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
-                    Downloads
+                  <Link to="/videos" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
+                    Videos
                   </Link>
                 </li>
               </ul>
@@ -141,16 +141,7 @@ export function Footer() {
                   <div>
                     <p className="text-[13px] text-white/50 mb-1">Editorial</p>
                     <a href="mailto:editorial@electricalreview.co.uk" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
-                      editorial@electricalreview.co.uk
-                    </a>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Phone size={16} className="text-[var(--electric-blue)] mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-[13px] text-white/50 mb-1">Sales</p>
-                    <a href="tel:+442012345678" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
-                      +44 (0) 20 1234 5678
+                      editorial@datacentrereview.com
                     </a>
                   </div>
                 </li>
@@ -161,6 +152,15 @@ export function Footer() {
                     <p className="text-[14px] text-white/80 leading-[1.5]">
                       London, United Kingdom
                     </p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Phone size={16} className="text-[var(--electric-blue)] mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-[13px] text-white/50 mb-1">Sales</p>
+                    <a href="tel:+442012345678" className="text-[14px] text-white/80 hover:text-[var(--electric-blue)] transition-colors">
+                      +44 (0) 20 1234 5678
+                    </a>
                   </div>
                 </li>
               </ul>
@@ -174,14 +174,14 @@ export function Footer() {
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-[13px] text-white/60">
-              © 2024 Electrical Review. All rights reserved.
+              © 2026 Data Centre Review. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link to="/terms" className="text-[13px] text-white/60 hover:text-white transition-colors">
-                Terms of Use
-              </Link>
               <Link to="/privacy" className="text-[13px] text-white/60 hover:text-white transition-colors">
                 Privacy Policy
+              </Link>
+              <Link to="/terms" className="text-[13px] text-white/60 hover:text-white transition-colors">
+                Terms of Use
               </Link>
             </div>
           </div>

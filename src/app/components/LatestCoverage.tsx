@@ -16,37 +16,37 @@ interface NewsCard {
 export function LatestCoverage() {
   const newsCards: NewsCard[] = [
     {
-      id: "dno-vs-idno-guide",
-      topic: "Grid & Connections",
-      topicColor: TOPIC_COLORS['grid-connections'].bg,
-      headline: "Understanding DNO vs IDNO: The Complete Guide to Grid Connections",
+      id: "liquid-cooling-deployment-guide",
+      topic: "Cooling",
+      topicColor: TOPIC_COLORS['cooling-thermal-management'].bg,
+      headline: "The Operator's Guide to Liquid Cooling Deployment",
       summary:
-        "An in-depth exploration of the differences between DNOs and IDNOs, how they operate, and what fleet operators need to know when planning major grid connections.",
-      readTime: "12 min read",
-      imageUrl: "https://images.unsplash.com/photo-1552772588-12592fc15a64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3dlciUyMHRyYW5zbWlzc2lvbiUyMGxpbmVzfGVufDF8fHx8MTc3MjEwMzExNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      publishDate: "2 March 2026",
-    },
-    {
-      id: "depot-charging-infrastructure",
-      topic: "EV Charging",
-      topicColor: TOPIC_COLORS['ev-charging'].bg,
-      headline: "Depot Charging Infrastructure: From Planning to Commissioning",
-      summary:
-        "A comprehensive guide covering site assessment, load profiling, electrical design, procurement, installation, and testing for large-scale depot charging projects.",
-      readTime: "15 min read",
-      imageUrl: "https://images.unsplash.com/photo-1768310465625-5824a01fff4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxFViUyMGNoYXJnaW5nJTIwc3RhdGlvbiUyMG1vZGVybnxlbnwxfHx8fDE3NzIwMTQ4NzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      publishDate: "1 March 2026",
-    },
-    {
-      id: "bess-design-installation",
-      topic: "Storage & Resilience",
-      topicColor: TOPIC_COLORS['storage-resilience'].bg,
-      headline: "Battery Energy Storage Systems: Design, Installation & Safety Standards",
-      summary:
-        "Technical deep dive into BESS sizing, system architecture, safety protocols, fire suppression, and compliance with UK regulations for commercial installations.",
+        "From facility water systems to rack interfaces, a practical map of the decisions that create a maintainable production environment.",
       readTime: "14 min read",
-      imageUrl: "https://images.unsplash.com/photo-1771432512609-18ed0f0d86ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwZW5lcmd5JTIwc3RvcmFnZXxlbnwxfHx8fDE3NzIxMDMxMTd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      publishDate: "28 Feb 2026",
+      imageUrl: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=1400&h=800&fit=crop",
+      publishDate: "2 August 2026",
+    },
+    {
+      id: "data-centre-power-strategy",
+      topic: "Power",
+      topicColor: TOPIC_COLORS['power-energy'].bg,
+      headline: "Building a Power Strategy for the Constrained-Grid Era",
+      summary:
+        "Align connection capacity, generation, storage, controls and operational risk across a growing data centre campus.",
+      readTime: "13 min read",
+      imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&h=800&fit=crop",
+      publishDate: "30 July 2026",
+    },
+    {
+      id: "ai-ready-retrofit-roadmap",
+      topic: "Design & Operations",
+      topicColor: TOPIC_COLORS['design-construction-operations'].bg,
+      headline: "An AI-Ready Retrofit Roadmap for Live Facilities",
+      summary:
+        "Identify the halls, electrical paths and cooling zones that can support higher-density compute without compromising live customers.",
+      readTime: "12 min read",
+      imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1400&h=800&fit=crop",
+      publishDate: "27 July 2026",
     },
   ];
 
@@ -55,14 +55,14 @@ export function LatestCoverage() {
       <div className="max-w-[1440px] mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-[24px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-            Latest Deep Dives
+            Latest Analysis
           </h2>
-          <Link 
-            to="/deep-dives" 
+          <Link
+            to="/analysis"
             className="text-[14px] text-[var(--electric-blue)] hover:underline flex items-center gap-1"
             style={{ fontWeight: '500' }}
           >
-            See All Deep Dives
+            See All Analysis
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M9 18l6-6-6-6" />
             </svg>
@@ -72,7 +72,7 @@ export function LatestCoverage() {
           {newsCards.map((card, index) => (
             <Link
               key={index}
-              to={`/deep-dive/${card.id}`}
+              to={`/analysis/${card.id}`}
               className="bg-white border border-gray-200 overflow-hidden group hover:shadow-lg hover:border-[var(--electric-blue)]/30 transition-all duration-300 block opacity-0 animate-fadeIn"
               style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
             >
@@ -82,7 +82,7 @@ export function LatestCoverage() {
                   alt={card.headline}
                   className="w-full h-[180px] object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* Deep Dive icon badge */}
+                {/* Analysis icon badge */}
                 <div className="absolute bottom-3 left-3 bg-[var(--electric-blue)] text-white p-2 rounded shadow-lg">
                   <BookOpen size={16} strokeWidth={2.5} />
                 </div>

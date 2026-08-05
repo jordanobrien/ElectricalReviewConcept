@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import { Play, Clock, Eye } from "lucide-react";
+import { Play, Eye } from "lucide-react";
 import { videos } from "../data/videos";
-import { getTopicColorByCategory } from "../utils/topicColors";
+import { getPrimaryTopicId, getPrimaryTopicTitle, getTopicColor } from "../utils/topicColors";
 
 export function LatestVideos() {
   const latestVideos = videos.slice(0, 2);
@@ -27,13 +27,6 @@ export function LatestVideos() {
                 <Play size={28} className="text-white ml-1" fill="white" />
               </div>
             </div>
-            {/* Duration Badge */}
-            <div className="absolute bottom-2 right-2 bg-black/80 px-2 py-1 flex items-center gap-1">
-              <Clock size={12} className="text-white" />
-              <span className="text-white text-[11px]" style={{ fontWeight: '600' }}>
-                {video.duration}
-              </span>
-            </div>
           </div>
 
           {/* Content */}
@@ -54,9 +47,9 @@ export function LatestVideos() {
               ) : (
                 <span
                   className="text-white px-2.5 py-1 text-[10px] tracking-wide uppercase inline-block"
-                  style={{ backgroundColor: getTopicColorByCategory(video.category).cssVar }}
+                  style={{ backgroundColor: getTopicColor(getPrimaryTopicId(video.topics, video.category)).cssVar }}
                 >
-                  {video.category}
+                  {getPrimaryTopicTitle(video.topics, video.category)}
                 </span>
               )}
               <span className="text-[11px] text-[var(--slate-medium)]">{video.publishDate}</span>

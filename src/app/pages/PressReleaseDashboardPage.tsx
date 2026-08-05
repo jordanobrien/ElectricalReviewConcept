@@ -1,222 +1,36 @@
-import { Navigation } from "../components/Navigation";
-import { Footer } from "../components/Footer";
-import { useAuth } from "../contexts/AuthContext";
-import { useNavigate, Link } from "react-router";
-import { Building2, FileText, Calendar, BarChart3, Settings, LogOut } from "lucide-react";
+import { ArrowUpRight, Building2, FileText, Globe, LogOut, Mail, Settings } from "lucide-react";
 import { useEffect } from "react";
+import { Link, useNavigate } from "react-router";
+import { Footer } from "../components/Footer";
+import { Navigation } from "../components/Navigation";
+import { useAuth } from "../contexts/AuthContext";
+import { pressReleases } from "../data/pressReleases";
 
 export function PressReleaseDashboardPage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user?.hasSubscription) {
-      navigate("/submit-press-release");
-    }
-  }, [user, navigate]);
-
-  if (!user?.hasSubscription) {
-    return null;
-  }
-
-  const getSubscriptionEndDate = () => {
-    if (!user.subscriptionExpiry) return "N/A";
-    const date = new Date(user.subscriptionExpiry);
-    return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-  };
-
-  const getSubscriptionLabel = () => {
-    switch (user.subscriptionType) {
-      case '3-months': return '3 Month Plan';
-      case '6-months': return '6 Month Plan';
-      case '12-months': return '12 Month Plan';
-      default: return 'Active';
-    }
-  };
+  useEffect(() => { if (!user?.hasSubscription) navigate("/submit-press-release"); }, [user, navigate]);
+  if (!user?.hasSubscription) return null;
+  const profile = user.companyProfile;
+  const expiry = user.subscriptionExpiry ? new Date(user.subscriptionExpiry).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "Not set";
+  const companyRelease = pressReleases.find(release => release.company === profile?.companyName);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f7f8fc]">
       <Navigation />
+      <main>
+        <header className="bg-[var(--navy-deep)] text-white"><div className="mx-auto flex max-w-[1440px] flex-col gap-7 px-4 py-12 md:px-8 lg:flex-row lg:items-end lg:justify-between"><div><span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9eacd9]">Client workspace · Demo account</span><h1 className="mt-4 text-[42px] leading-[1] md:text-[58px]" style={{ fontWeight: 750 }}>Press Release Dashboard</h1><p className="mt-4 text-[15px] text-white/65">Signed in as {user.email}</p></div><button onClick={() => { logout(); navigate('/submit-press-release'); }} className="inline-flex w-fit items-center gap-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/70"><LogOut size={15} />Log out</button></div></header>
 
-      {/* Header */}
-      <div className="bg-gradient-to-r from-[var(--navy-deep)] to-[#1e3a5f] py-12">
-        <div className="max-w-[1440px] mx-auto px-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-white text-[36px] mb-2" style={{ fontWeight: "700" }}>
-                Press Release Dashboard
-              </h1>
-              <p className="text-white/90 text-[16px]">
-                Welcome back, {user.email}
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-              className="flex items-center gap-2 text-white/80 hover:text-white text-[14px] transition-colors"
-            >
-              <LogOut size={18} />
-              Logout
-            </button>
-          </div>
+        <div className="mx-auto max-w-[1440px] px-4 py-12 md:px-8 md:py-16">
+          {profile && <section className="grid overflow-hidden border border-gray-200 bg-white lg:grid-cols-[320px_minmax(0,1fr)_300px]"><div className="flex items-center justify-center border-b border-gray-200 bg-[#eef1fa] p-8 lg:border-b-0 lg:border-r"><img src={profile.logo} alt={profile.companyName} className="max-h-[90px] max-w-full object-contain" /></div><div className="p-7 md:p-9"><span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#5a6eb4]">Company profile</span><h2 className="mt-3 text-[30px] text-[var(--navy-deep)]" style={{ fontWeight: 720 }}>{profile.companyName}</h2><p className="mt-4 max-w-[700px] text-[14px] leading-[1.7] text-[var(--slate-dark)]">{profile.description}</p><div className="mt-5 flex flex-wrap gap-5 text-[11px] text-[var(--slate-medium)]">{profile.website && <span className="inline-flex items-center gap-2"><Globe size={13} />{profile.website}</span>}{profile.contactEmail && <span className="inline-flex items-center gap-2"><Mail size={13} />{profile.contactEmail}</span>}</div></div><div className="border-t border-gray-200 bg-[#f7f8fc] p-7 lg:border-l lg:border-t-0"><span className="text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--slate-medium)]">Primary contact</span><strong className="mt-3 block text-[16px] text-[var(--navy-deep)]">{profile.contactName}</strong><span className="mt-2 block text-[13px] text-[var(--slate-dark)]">{profile.contactPhone}</span><Link to="/company-profile-setup" className="mt-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]"><Settings size={14} />Edit profile</Link></div></section>}
+
+          <section className="mt-8 grid gap-5 sm:grid-cols-3"><div className="border border-gray-200 bg-white p-6"><span className="text-[10px] font-bold uppercase tracking-[0.13em] text-[var(--slate-medium)]">Credits remaining</span><strong className="mt-2 block text-[24px] text-[var(--navy-deep)]">5 of 6</strong><span className="mt-2 block text-[12px] text-[var(--slate-medium)]">One credit per published release</span></div><div className="border border-gray-200 bg-white p-6"><span className="text-[10px] font-bold uppercase tracking-[0.13em] text-[var(--slate-medium)]">Credits valid until</span><strong className="mt-2 block text-[24px] text-[var(--navy-deep)]">{expiry}</strong><span className="mt-2 block text-[12px] text-[var(--slate-medium)]">Valid for 12 months from purchase</span></div><div className="border border-gray-200 bg-white p-6"><span className="text-[10px] font-bold uppercase tracking-[0.13em] text-[var(--slate-medium)]">Profile</span><strong className="mt-2 block text-[24px] text-[var(--navy-deep)]">Complete</strong><span className="mt-2 block text-[12px] text-[var(--slate-medium)]">Details pre-filled on submissions</span></div></section>
+
+          <section className="mt-12 grid gap-6 lg:grid-cols-2"><Link to="/submit-press-release-form" className="group bg-[#5a6eb4] p-8 text-white md:p-10"><FileText size={24} /><h2 className="mt-6 text-[30px]" style={{ fontWeight: 720 }}>Post a Press Release</h2><p className="mt-3 max-w-[520px] text-[14px] leading-[1.65] text-white/70">Your company logo, company description and media-contact details will already be filled in.</p><span className="mt-8 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em]">Create release <ArrowUpRight size={15} /></span></Link><Link to="/company-profile-setup" className="group border border-gray-200 bg-white p-8 md:p-10"><Building2 size={24} className="text-[#5a6eb4]" /><h2 className="mt-6 text-[30px] text-[var(--navy-deep)]" style={{ fontWeight: 720 }}>Manage company details</h2><p className="mt-3 max-w-[520px] text-[14px] leading-[1.65] text-[var(--slate-dark)]">Update the reusable information attached to every company announcement.</p><span className="mt-8 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">Edit details <ArrowUpRight size={15} /></span></Link></section>
+
+          {companyRelease && <section className="mt-12"><div className="mb-5 border-b border-gray-200 pb-5"><h2 className="text-[30px] text-[var(--navy-deep)]" style={{ fontWeight: 720 }}>Recent activity</h2></div><Link to={`/press-release/${companyRelease.id}`} className="group grid overflow-hidden border border-gray-200 bg-white md:grid-cols-[260px_minmax(0,1fr)]"><img src={companyRelease.imageUrl} alt="" className="h-full min-h-[210px] w-full object-cover" /><div className="p-7"><span className="text-[10px] uppercase tracking-[0.12em] text-[var(--slate-medium)]">Published · {companyRelease.date}</span><h3 className="mt-3 text-[25px] leading-[1.1] text-[var(--navy-deep)] group-hover:text-[#5a6eb4]" style={{ fontWeight: 710 }}>{companyRelease.headline}</h3><p className="mt-3 text-[14px] leading-[1.65] text-[var(--slate-dark)]">{companyRelease.summary}</p></div></Link></section>}
         </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="py-12">
-        <div className="max-w-[1440px] mx-auto px-8">
-          {/* Subscription Status */}
-          <div className="bg-blue-50 border border-blue-200 p-6 mb-12">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-[18px] text-[var(--navy-deep)] mb-1" style={{ fontWeight: "600" }}>
-                  {getSubscriptionLabel()} - Active
-                </h2>
-                <p className="text-[14px] text-[var(--slate-medium)]">
-                  Your subscription is active until {getSubscriptionEndDate()}
-                </p>
-              </div>
-              <div className="text-right">
-                <div className="text-[14px] text-[var(--slate-medium)] mb-1">Press Releases Published</div>
-                <div className="text-[32px] text-[var(--navy-deep)]" style={{ fontWeight: "700" }}>
-                  0
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Actions */}
-          <div className="mb-12">
-            <h2 className="text-[24px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: "600" }}>
-              Quick Actions
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Company Profile Setup */}
-              <Link
-                to="/company-profile-setup"
-                className="group bg-white border-2 border-gray-200 hover:border-[var(--electric-blue)] p-8 transition-all hover:shadow-lg"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-[var(--electric-blue)]/10 rounded flex items-center justify-center flex-shrink-0 group-hover:bg-[var(--electric-blue)]/20 transition-colors">
-                    <Building2 size={32} className="text-[var(--electric-blue)]" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-[22px] text-[var(--navy-deep)] mb-2 group-hover:text-[var(--electric-blue)] transition-colors" style={{ fontWeight: "700" }}>
-                      Company Profile Setup
-                    </h3>
-                    <p className="text-[15px] text-[var(--slate-dark)] leading-[1.6] mb-4">
-                      {user.companyProfile
-                        ? "Update your company information, logo, and details that appear on your press releases"
-                        : "Set up your company profile to get started. This information will appear on all your press releases"}
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-[var(--electric-blue)] text-[14px]" style={{ fontWeight: "600" }}>
-                      {user.companyProfile ? "Edit Profile" : "Set Up Now"}
-                      <span>→</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-
-              {/* Post Press Release */}
-              <Link
-                to="/submit-press-release-form"
-                className="group bg-gradient-to-br from-[var(--electric-blue)] to-blue-500 border-2 border-[var(--electric-blue)] p-8 transition-all hover:shadow-xl"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-white/20 rounded flex items-center justify-center flex-shrink-0 group-hover:bg-white/30 transition-colors">
-                    <FileText size={32} className="text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-[22px] text-white mb-2" style={{ fontWeight: "700" }}>
-                      Post a Press Release
-                    </h3>
-                    <p className="text-[15px] text-white/90 leading-[1.6] mb-4">
-                      Submit a new press release to reach 45,000+ electrification infrastructure professionals
-                    </p>
-                    <div className="inline-flex items-center gap-2 text-white text-[14px]" style={{ fontWeight: "600" }}>
-                      Create New Release
-                      <span>→</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div>
-
-          {/* Additional Features */}
-          <div className="mb-12">
-            <h2 className="text-[24px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: "600" }}>
-              Manage Your Account
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white border border-gray-200 p-6">
-                <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center mb-4">
-                  <Calendar size={24} className="text-[var(--slate-dark)]" />
-                </div>
-                <h3 className="text-[16px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
-                  Published Releases
-                </h3>
-                <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6] mb-3">
-                  View and manage all your published press releases
-                </p>
-                <button className="text-[14px] text-[var(--electric-blue)]" style={{ fontWeight: "600" }}>
-                  View History
-                </button>
-              </div>
-
-              <div className="bg-white border border-gray-200 p-6">
-                <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center mb-4">
-                  <BarChart3 size={24} className="text-[var(--slate-dark)]" />
-                </div>
-                <h3 className="text-[16px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
-                  Analytics
-                </h3>
-                <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6] mb-3">
-                  Track views and engagement on your press releases
-                </p>
-                <button className="text-[14px] text-[var(--electric-blue)]" style={{ fontWeight: "600" }}>
-                  View Analytics
-                </button>
-              </div>
-
-              <div className="bg-white border border-gray-200 p-6">
-                <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center mb-4">
-                  <Settings size={24} className="text-[var(--slate-dark)]" />
-                </div>
-                <h3 className="text-[16px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: "600" }}>
-                  Account Settings
-                </h3>
-                <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6] mb-3">
-                  Manage your subscription and account preferences
-                </p>
-                <button className="text-[14px] text-[var(--electric-blue)]" style={{ fontWeight: "600" }}>
-                  Manage Settings
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Help Section */}
-          <div className="bg-gray-50 border border-gray-200 p-8">
-            <h3 className="text-[18px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: "600" }}>
-              Need Help?
-            </h3>
-            <p className="text-[14px] text-[var(--slate-dark)] leading-[1.6] mb-4">
-              If you have questions about posting press releases or managing your account, our support team is here to help.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-[var(--navy-deep)] hover:bg-[#1e3a5f] text-white px-6 py-3 text-[14px] transition-colors"
-              style={{ fontWeight: "600" }}
-            >
-              Contact Support
-            </Link>
-          </div>
-        </div>
-      </div>
-
+      </main>
       <Footer />
     </div>
   );

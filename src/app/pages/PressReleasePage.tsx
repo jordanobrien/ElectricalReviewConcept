@@ -137,7 +137,7 @@ export function PressReleasePage() {
                       Sponsored Content Notice
                     </div>
                     <p className="text-[13px] leading-[1.6] text-amber-900">
-                      This press release is provided by {pressRelease.company} and published as submitted. Electrical Review does not endorse or verify claims made in press releases. All inquiries should be directed to the company's press office.
+                      This press release is provided by {pressRelease.company} and published as submitted. Data Centre Review does not endorse or verify claims made in press releases. All inquiries should be directed to the company's press office.
                     </p>
                   </div>
                 </div>

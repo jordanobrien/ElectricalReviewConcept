@@ -18,7 +18,7 @@ export function TermsPage() {
 
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-200">
-        <div className="max-w-[1440px] mx-auto px-8 py-3">
+        <div className="mx-auto max-w-[1440px] px-4 py-3 md:px-8">
           <div className="flex items-center gap-2 text-[13px] text-[var(--slate-medium)]">
             <Link to="/" className="hover:text-[var(--electric-blue)]">Home</Link>
             <span>/</span>
@@ -29,9 +29,9 @@ export function TermsPage() {
 
       {/* Hero Banner */}
       <div className="relative h-[280px] overflow-hidden bg-gradient-to-r from-[var(--navy-deep)] to-[#1e3a5f]">
-        <div className="relative max-w-[1440px] mx-auto px-8 h-full flex items-center">
+        <div className="relative mx-auto flex h-full max-w-[1440px] items-center px-4 md:px-8">
           <div>
-            <h1 className="text-[48px] text-white mb-3" style={{ fontWeight: '700' }}>
+            <h1 className="mb-4 text-[48px] leading-[0.96] text-white md:text-[72px]" style={{ fontWeight: 750 }}>
               Terms of use
             </h1>
             <p className="text-[18px] text-white/90 max-w-3xl leading-[1.6]">

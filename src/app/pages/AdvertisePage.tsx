@@ -1,291 +1,38 @@
+import { ArrowUpRight, BookOpen, CalendarDays, Mail, Monitor, Presentation, Video } from "lucide-react";
 import { Link } from "react-router";
-import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
-import { Calendar, Mail, BarChart3, Eye, Download, CheckCircle } from "lucide-react";
+import { Navigation } from "../components/Navigation";
+
+const formats = [
+  { icon: Monitor, title: "Website", text: "High-impact display, sponsored hubs and campaigns alongside DCR's daily coverage." },
+  { icon: Mail, title: "Email marketing", text: "Target readers directly through newsletters and dedicated campaign sends." },
+  { icon: BookOpen, title: "Magazine", text: "Print and digital placements within DCR's long-form editorial environment." },
+  { icon: Video, title: "Video & webinars", text: "Expert-led formats that help technical stories earn attention and engagement." },
+  { icon: CalendarDays, title: "Events", text: "Partnerships across DCR events, awards and face-to-face industry programmes." },
+  { icon: Presentation, title: "Bespoke campaigns", text: "Integrated packages tailored around your audience, message and commercial goals." },
+];
+
 export function AdvertisePage() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 border-b border-gray-200">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-3">
-          <div className="flex items-center gap-2 text-[13px] text-[var(--slate-medium)]">
-            <Link to="/" className="hover:text-[var(--electric-blue)]">Home</Link>
-            <span>/</span>
-            <span className="text-[var(--navy-deep)]">Advertise</span>
+      <main>
+        <header className="bg-[var(--navy-deep)] text-white">
+          <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-[1fr_420px] lg:items-end">
+            <div><h1 className="max-w-[900px] text-[48px] leading-[0.96] md:text-[72px]" style={{ fontWeight: 750 }}>Reach the people shaping data centre infrastructure.</h1><p className="mt-7 max-w-[840px] text-[17px] leading-[1.75] text-white/75 md:text-[20px]">Build a credible presence with the managers, directors and technical specialists responsible for availability, energy, facilities and building services.</p></div>
+            <div className="border border-white/15 bg-white/5 p-7"><span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#9eacd9]">Start a conversation</span><p className="mt-3 text-[15px] leading-[1.65] text-white/75">Tell us who you need to reach and what success looks like. The DCR commercial team will shape the right mix.</p><Link to="/contact" className="mt-6 inline-flex items-center gap-2 bg-[#5a6eb4] px-6 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-white">Contact sales <ArrowUpRight size={16} /></Link></div>
           </div>
-        </div>
-      </div>
+        </header>
 
-      {/* Hero Banner */}
-      <div className="relative h-[280px] overflow-hidden bg-gradient-to-r from-[var(--navy-deep)] to-[#1e3a5f]">
-        <div className="relative max-w-[1440px] mx-auto px-4 md:px-8 h-full flex items-center">
-          <div>
-            <h1 className="text-[48px] text-white mb-3" style={{ fontWeight: '700' }}>
-              Advertise with us
-            </h1>
-            <p className="text-[18px] text-white/90 max-w-3xl leading-[1.6]">
-              Reach decision-makers responsible for electrification infrastructure delivery across the UK
-            </p>
-          </div>
-        </div>
-      </div>
+        <section className="mx-auto grid max-w-[1440px] gap-12 px-4 py-16 md:px-8 md:py-24 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+          <div><span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#5a6eb4]">The audience</span><h2 className="mt-4 text-[36px] leading-[1.05] text-[var(--navy-deep)] md:text-[48px]" style={{ fontWeight: 720 }}>Specialist influence, not general reach.</h2></div>
+          <div><p className="text-[18px] leading-[1.75] text-[var(--slate-dark)]">DCR reaches the people tasked with keeping sites running effectively and maintaining the best possible availability—from data centre and energy leaders to facilities and building-services teams.</p><div className="mt-8 grid gap-3 sm:grid-cols-2">{["Data centre managers & directors", "Energy and sustainability leaders", "Facilities & operations teams", "Building-services professionals", "Consultants and project teams", "Technology and solution partners"].map(item => <div key={item} className="border-l-2 border-[#5a6eb4] bg-[#f7f8fc] px-4 py-3 text-[14px] font-semibold text-[var(--navy-deep)]">{item}</div>)}</div></div>
+        </section>
 
-      {/* Main Content */}
-      <div className="py-12 bg-white">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8">
-          {/* Main Content - Full Width */}
-          <div className="max-w-4xl mx-auto">
-            {/* Introduction */}
-            <section className="mb-10 pb-10 border-b border-gray-200">
-              <p className="text-[18px] text-[var(--slate-dark)] leading-[1.7] mb-4">
-                Electrical Review connects you with senior professionals who commission, procure and operate electrification infrastructure. Our audience is actively engaged in projects right now — and seeking trusted partners who understand delivery.
-              </p>
-              <p className="text-[16px] text-[var(--slate-dark)] leading-[1.7]">
-                Advertising with Electrical Review positions your brand alongside authoritative, practitioner-focused editorial — not generic industry news.
-              </p>
-            </section>
+        <section className="bg-[#f7f8fc] py-16 md:py-24"><div className="mx-auto max-w-[1440px] px-4 md:px-8"><div className="mb-9 flex flex-wrap items-end justify-between gap-5 border-b border-gray-200 pb-7"><h2 className="text-[34px] text-[var(--navy-deep)] md:text-[44px]" style={{ fontWeight: 720 }}>Campaign opportunities</h2><a href="https://datacentrereview.com/media-pack/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">View the DCR media pack <ArrowUpRight size={15} /></a></div><div className="grid gap-px bg-gray-200 md:grid-cols-2 lg:grid-cols-3">{formats.map(({ icon: Icon, title, text }) => <div key={title} className="bg-white p-7 md:p-9"><Icon size={22} className="text-[#5a6eb4]" /><h3 className="mt-5 text-[23px] text-[var(--navy-deep)]" style={{ fontWeight: 700 }}>{title}</h3><p className="mt-3 text-[14px] leading-[1.7] text-[var(--slate-dark)]">{text}</p></div>)}</div></div></section>
 
-            {/* Our Audience */}
-            <section className="mb-10 pb-10 border-b border-gray-200">
-              <h2 className="text-[32px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                Our audience
-              </h2>
-
-
-
-              <div className="bg-gray-50 p-6">
-                <h3 className="text-[20px] text-[var(--navy-deep)] mb-4" style={{ fontWeight: '600' }}>
-                  Reader profiles
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
-                      <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Estates &amp; infrastructure directors
-                    </li>
-                    <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
-                      <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Fleet &amp; depot operators
-                    </li>
-                    <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
-                      <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Commercial developers
-                    </li>
-                  </ul>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
-                      <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Consulting engineers
-                    </li>
-                    <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
-                      <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Electrical contractors
-                    </li>
-                    <li className="flex items-start gap-2 text-[15px] text-[var(--slate-dark)]">
-                      <div className="w-2 h-2 bg-[var(--electric-blue)] rounded-full flex-shrink-0 mt-2"></div>
-                      Operations &amp; maintenance teams
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* Advertising Opportunities */}
-            <section className="mb-10 pb-10 border-b border-gray-200">
-              <h2 className="text-[32px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                Advertising opportunities
-              </h2>
-
-              <div className="grid grid-cols-3 gap-6 mb-8">
-                {/* Display Advertising */}
-                <div className="bg-white border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
-                    <Eye size={24} className="text-[var(--electric-blue)]" />
-                  </div>
-                  <h3 className="text-[18px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Display advertising
-                  </h3>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                    Premium positions across homepage, article pages, and topic hubs. MPU, leaderboard and billboard formats available.
-                  </p>
-                </div>
-
-                {/* Press Release Hub */}
-                <div className="bg-white border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
-                    <BarChart3 size={24} className="text-[var(--electric-blue)]" />
-                  </div>
-                  <h3 className="text-[18px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Press Release Hub
-                  </h3>
-                  <div className="flex items-center gap-2 text-[13px] text-amber-700">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block"></span>
-                    Coming soon
-                  </div>
-                </div>
-
-                {/* Newsletter Sponsorship */}
-                <div className="bg-white border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded mb-4">
-                    <Mail size={24} className="text-[var(--electric-blue)]" />
-                  </div>
-                  <h3 className="text-[18px] text-[var(--navy-deep)] mb-3" style={{ fontWeight: '600' }}>
-                    Newsletter sponsorship
-                  </h3>
-                  <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                    Feature your message in our weekly newsletter, delivered to engaged subscribers every Tuesday morning.
-                  </p>
-                </div>
-              </div>
-
-              {/* Event Sponsorship */}
-              <div className="bg-white border border-gray-200 p-6 hover:shadow-md transition-shadow mt-6">
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 bg-[var(--electric-blue)]/10 border border-[var(--electric-blue)]/20 flex items-center justify-center rounded flex-shrink-0">
-                    <Calendar size={24} className="text-[var(--electric-blue)]" />
-                  </div>
-                  <div>
-                    <h3 className="text-[18px] text-[var(--navy-deep)] mb-2" style={{ fontWeight: '600' }}>
-                      Event sponsorship
-                    </h3>
-                    <p className="text-[14px] text-[var(--slate-dark)] leading-[1.7]">
-                      Align your brand with <strong>Powered On Live</strong> — our flagship industry event bringing together the professionals shaping electrification infrastructure delivery across the UK. Sponsorship packages include brand placement, delegate engagement, and speaking opportunities. Contact us to discuss availability.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Ad Specs */}
-              <div className="bg-white border border-gray-200 overflow-hidden">
-                <div className="bg-gray-50 px-5 py-3 border-b border-gray-200">
-                  <h3 className="text-[18px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>
-                    Standard display formats
-                  </h3>
-                </div>
-                <div className="p-5">
-                  <div className="grid grid-cols-3 gap-6">
-                    <div>
-                      <div className="text-[15px] text-[var(--navy-deep)] mb-1" style={{ fontWeight: '600' }}>
-                        MPU
-                      </div>
-                      <div className="text-[13px] text-[var(--slate-medium)]">
-                        300 × 250px
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[15px] text-[var(--navy-deep)] mb-1" style={{ fontWeight: '600' }}>
-                        Leaderboard
-                      </div>
-                      <div className="text-[13px] text-[var(--slate-medium)]">
-                        728 × 90px
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[15px] text-[var(--navy-deep)] mb-1" style={{ fontWeight: '600' }}>
-                        Billboard
-                      </div>
-                      <div className="text-[13px] text-[var(--slate-medium)]">
-                        970 × 250px
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Why Advertise */}
-            <section className="mb-10 pb-10 border-b border-gray-200">
-              <h2 className="text-[32px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                Why advertise with Electrical Review
-              </h2>
-
-              <div className="bg-[var(--navy-deep)] text-white p-8">
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3 text-[16px] leading-[1.7]">
-                    <CheckCircle size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong>High-intent readership:</strong> Our audience is actively engaged in procurement decisions, not passive browsing.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3 text-[16px] leading-[1.7]">
-                    <CheckCircle size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong>Editorial alignment:</strong> Your brand appears alongside trusted, authoritative content focused on delivery.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3 text-[16px] leading-[1.7]">
-                    <CheckCircle size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong>Defined focus:</strong> We cover grid to plug. Your message reaches exactly the right people.
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3 text-[16px] leading-[1.7]">
-                    <CheckCircle size={20} className="text-[var(--electric-blue)] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong>Transparent environment:</strong> We clearly distinguish editorial from advertising. No misleading native formats.
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            {/* 2026 Media Pack */}
-            <section className="mb-10 pb-10 border-b border-gray-200">
-              <h2 className="text-[32px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                Our media pack
-              </h2>
-
-              <div className="bg-gray-50 border border-gray-200 overflow-hidden">
-                <div className="bg-[var(--navy-deep)] px-8 py-6 flex items-center gap-5">
-                  <div className="w-14 h-14 bg-white/10 border border-white/20 flex items-center justify-center rounded flex-shrink-0">
-                    <Download size={28} className="text-white" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-3 mb-1">
-                      <h3 className="text-[22px] text-white" style={{ fontWeight: '600' }}>
-                        Refreshed 2026 Media Pack
-                      </h3>
-                      <span className="bg-[var(--electric-blue)] text-white text-[11px] px-2.5 py-0.5 rounded-full uppercase tracking-wide" style={{ fontWeight: '700' }}>
-                        Coming soon
-                      </span>
-                    </div>
-                    <p className="text-[14px] text-white/80">
-                      Full advertising rates, specifications and audience data
-                    </p>
-                  </div>
-                </div>
-                <div className="px-8 py-6">
-                  <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7] mb-4">
-                    Our refreshed 2026 Media Pack is in preparation and will include updated rates, format specifications, audience insights, and event partnership details. In the meantime, contact us directly to discuss what we can offer.
-                  </p>
-                  <p className="text-[14px] text-[var(--slate-medium)]">
-                    We will notify registered contacts as soon as the pack is available.
-                  </p>
-                </div>
-              </div>
-
-              {/* Contact Info */}
-              <div className="mt-8 bg-gray-50 border border-gray-200 p-6">
-                <h3 className="text-[18px] text-[var(--navy-deep)] mb-4" style={{ fontWeight: '600' }}>
-                  Have questions?
-                </h3>
-                <p className="text-[15px] text-[var(--slate-dark)] leading-[1.7] mb-4">
-                  Our commercial team is available to discuss bespoke packages and multi-channel campaigns.
-                </p>
-                <div className="flex items-center gap-2 text-[15px] text-[var(--slate-dark)]">
-                  <Mail size={16} className="text-[var(--electric-blue)]" />
-                  <a href="mailto:massimom@sjpbusinessmedia.com" className="text-[var(--electric-blue)] hover:underline">
-                    massimom@sjpbusinessmedia.com
-                  </a>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div>
-
+        <section className="mx-auto max-w-[1440px] px-4 py-16 md:px-8 md:py-20"><div className="grid gap-8 bg-[#5a6eb4] p-8 text-white md:p-12 lg:grid-cols-[1fr_auto] lg:items-center"><div><span className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">Made around your objectives</span><h2 className="mt-3 text-[32px] leading-tight md:text-[42px]" style={{ fontWeight: 720 }}>Put your expertise in front of the right sector audience.</h2></div><Link to="/contact" className="inline-flex items-center gap-2 bg-white px-6 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4]">Plan a campaign <ArrowUpRight size={16} /></Link></div></section>
+      </main>
       <Footer />
     </div>
   );

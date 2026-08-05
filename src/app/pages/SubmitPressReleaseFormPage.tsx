@@ -12,7 +12,7 @@ export function SubmitPressReleaseFormPage() {
   const [summary, setSummary] = useState("");
   const [body, setBody] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [category, setCategory] = useState("Commissioning & Reliability");
+  const [category, setCategory] = useState("Cooling & Thermal Management");
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
@@ -28,16 +28,19 @@ export function SubmitPressReleaseFormPage() {
     }
   }, [user, navigate]);
 
+  useEffect(() => {
+    if (user?.companyProfile) {
+      setContactName(user.companyProfile.contactName || "");
+      setContactEmail(user.companyProfile.contactEmail || user.email);
+      setContactPhone(user.companyProfile.contactPhone || "");
+    }
+  }, [user]);
+
   if (!user?.hasSubscription || !user?.companyProfile) {
     return null;
   }
 
-  const categories = [
-    "Commissioning & Reliability",
-    "EV Charging Infrastructure",
-    "Grids and connections",
-    "Storage & Resilience",
-  ];
+  const categories = ["Cooling & Thermal Management", "Design, Construction & Operations", "Digital Infrastructure & Security", "Markets, Policy & People", "Power & Energy", "Sustainability & Resources"];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,9 +74,9 @@ export function SubmitPressReleaseFormPage() {
                   setSummary("");
                   setBody("");
                   setImageUrl("");
-                  setContactName("");
-                  setContactEmail("");
-                  setContactPhone("");
+                  setContactName(user.companyProfile?.contactName || "");
+                  setContactEmail(user.companyProfile?.contactEmail || user.email);
+                  setContactPhone(user.companyProfile?.contactPhone || "");
                 }}
                 className="bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-6 py-3 text-[15px]"
                 style={{ fontWeight: "600" }}

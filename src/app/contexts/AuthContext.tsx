@@ -10,6 +10,9 @@ interface User {
     logo?: string;
     website?: string;
     description?: string;
+    contactName?: string;
+    contactEmail?: string;
+    contactPhone?: string;
   };
 }
 
@@ -27,8 +30,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = async (email: string, _password: string) => {
+  const demoUser = (): User => {
+    const expiry = new Date();
+    expiry.setMonth(expiry.getMonth() + 12);
+    return {
+      email: "client@northstarthermal.example",
+      hasSubscription: true,
+      subscriptionType: "12-months",
+      subscriptionExpiry: expiry.toISOString(),
+      companyProfile: {
+        companyName: "Northstar Thermal",
+        website: "https://northstarthermal.example",
+        description: "Northstar Thermal designs and validates liquid-cooling infrastructure for high-density data centre deployments across Europe.",
+        logo: "https://placehold.co/240x80/5a6eb4/ffffff.png?text=NORTHSTAR+THERMAL",
+        contactName: "Alex Morgan",
+        contactEmail: "press@northstarthermal.example",
+        contactPhone: "+44 (0)20 7946 0182",
+      },
+    };
+  };
+
+  const login = async (email: string, password: string) => {
     await new Promise(resolve => setTimeout(resolve, 500));
+    if (email.toLowerCase() === "client@northstarthermal.example" && password === "DCRdemo2026") {
+      setUser(demoUser());
+      return;
+    }
     setUser({
       email,
       hasSubscription: false,
@@ -74,26 +101,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const createDemoUser = async () => {
-    // Mock login delay
     await new Promise(resolve => setTimeout(resolve, 500));
-
-    const now = new Date();
-    const expiry = new Date(now);
-    expiry.setMonth(expiry.getMonth() + 6);
-
-    // Create complete demo user in single state update
-    setUser({
-      email: "demo@example.com",
-      hasSubscription: true,
-      subscriptionType: '6-months',
-      subscriptionExpiry: expiry.toISOString(),
-      companyProfile: {
-        companyName: "Demo Company Ltd",
-        website: "https://democompany.com",
-        description: "A demonstration company profile for showcasing the press release submission workflow.",
-        logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=80&fit=crop"
-      }
-    });
+    setUser(demoUser());
   };
 
   return (

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { opinionArticles } from "../data/opinionArticles";
-import { getTopicColorByCategory } from "../utils/topicColors";
+import { getPrimaryTopicId, getPrimaryTopicTitle, getTopicColor } from "../utils/topicColors";
 import { MessageSquare } from "lucide-react";
 
 export function LatestOpinion() {
@@ -48,9 +48,9 @@ export function LatestOpinion() {
                 <div className="flex items-center justify-between mb-3">
                   <span
                     className="text-white px-2.5 py-1 text-[10px] tracking-wide uppercase inline-block"
-                    style={{ backgroundColor: getTopicColorByCategory(article.category).cssVar }}
+                    style={{ backgroundColor: getTopicColor(getPrimaryTopicId(article.topics, article.category)).cssVar }}
                   >
-                    {article.category}
+                    {getPrimaryTopicTitle(article.topics, article.category)}
                   </span>
                   <span className="text-[11px] text-[var(--slate-medium)]">{article.date}</span>
                 </div>
