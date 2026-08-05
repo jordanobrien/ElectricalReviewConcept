@@ -1,7 +1,7 @@
 
-  # Homepage Design for Electrical Review
+  # Homepage Design for Data Centre Review
 
-  This is a code bundle for Homepage Design for Electrical Review. The original project is available at https://www.figma.com/design/Tm363AFSMzBIx4pS7qcAhw/Homepage-Design-for-Electrical-Review.
+  This is a code bundle for Homepage Design for Data Centre Review. You can view the live website here: https://electrical-review.cballardpateman.chatgpt.site/ 
 
   ## Running the code
 
