@@ -33,6 +33,13 @@ export const pressReleases: PressRelease[] = [
     bodyParagraphs: ["Operators define state-of-charge floors, service priorities and conditions that remove assets from commercial dispatch.", "The platform records each control decision to support event review and operational assurance.", "Pilot deployments are planned across the UK and Ireland during the remainder of 2026."],
     contactName: "Partner Content Team", contactEmail: "partners@datacentrereview.com", contactPhone: "+44 (0)20 0000 0000",
   },
+  {
+    id: "schneider-edge-power", company: "Schneider Electric", companyLogo: "/brand-logos/schneider-electric-square.png", headline: "Schneider Electric Expands Edge Power Resilience Programme", summary: "New partner support helps operators standardise power, monitoring and maintenance across regional edge deployments.", date: "29 July 2026", location: "LONDON, UK",
+    imageUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&h=800&fit=crop", imageCaption: "Critical power infrastructure supporting distributed edge facilities",
+    introText: "Schneider Electric has expanded its edge power resilience programme to help operators standardise critical systems across distributed sites.",
+    bodyParagraphs: ["The programme combines reference designs, remote monitoring and partner-led maintenance for regional edge deployments.", "Operators can use a common set of resilience targets while adapting capacity and service coverage to individual locations.", "The expanded support programme is available to UK and European customers through Schneider Electric's partner network."],
+    contactName: "Priya Shah", contactEmail: "media.uk@se.example", contactPhone: "+44 (0)20 4555 0174",
+  },
 ];
 
 export function getPressReleaseById(id: string): PressRelease | undefined { return pressReleases.find((item) => item.id === id); }

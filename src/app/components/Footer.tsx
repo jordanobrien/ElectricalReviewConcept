@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Twitter, Linkedin, Mail, MapPin, Phone, Youtube } from "lucide-react";
 import { Link } from "react-router";
 
 export function Footer() {
@@ -34,23 +34,29 @@ export function Footer() {
               {/* Social Links */}
               <div className="flex items-center gap-3">
                 <a
-                  href="#"
+                  href="https://uk.linkedin.com/company/datacentrereviewmag"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 bg-white/10 hover:bg-[var(--electric-blue)] text-white flex items-center justify-center transition-colors"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={16} />
-                </a>
-                <a
-                  href="#"
-                  className="w-9 h-9 bg-white/10 hover:bg-[var(--electric-blue)] text-white flex items-center justify-center transition-colors"
-                  aria-label="LinkedIn"
+                  aria-label="Data Centre Review on LinkedIn"
                 >
                   <Linkedin size={16} />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.youtube.com/@datacentrereview"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 bg-white/10 hover:bg-[var(--electric-blue)] text-white flex items-center justify-center transition-colors"
-                  aria-label="Twitter"
+                  aria-label="Data Centre Review on YouTube"
+                >
+                  <Youtube size={17} />
+                </a>
+                <a
+                  href="https://twitter.com/dcrmagazine"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 bg-white/10 hover:bg-[var(--electric-blue)] text-white flex items-center justify-center transition-colors"
+                  aria-label="Data Centre Review on X"
                 >
                   <Twitter size={16} />
                 </a>

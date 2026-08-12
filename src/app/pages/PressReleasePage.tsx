@@ -2,11 +2,14 @@ import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
 import { useParams, Link } from "react-router";
 import { getPressReleaseById } from "../data/pressReleases";
-import { Linkedin, Share2, Twitter, Mail as MailIcon, Building2, Calendar as CalendarIcon, User } from "lucide-react";
+import { getPublicBrandByCompanyName } from "../data/brandProfiles";
+import { ArrowUpRight, Linkedin, Twitter, Mail as MailIcon, Building2, Calendar as CalendarIcon } from "lucide-react";
 
 export function PressReleasePage() {
   const { id } = useParams<{ id: string }>();
   const pressRelease = id ? getPressReleaseById(id) : undefined;
+  const brandProfile = pressRelease ? getPublicBrandByCompanyName(pressRelease.company) : undefined;
+  const brandPath = brandProfile ? "/press-release-brands/" + brandProfile.id : undefined;
 
   if (!pressRelease) {
     return (
@@ -37,7 +40,7 @@ export function PressReleasePage() {
             <span>/</span>
             <Link to="/press-releases" className="hover:text-[var(--electric-blue)]">Press Releases</Link>
             <span>/</span>
-            <span className="text-[var(--navy-deep)]">{pressRelease.company}</span>
+            {brandPath ? <Link to={brandPath} className="text-[var(--navy-deep)] hover:text-[var(--electric-blue)]">{pressRelease.company}</Link> : <span className="text-[var(--navy-deep)]">{pressRelease.company}</span>}
           </div>
         </div>
       </div>
@@ -152,25 +155,31 @@ export function PressReleasePage() {
                 </div>
                 
                 {/* Company Logo */}
-                {pressRelease.companyLogo ? (
-                  <div className="w-full h-24 bg-white border border-gray-200 flex items-center justify-center mb-6 p-4">
-                    <img 
-                      src={pressRelease.companyLogo} 
-                      alt={pressRelease.company}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+                {(pressRelease.companyLogo || brandProfile?.logo) ? (
+                  brandPath ? (
+                    <Link to={brandPath} className="group flex h-40 w-full items-center justify-center border border-gray-200 bg-white p-3 transition-colors hover:border-[#5a6eb4]" aria-label={"View " + pressRelease.company + " brand profile"}>
+                      <img src={pressRelease.companyLogo || brandProfile?.logo} alt={pressRelease.company} className="h-32 w-32 object-contain transition-transform group-hover:scale-[1.02]" />
+                    </Link>
+                  ) : (
+                    <div className="flex h-40 w-full items-center justify-center border border-gray-200 bg-white p-3">
+                      <img src={pressRelease.companyLogo || brandProfile?.logo} alt={pressRelease.company} className="h-32 w-32 object-contain" />
+                    </div>
+                  )
                 ) : (
-                  <div className="w-full h-24 bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center mb-6">
+                  <div className="flex h-40 w-full items-center justify-center bg-[var(--navy-deep)]">
                     <span className="text-white text-[24px] tracking-wider" style={{ fontWeight: '700' }}>
                       {pressRelease.company.split(' ').map(word => word[0]).join('')}
                     </span>
                   </div>
                 )}
                 
-                <div className="text-[18px] text-[var(--navy-deep)] mb-6" style={{ fontWeight: '600' }}>
-                  {pressRelease.company}
-                </div>
+                {brandPath ? (
+                  <Link to={brandPath} className="group mb-6 mt-5 flex items-center justify-between gap-3 text-[18px] text-[var(--navy-deep)] hover:text-[#5a6eb4]" style={{ fontWeight: '600' }}>
+                    {pressRelease.company}<ArrowUpRight size={16} className="shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                ) : (
+                  <div className="mb-6 mt-5 text-[18px] text-[var(--navy-deep)]" style={{ fontWeight: '600' }}>{pressRelease.company}</div>
+                )}
 
                 {/* Press Contact */}
                 <div className="pt-6 border-t border-gray-200">

@@ -28,6 +28,17 @@ function HeroStory({ index, size }: { index: number; size: "large" | "small" }) 
   );
 }
 
+function MpuPlaceholder({ tone = "light" }: { tone?: "light" | "dark" }) {
+  return (
+    <div className={`flex h-[250px] w-[300px] max-w-full items-center justify-center border text-center ${tone === "dark" ? "border-white/20 bg-white/5" : "border-gray-200 bg-[#f7f8fc]"}`}>
+      <div>
+        <span className={`block text-[9px] font-bold uppercase tracking-[0.17em] ${tone === "dark" ? "text-white/60" : "text-[var(--slate-medium)]"}`}>Advertisement</span>
+        <span className={`mt-2 block text-[10px] tracking-[0.08em] ${tone === "dark" ? "text-white/40" : "text-gray-400"}`}>MPU · 300×250</span>
+      </div>
+    </div>
+  );
+}
+
 export function HeroBanner() {
   return (
     <section className="bg-white py-3 md:py-5">
@@ -38,7 +49,12 @@ export function HeroBanner() {
         </div>
         <div className="grid gap-3">
           <HeroStory index={2} size="small" />
-          <HeroStory index={3} size="large" />
+          <div className="grid min-h-[390px] gap-3 sm:grid-cols-2">
+            <HeroStory index={3} size="small" />
+            <div className="flex min-h-[245px] items-center justify-center bg-[var(--navy-deep)] p-4">
+              <MpuPlaceholder tone="dark" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
