@@ -13,7 +13,7 @@ export function MagazinesPage() {
         <header className="mx-auto max-w-[1440px] px-4 pb-9 pt-12 md:px-8 md:pb-12 md:pt-20">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_440px] lg:items-end">
             <h1 className="text-[48px] leading-[0.96] text-[var(--navy-deep)] md:text-[72px]" style={{ fontWeight: 750 }}>Magazine</h1>
-            <p className="max-w-[540px] text-[15px] leading-[1.7] text-[var(--slate-dark)] md:text-[17px]">Long-form reporting, technical insight and the people moving data centre infrastructure forward.</p>
+            <p className="max-w-[540px] text-[15px] leading-[1.7] text-[var(--slate-dark)] md:text-[17px]">Published twice a year, Data Centre Review magazine brings together the best opinion and analysis from across the data centre industry.</p>
           </div>
         </header>
 
@@ -27,7 +27,7 @@ export function MagazinesPage() {
             <div className="flex flex-col justify-center p-8 md:p-12 lg:p-16">
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/60">{currentIssue.issueDate}</span>
               <h2 className="mt-5 text-[42px] leading-[1] md:text-[58px]" style={{ fontWeight: 750 }}>{currentIssue.title}</h2>
-              <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-white/72">A curated edition examining the engineering, energy and operational decisions behind dependable digital infrastructure.</p>
+              <p className="mt-6 max-w-[600px] text-[16px] leading-[1.7] text-white/72">The latest print edition, featuring a curated selection of expert opinion and in-depth industry analysis.</p>
               <button type="button" className="mt-10 inline-flex w-fit items-center gap-3 bg-white px-6 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-[var(--navy-deep)] transition-transform hover:-translate-y-1"><Download size={16} /> Download issue</button>
             </div>
           </div>

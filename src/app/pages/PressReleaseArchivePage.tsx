@@ -1,14 +1,18 @@
-import { Plus } from "lucide-react";
+import { ArrowUpRight, Building2, Plus } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Footer } from "../components/Footer";
 import { Navigation } from "../components/Navigation";
+import { useAuth } from "../contexts/AuthContext";
+import { publicBrandProfiles } from "../data/brandProfiles";
 import { pressReleases } from "../data/pressReleases";
 
 export function PressReleaseArchivePage() {
+  const { user } = useAuth();
   const [visibleCount, setVisibleCount] = useState(3);
   const visibleReleases = pressReleases.slice(0, visibleCount);
   const hasMore = visibleCount < pressReleases.length;
+  const brands = user?.brandProfiles.length ? user.brandProfiles : publicBrandProfiles;
 
   return (
     <div className="min-h-screen bg-white">
@@ -36,6 +40,30 @@ export function PressReleaseArchivePage() {
             ))}
           </div>
           {hasMore && <div className="flex justify-center pt-10"><button onClick={() => setVisibleCount(count => Math.min(count + 3, pressReleases.length))} className="group flex min-w-[210px] items-center justify-center gap-3 border border-[#5a6eb4] px-7 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-[#5a6eb4] hover:bg-[#5a6eb4] hover:text-white">Load more <Plus size={16} className="transition-transform group-hover:rotate-90" /></button></div>}
+        </section>
+
+        <section className="border-t border-gray-200 bg-[#f7f8fc]">
+          <div className="mx-auto max-w-[1440px] px-4 py-12 md:px-8 md:py-16">
+            <div className="mb-8 max-w-[760px]">
+              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#5a6eb4]">Company Directory</span>
+              <h2 className="mt-3 text-[32px] leading-tight text-[var(--navy-deep)] md:text-[42px]" style={{ fontWeight: 700 }}>Meet the brands behind the announcements</h2>
+              <p className="mt-4 text-[15px] leading-[1.7] text-[var(--slate-dark)]">Explore company profiles, press contacts and every published announcement from each brand.</p>
+            </div>
+            <div className="grid gap-px bg-gray-200 sm:grid-cols-2 lg:grid-cols-3">
+              {brands.map((brand) => (
+                <Link key={brand.id} to={"/press-release-brands/" + brand.id} className="group flex min-h-[220px] flex-col bg-white p-7 transition-colors hover:bg-[#eef1fa]">
+                  <div className="flex h-28 items-center justify-center border border-gray-100 bg-white p-3">
+                    {brand.logo ? <img src={brand.logo} alt={brand.companyName + " logo"} className="h-24 w-24 object-contain" /> : <Building2 size={42} className="text-[#5a6eb4]" />}
+                  </div>
+                  <div className="mt-6 flex items-end justify-between gap-4">
+                    <h3 className="text-[20px] leading-tight text-[var(--navy-deep)]" style={{ fontWeight: 700 }}>{brand.companyName}</h3>
+                    <ArrowUpRight size={17} className="shrink-0 text-[#5a6eb4] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </div>
+                  <span className="mt-3 text-[9px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">View brand profile</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </section>
       </main>
       <Footer />

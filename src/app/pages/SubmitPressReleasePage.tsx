@@ -17,7 +17,7 @@ const features = [
   "One credit covers one press release",
   "Every credit is valid for 12 months",
   "Published to the Data Centre Review Press Release Hub",
-  "Company profile listing",
+  "Permanent account with reusable brand profiles",
   "Clearly branded as sponsored content",
 ];
 
@@ -216,7 +216,21 @@ export function SubmitPressReleasePage() {
               Access your press release dashboard and manage your submissions.
             </p>
             <form onSubmit={handleLogin}>
-              <div className="mb-5 border border-[#5a6eb4]/25 bg-[#f7f8fc] p-4 text-[12px] leading-[1.6] text-[var(--slate-dark)]"><strong className="block text-[var(--navy-deep)]">Demo client account</strong><span className="block">client@northstarthermal.example</span><span className="block">Password: DCRdemo2026</span><button type="button" onClick={async () => { setIsLoading(true); await createDemoUser(); navigate('/press-release-dashboard'); }} className="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">Open demo workspace →</button></div>
+              <div className="mb-5 border border-[#5a6eb4]/25 bg-[#f7f8fc] p-4 text-[12px] leading-[1.6] text-[var(--slate-dark)]">
+                <strong className="block text-[var(--navy-deep)]">Demo agency account</strong>
+                <span className="block">Explore the multi-brand press release workspace without signing in.</span>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setIsLoading(true);
+                    await createDemoUser();
+                    navigate('/press-release-dashboard');
+                  }}
+                  className="mt-3 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]"
+                >
+                  Open demo workspace →
+                </button>
+              </div>
               <div className="mb-4">
                 <label className="block text-[13px] text-[var(--slate-dark)] mb-1.5" style={{ fontWeight: "600" }}>
                   Email address

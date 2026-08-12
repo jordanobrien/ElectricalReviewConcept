@@ -3,7 +3,9 @@ import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { sites } from './build/sites-vite-plugin'
+import hostingConfig from './.openai/hosting.json'
 
+const LOCAL_D1_DATABASE_ID = '00000000-0000-4000-8000-000000000000'
 
 function figmaAssetResolver() {
   return {
@@ -24,6 +26,8 @@ export default defineConfig(async () => {
 
   const { cloudflare } = await import('@cloudflare/vite-plugin')
 
+  const { d1, r2 } = hostingConfig
+
   return {
     plugins: [
       figmaAssetResolver(),
@@ -38,8 +42,10 @@ export default defineConfig(async () => {
           name: 'server',
           main: './worker/index.ts',
           compatibility_date: '2026-05-22',
+          d1_databases: d1 ? [{ binding: d1, database_name: 'electrical-review-leads', database_id: LOCAL_D1_DATABASE_ID }] : [],
+          r2_buckets: r2 ? [{ binding: r2, bucket_name: 'electrical-review-media' }] : [],
           assets: {
-            not_found_handling: 'single-page-application',
+            binding: 'ASSETS',
           },
         },
       }),

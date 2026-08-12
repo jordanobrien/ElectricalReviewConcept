@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -43,6 +44,7 @@
     "clsx": "2.1.1",
     "cmdk": "1.1.1",
     "date-fns": "3.6.0",
+    "drizzle-orm": "0.45.2",
     "embla-carousel-react": "8.6.0",
     "input-otp": "1.4.2",
     "lucide-react": "0.487.0",
@@ -67,6 +69,7 @@
     "@cloudflare/vite-plugin": "1.37.1",
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
+    "drizzle-kit": "0.31.10",
     "tailwindcss": "4.1.12",
     "vite": "6.3.5",
     "wrangler": "4.92.0"

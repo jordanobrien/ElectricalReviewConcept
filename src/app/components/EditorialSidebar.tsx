@@ -1,6 +1,7 @@
-import { ArrowUpRight, Calendar, ChevronRight, Mail, MapPin, TrendingUp } from "lucide-react";
+import { ArrowUpRight, BookOpen, Calendar, ChevronRight, Mail, MapPin, TrendingUp } from "lucide-react";
 import { Link } from "react-router";
 import { articles } from "../data/articles";
+import { magazines } from "../data/magazines";
 import { pressReleases } from "../data/pressReleases";
 import { getPrimaryTopicTitle } from "../utils/topicColors";
 
@@ -20,17 +21,24 @@ interface EditorialSidebarProps {
   currentArticleId?: string;
 }
 
+function MpuPlaceholder() {
+  return (
+    <div className="flex h-[250px] w-full items-center justify-center border border-gray-200 bg-[#f7f8fc]" aria-label="Advertisement">
+      <div className="text-center">
+        <span className="block text-[9px] font-bold uppercase tracking-[0.17em] text-[var(--slate-medium)]">Advertisement</span>
+        <span className="mt-2 block text-[10px] tracking-[0.08em] text-gray-400">MPU · 300×250</span>
+      </div>
+    </div>
+  );
+}
+
 export function EditorialSidebar({ currentArticleId }: EditorialSidebarProps) {
   const trendingArticles = articles.filter((item) => item.id !== currentArticleId).slice(0, 4);
+  const latestIssue = magazines[0];
 
   return (
     <div className="space-y-6">
-      <div className="flex h-[250px] items-center justify-center border border-gray-200 bg-[#f7f8fc]">
-        <div className="text-center">
-          <span className="block text-[9px] font-bold uppercase tracking-[0.17em] text-[var(--slate-medium)]">Advertisement</span>
-          <span className="mt-2 block text-[10px] tracking-[0.08em] text-gray-400">MPU · 300×250</span>
-        </div>
-      </div>
+      <MpuPlaceholder />
 
       <section className="border border-gray-200 bg-white p-6">
         <div className="mb-6 flex items-center gap-3 border-b border-gray-200 pb-4">
@@ -57,6 +65,22 @@ export function EditorialSidebar({ currentArticleId }: EditorialSidebarProps) {
         <input type="email" placeholder="Your email address" className="mt-5 w-full border border-white/20 bg-white px-4 py-3 text-[14px] text-[var(--navy-deep)] outline-none" />
         <button type="button" className="mt-3 w-full bg-[#5a6eb4] py-3 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Subscribe</button>
         <p className="mt-3 text-[10px] text-white/45">Unsubscribe anytime. View our privacy policy.</p>
+      </section>
+
+      <section className="overflow-hidden border border-gray-200 bg-white">
+        <div className="flex items-center gap-3 border-b border-gray-200 px-6 py-4">
+          <BookOpen size={17} className="text-[#5a6eb4]" />
+          <h2 className="text-[20px] leading-tight text-[var(--navy-deep)]" style={{ fontWeight: 700 }}>Latest Issue</h2>
+        </div>
+        <Link to="/magazines" className="group grid grid-cols-[132px_minmax(0,1fr)] items-center gap-5 bg-[#f7f8fc] p-5">
+          <div className="aspect-[4/5] overflow-hidden bg-[#17131f] shadow-[0_8px_20px_rgba(18,30,61,0.14)]">
+            <img src={latestIssue.coverImage} alt={`${latestIssue.title} cover`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          </div>
+          <div className="flex min-w-0 flex-col justify-center">
+            <h3 className="text-[20px] leading-[1.12] text-[var(--navy-deep)] transition-colors group-hover:text-[#5a6eb4]" style={{ fontWeight: 700 }}>{latestIssue.title}</h3>
+            <span className="mt-5 inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.11em] text-[#5a6eb4]">View issue <ArrowUpRight size={14} /></span>
+          </div>
+        </Link>
       </section>
 
       <section className="border border-gray-200 bg-white p-6">
@@ -97,6 +121,8 @@ export function EditorialSidebar({ currentArticleId }: EditorialSidebarProps) {
         </ul>
         <Link to="/events" className="mt-5 flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#5a6eb4]">View all events <ChevronRight size={14} /></Link>
       </section>
+
+      <MpuPlaceholder />
 
       <nav className="border border-gray-200 bg-white" aria-label="Explore more content">
         <div className="border-b border-gray-200 px-6 py-5">

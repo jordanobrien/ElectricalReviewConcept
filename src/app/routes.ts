@@ -28,6 +28,8 @@ import { CompanyProfileSetupPage } from "./pages/CompanyProfileSetupPage";
 import { SubmitPressReleaseFormPage } from "./pages/SubmitPressReleaseFormPage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { PressReleaseDashboardPage } from "./pages/PressReleaseDashboardPage";
+import { DigitalMediaPackPage } from "./pages/DigitalMediaPackPage";
+import { PressReleaseBrandPage } from "./pages/PressReleaseBrandPage";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +57,10 @@ export const router = createBrowserRouter([
     Component: PressReleaseArchivePage,
   },
   {
+    path: "/press-release-brands/:brandId",
+    Component: PressReleaseBrandPage,
+  },
+  {
     path: "/events",
     Component: EventsArchivePage,
   },
@@ -73,6 +79,10 @@ export const router = createBrowserRouter([
   {
     path: "/advertise",
     Component: AdvertisePage,
+  },
+  {
+    path: "/digital-media-pack",
+    Component: DigitalMediaPackPage,
   },
   {
     path: "/contact",

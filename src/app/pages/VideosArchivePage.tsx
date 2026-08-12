@@ -17,7 +17,7 @@ export function VideosArchivePage() {
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_440px] lg:items-end">
             <h1 className="text-[48px] leading-[0.96] text-[var(--navy-deep)] md:text-[72px]" style={{ fontWeight: 750 }}>Video</h1>
             <p className="max-w-[540px] text-[15px] leading-[1.7] text-[var(--slate-dark)] md:text-[17px]">
-              Technical walkthroughs, expert briefings and conversations from across the data centre industry.
+              Watch recorded DCR events, conference sessions, webinars and interviews with leading voices from across the data centre industry.
             </p>
           </div>
         </header>
@@ -48,7 +48,7 @@ export function VideosArchivePage() {
         <section className="mx-auto max-w-[1440px] px-4 py-14 md:px-8 md:py-20">
           <div className="mb-8 flex items-end justify-between border-b border-gray-200 pb-6">
             <h2 className="text-[30px] leading-tight text-[var(--navy-deep)] md:text-[40px]" style={{ fontWeight: 700 }}>Latest to watch</h2>
-            <span className="hidden text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--slate-medium)] sm:block">Films · Briefings · Interviews</span>
+            <span className="hidden text-[10px] font-bold uppercase tracking-[0.15em] text-[var(--slate-medium)] sm:block">Events · Webinars · Interviews</span>
           </div>
 
           <div className="grid gap-x-6 gap-y-11 md:grid-cols-2">

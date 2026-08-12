@@ -3,11 +3,13 @@ import { Navigation } from "../components/Navigation";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, Link } from "react-router";
-import { FileText, Image, Calendar, Tag, Eye, Send, ArrowLeft } from "lucide-react";
+import { Building2, FileText, Calendar, Tag, Eye, Send, ArrowLeft } from "lucide-react";
+import { ImageUploadField } from "../components/ImageUploadField";
 
 export function SubmitPressReleaseFormPage() {
-  const { user } = useAuth();
+  const { user, addPressReleaseSubmission } = useAuth();
   const navigate = useNavigate();
+  const [selectedBrandId, setSelectedBrandId] = useState("");
   const [headline, setHeadline] = useState("");
   const [summary, setSummary] = useState("");
   const [body, setBody] = useState("");
@@ -19,24 +21,34 @@ export function SubmitPressReleaseFormPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submittedBrandName, setSubmittedBrandName] = useState("");
 
   useEffect(() => {
     if (!user?.hasSubscription) {
       navigate("/submit-press-release");
-    } else if (!user?.companyProfile) {
+    } else if (!user?.companyProfile && !user?.brandProfiles.length) {
       navigate("/company-profile-setup");
     }
   }, [user, navigate]);
 
   useEffect(() => {
-    if (user?.companyProfile) {
-      setContactName(user.companyProfile.contactName || "");
-      setContactEmail(user.companyProfile.contactEmail || user.email);
-      setContactPhone(user.companyProfile.contactPhone || "");
+    if (user?.brandProfiles.length && !selectedBrandId) {
+      setSelectedBrandId(user.brandProfiles[0].id);
     }
-  }, [user]);
+  }, [selectedBrandId, user]);
 
-  if (!user?.hasSubscription || !user?.companyProfile) {
+  const brands = user?.brandProfiles.length ? user.brandProfiles : user?.companyProfile ? [user.companyProfile] : [];
+  const selectedBrand = brands.find((brand) => brand.id === selectedBrandId) ?? brands[0];
+
+  useEffect(() => {
+    if (selectedBrand) {
+      setContactName(selectedBrand.contactName || "");
+      setContactEmail(selectedBrand.contactEmail || user?.email || "");
+      setContactPhone(selectedBrand.contactPhone || "");
+    }
+  }, [selectedBrand, user?.email]);
+
+  if (!user?.hasSubscription || !selectedBrand) {
     return null;
   }
 
@@ -47,6 +59,14 @@ export function SubmitPressReleaseFormPage() {
     setIsSubmitting(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
+    const release = addPressReleaseSubmission({
+      brandId: selectedBrand.id,
+      headline,
+      summary,
+      category,
+      imageUrl: imageUrl || undefined,
+    });
+    setSubmittedBrandName(release?.brandName || selectedBrand.companyName);
     setIsSubmitting(false);
     setSubmitted(true);
   };
@@ -64,7 +84,7 @@ export function SubmitPressReleaseFormPage() {
               Press Release Submitted!
             </h1>
             <p className="text-[16px] text-[var(--slate-medium)] mb-8 leading-[1.6]">
-              Your press release has been submitted for review. It will be published within 24 hours and distributed in our next newsletter.
+              Your press release has been submitted under {submittedBrandName}. It will be reviewed before publishing and locked once live.
             </p>
             <div className="flex gap-4 justify-center">
               <button
@@ -74,9 +94,9 @@ export function SubmitPressReleaseFormPage() {
                   setSummary("");
                   setBody("");
                   setImageUrl("");
-                  setContactName(user.companyProfile?.contactName || "");
-                  setContactEmail(user.companyProfile?.contactEmail || user.email);
-                  setContactPhone(user.companyProfile?.contactPhone || "");
+                  setContactName(selectedBrand.contactName || "");
+                  setContactEmail(selectedBrand.contactEmail || user.email);
+                  setContactPhone(selectedBrand.contactPhone || "");
                 }}
                 className="bg-[var(--electric-blue)] hover:bg-blue-500 text-white px-6 py-3 text-[15px]"
                 style={{ fontWeight: "600" }}
@@ -118,7 +138,7 @@ export function SubmitPressReleaseFormPage() {
                 Submit Press Release
               </h1>
               <p className="text-[15px] text-[var(--slate-medium)]">
-                Publishing as: <span style={{ fontWeight: "600" }}>{user.companyProfile.companyName}</span>
+                Publishing as: <span style={{ fontWeight: "600" }}>{selectedBrand.companyName}</span>
               </p>
             </div>
             <button
@@ -140,6 +160,32 @@ export function SubmitPressReleaseFormPage() {
             {/* Form */}
             <div className={showPreview ? "lg:col-span-6" : "lg:col-span-8"}>
               <form onSubmit={handleSubmit}>
+                {/* Brand */}
+                <div className="mb-6 border border-[#5a6eb4]/25 bg-[#f7f8fc] p-5">
+                  <label className="flex items-center gap-2 text-[15px] text-[var(--slate-dark)] mb-2" style={{ fontWeight: "600" }}>
+                    <Building2 size={18} />
+                    Brand profile <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    value={selectedBrand.id}
+                    onChange={(e) => setSelectedBrandId(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[var(--electric-blue)] text-[15px] bg-white"
+                    required
+                  >
+                    {brands.map((brand) => (
+                      <option key={brand.id} value={brand.id}>
+                        {brand.companyName}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-[13px] text-[var(--slate-medium)]">
+                    <span>The selected brand logo, profile and media-contact details will stay attached to this release.</span>
+                    <Link to="/company-profile-setup" className="text-[var(--electric-blue)] hover:underline">
+                      Manage brand profiles
+                    </Link>
+                  </div>
+                </div>
+
                 {/* Headline */}
                 <div className="mb-6">
                   <label className="flex items-center gap-2 text-[15px] text-[var(--slate-dark)] mb-2" style={{ fontWeight: "600" }}>
@@ -194,24 +240,15 @@ export function SubmitPressReleaseFormPage() {
                   </select>
                 </div>
 
-                {/* Image URL */}
+                {/* Featured image */}
                 <div className="mb-6">
-                  <label className="flex items-center gap-2 text-[15px] text-[var(--slate-dark)] mb-2" style={{ fontWeight: "600" }}>
-                    <Image size={18} />
-                    Featured Image URL
-                  </label>
-                  <input
-                    type="url"
+                  <ImageUploadField
+                    label="Featured image"
                     value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-[var(--electric-blue)] text-[15px]"
-                    placeholder="https://example.com/image.jpg"
+                    onChange={setImageUrl}
+                    kind="featured-image"
+                    helpText="Use a wide, high-resolution image. Uploaded files are stored securely with the press release."
                   />
-                  {imageUrl && (
-                    <div className="mt-3 border border-gray-200 p-2 bg-gray-50">
-                      <img src={imageUrl} alt="Preview" className="w-full h-48 object-cover" />
-                    </div>
-                  )}
                 </div>
 
                 {/* Body */}
@@ -337,19 +374,19 @@ export function SubmitPressReleaseFormPage() {
 
                     <div className="pt-4 border-t border-gray-200">
                       <div className="flex items-center gap-3 mb-3">
-                        {user.companyProfile.logo ? (
-                          <img src={user.companyProfile.logo} alt={user.companyProfile.companyName} className="h-8 w-auto object-contain" />
+                        {selectedBrand.logo ? (
+                          <img src={selectedBrand.logo} alt={selectedBrand.companyName} className="h-8 w-auto object-contain" />
                         ) : (
                           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded flex items-center justify-center">
                             <span className="text-white text-[10px] font-bold">
-                              {user.companyProfile.companyName.substring(0, 3).toUpperCase()}
+                              {selectedBrand.companyName.substring(0, 3).toUpperCase()}
                             </span>
                           </div>
                         )}
                         <div>
                           <div className="text-[12px] text-[var(--slate-medium)]">Provided by</div>
                           <div className="text-[14px] text-[var(--navy-deep)]" style={{ fontWeight: "600" }}>
-                            {user.companyProfile.companyName}
+                            {selectedBrand.companyName}
                           </div>
                         </div>
                       </div>
